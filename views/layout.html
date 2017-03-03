@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}上天入地黄博士{% endblock %}</title>
+    {% block head %}
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    {% endblock %}
+</head>
+
+<body>
+    {% include './shared/header.html' %} 
+    {% block content %}{% endblock %} 
+    {% include './shared/footer.html' %} 
+    {% block foot %} {% endblock %}
+</body>
+
+</html>

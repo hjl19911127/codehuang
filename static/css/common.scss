@@ -1,0 +1,219 @@
+body {
+  min-width: 1180px;
+}
+
+@mixin footer-block($width,$sep) {
+  float: left;
+  width: $width;
+  @if $sep {
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      height: 140px;
+      border-left: 1px solid #1d1b1c;
+      border-right: 1px solid #343333;
+    }
+  }
+}
+
+.mail {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.clearfix {
+  *zoom: 1;
+  &:after {
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both
+  }
+}
+
+.header {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  padding: 10px 0 0 0;
+  background-color: #262627;
+  .container {
+    margin: 0 auto;
+    padding: 0 10%;
+  }
+  .logo {
+    float: left;
+    width: 86px;
+    height: 44px;
+    margin: 0;
+  }
+  .pos {
+    float: left;
+  }
+  @at-root .nav {
+    float: left;
+    margin: 0 20px 0 50px ;
+    padding-top: 16px;
+    a {
+      display: inline-block;
+      line-height: 35px;
+      height: 35px;
+      padding: 0 10px;
+      text-align: center;
+      margin-right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #fff;
+      &.active, &:hover {
+        border-bottom: 3px #E94C3D solid;
+        background: linear-gradient(top, #262627, #1B1A1B);
+        background: -moz-linear-gradient(top, #262627, #1B1A1B);
+        background: -webkit-linear-gradient(top, #262627, #1B1A1B);
+        background: -o-linear-gradient(top, #262627, #1B1A1B);
+        background: -ms-linear-gradient(top, #262627, #1B1A1B);
+        filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#262627, endcolorstr=#1B1A1B, gradientType=0);
+        -ms-filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#262627, endcolorstr=#1B1A1B, gradientType=0);
+      }
+    }
+  }
+  .user {
+    float: left;
+  }
+}
+
+.footer {
+  background-color: #262627;
+  padding: 40px 0;
+  color: #fff;
+  font-size: 12px;
+  .container {
+    margin: 0 auto;
+    width: 90%;
+    .block {
+      .head {
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+      &.block-lf {
+        @include footer-block(30%, true);
+        .logo {
+          display: block;
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+      }
+      &.block-md {
+        @include footer-block(40%, true);
+        .channel-bd {
+          li {
+            display: inline-block;
+            margin: 0 20px 15px 0;
+            a {
+              font-size: 16px;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+      &.block-rt {
+        @include footer-block(30%, false);
+      }
+    }
+  }
+  a {
+    font-size: 12px;
+    color: #fff;
+  }
+  .site-info {
+    margin-top: 20px;
+    text-align: center;
+    color: #69696a;
+    a {
+      font-size: 12px;
+      color: #69696a;
+    }
+  }
+
+}
+
+.btn {
+  border-radius: 3px;
+  width: 90px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  margin-right: 20px;
+  line-height: 30px;
+  &.btn-default {
+    color: #262627;
+    border: 1px solid #262627;
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+  &.btn-success {
+    color: #fff;
+    background-color: #60CC37;
+    border: 1px solid #60CC37;
+    &:hover {
+      border-color: #67dd3c;
+      background-color: #67dd3c;
+    }
+  }
+  &.btn-important {
+    color: #fff;
+    background-color: #CA1913;
+    border: 1px solid #CA1913;
+    &:hover {
+      border-color: #DE3933;
+      background-color: #DE3933;
+    }
+  }
+}
+
+@mixin share-img($px,$py,$hpx,$hpy) {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  background: #fff url('/static/images/shareicon.png') no-repeat;
+  background-position: $px $py;
+  background-size: 79px;
+  cursor: pointer;
+  &:hover {
+    background-position: $hpx $hpy;
+  }
+}
+
+/*
+图标
+*/
+.square {
+  display: inline-block;
+  margin-bottom: 3px;
+  margin-right: 5px;
+  width: 5px;
+  height: 5px;
+  background-color: #E94C3D;
+}
+
+.sina {
+  @include share-img(-6px, -25px, -6px, -3px);
+}
+
+.qzone {
+  @include share-img(-31px, -25px, -31px, -3px);
+}
+
+.wechat {
+  @include share-img(-55px, -25px, -55px, -3px);
+}

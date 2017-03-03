@@ -1,0 +1,64 @@
+{
+  "name": "codehuang",
+  "version": "1.0.0",
+  "description": "www.codehuang.com",
+  "author": "hjl4347570 <hjl4347570@163.com>",
+  "private": true,
+  "scripts": {
+    "dev": "node build/dev-server.js",
+    "build": "node build/build.js"
+  },
+  "dependencies": {
+    "es6-promise": "^4.0.5",
+    "vue": "^2.2.1",
+    "vue-router": "^2.3.0",
+    "vuex": "^2.2.1",
+    "whatwg-fetch": "^2.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.5",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "babel-register": "^6.23.0",
+    "chalk": "^1.1.3",
+    "connect-history-api-fallback": "^1.3.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.2",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.14.1",
+    "extract-text-webpack-plugin": "^2.0.0",
+    "file-loader": "^0.10.1",
+    "friendly-errors-webpack-plugin": "^1.4.0",
+    "function-bind": "^1.1.0",
+    "html-webpack-plugin": "^2.28.0",
+    "http-proxy-middleware": "^0.17.3",
+    "opn": "^4.0.2",
+    "optimize-css-assets-webpack-plugin": "^1.3.0",
+    "ora": "^1.1.0",
+    "rimraf": "^2.6.1",
+    "semver": "^5.3.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.5.0",
+    "url-loader": "^0.5.8",
+    "vue-loader": "^11.1.3",
+    "vue-style-loader": "^2.0.0",
+    "vue-template-compiler": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.3.0",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-hot-middleware": "^2.17.1",
+    "webpack-merge": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserlist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

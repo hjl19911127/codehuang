@@ -1,0 +1,19 @@
+{
+    "name": "codehuang",
+    "description": "www.codehuang.com",
+    "keywords": ["microframework", "rest", "router", "psr7"],
+    "homepage": "http://github.com/hjl19911127/codehuang",
+    "license": "MIT",
+    "authors": [{
+        "name": "Alexander Huang",
+        "email": "hjl4347570@163.com",
+        "homepage": "http://www.codehuang.com/"
+    }],
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "^3.7",
+        "monolog/monolog": "^1.22",
+        "slim/twig-view": "^2.2",
+        "illuminate/database": "~5.2.45"
+    }
+}

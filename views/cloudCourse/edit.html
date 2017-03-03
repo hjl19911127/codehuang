@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>上传课程</title>
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/cloudCourse/css/edit.css">
+</head>
+<body>
+<div class="modal-header">
+    <div class="title">上传课程</div>
+    <div class="progress">
+        <div class="bar-under">
+            <div class="bar-above"></div>
+            <div class="step-circle circle-1 active">
+                <div class="circle">1</div>
+                <div class="desc">基本信息</div>
+            </div>
+            <div class="step-circle circle-2">
+                <div class="circle">2</div>
+                <div class="desc">创建章节</div>
+            </div>
+            <div class="step-circle circle-3">
+                <div class="circle">3</div>
+                <div class="desc">设置封面</div>
+            </div>
+        </div>
+    </div>
+    <a href="javascript:;" class="close-btn">×</a>
+</div>
+<div class="modal-body">
+    <div class="step">
+        <div class="form-header">请填写课程基本信息</div>
+        <div class="form-body">
+            <form class="form">
+                <div class="form-group">
+                    <label class="form-label"><em class="important">*</em>课程名称：
+                            <span class="form-input">
+                                <input type="text" class="input-large active">
+                            </span>
+                    </label>
+                    <div class="form-hint">课程简介最多可以填写200个汉字，您已达上限，建议精简下哦~</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><em class="important">*</em>课程描述：
+                            <span class="form-input">
+                                <textarea class="textarea-large"></textarea>
+                            </span>
+                    </label>
+                    <div class="form-hint">课程简介最多可以填写200个汉字，您已达上限，建议精简下哦~</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><em class="important">*</em>课程分类：</label>
+                    <div class="selector-btn">学段/学科/年级
+                        <a href="javascript:;" class="right-btn">
+                            <i class="btn-arrow-up"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="step" style="display: none;"></div>
+    <div class="step" style="display: none;"></div>
+</div>
+<div class="modal-footer">
+    <a href="javascript:;" class="btn">上一步</a>
+    <a href="javascript:;" class="btn">下一步</a>
+</div>
+<div class="selector-panel">
+    <ul class="item-list">
+        <li>全部</li>
+        <li class="active">语文</li>
+        <li>数学</li>
+        <li>英语</li>
+        <li>政治</li>
+        <li>历史</li>
+        <li>历史</li>
+        <li>历史</li>
+        <li>历史</li>
+    </ul>
+    <ul class="item-list">
+        <li class="active">全部</li>
+        <li>语文</li>
+        <li>数学</li>
+        <li>英语</li>
+        <li>政治</li>
+        <li>历史</li>
+    </ul>
+    <ul class="item-list">
+        <li>全部</li>
+        <li>语文</li>
+        <li>数学</li>
+        <li>英语</li>
+        <li>政治</li>
+        <li>历史</li>
+    </ul>
+</div>
+</body>
+</html>

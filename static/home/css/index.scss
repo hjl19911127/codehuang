@@ -1,0 +1,214 @@
+.content {
+  margin: 0 auto;
+  max-width: 1180px;
+  min-height: 600px;
+  padding: 84px 0 0;
+  .layout {
+    float: left;
+    &.layout-lf {
+      margin-right: 20px;
+      @at-root .banner {
+        .block {
+          float: left;
+          &.block-lf {
+            width: 670px;
+            height: 360px;
+            margin-right: 10px;
+            img {
+              width: 670px;
+              height: 360px;
+            }
+          }
+          &.block-rt {
+            width: 150px;
+            height: 360px;
+            .banner-item {
+              display: block;
+              height: 110px;
+              margin-top: 15px;
+              position: relative;
+              img {
+                width: 150px;
+                height: 110px;
+              }
+              .title {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                color: #ffffff;
+                &:hover {
+                  color: #e05a5a;
+                }
+              }
+              &:first-child {
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+
+      @at-root .article {
+        margin-top: 20px;
+        .block {
+          border-top: 1px solid #eaecef;
+          padding: 20px 0 40px 0;
+          &:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+          }
+          .block-lf {
+            float: left;
+            margin-right: 20px;
+            img {
+              width: 200px;
+              height: 120px;
+            }
+          }
+          .block-rt {
+            float: left;
+            height: 100%;
+            .article-hd {
+              color: #262627;
+              font-size: 20px;
+              line-height: 29px;
+              font-weight: 800;
+            }
+            .article-bd {
+              margin-top: 5px;
+              color: #606a77;
+              font-size: 16px;
+              height: 48px;
+            }
+            .article-ft {
+              margin-top: 20px;
+              color: #606a77;
+              font-size: 12px;
+              .time, .read, .share {
+                margin-left: 20px;
+              }
+              .share {
+                display: inline-block;
+                position: relative;
+                .share-icons {
+                  position: absolute;
+                  left: 30px;
+                  top: 0;
+                  width: 75px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      @at-root .more {
+        display: block;
+        text-align: center;
+        background-color: #f3f5f9;
+        height: 45px;
+        line-height: 45px;
+        font-size: 18px;
+      }
+    }
+    &.layout-rt {
+      width: 330px;
+      .block {
+        margin-bottom: 30px;
+        .block-hd {
+          text-align: center;
+          border-bottom: 2px solid #999;
+          padding-bottom: 5px;
+          .title-zh {
+            font-size: 20px;
+            color: #333;
+          }
+          .title-en {
+            color: #999;
+          }
+        }
+      }
+      @at-root .vote {
+        height: 360px;
+        img {
+          width: 330px;
+          height: 360px;
+        }
+      }
+      @at-root .ranking {
+        margin-top: 20px;
+        .ranking-tab {
+          border-bottom: 1px solid #eaecef;
+          margin-bottom: 20px;
+          li {
+            display: inline-block;
+            height: 40px;
+            width: 49%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            &.active {
+              cursor: default;
+              border-bottom: 2px solid #E94C3D;
+            }
+          }
+        }
+
+        .ranking-bd {
+          li {
+            position: relative;
+            padding: 10px 0 10px 50px;
+            border-top: 1px solid #f0f0f4;
+            .num {
+              position: absolute;
+              top: 10px;
+              left: 10px;
+              font-style: italic;
+              font-size: 18px;
+              color: #999;
+            }
+            .user {
+              position: absolute;
+              color: #999;
+              top: 12px;
+              right: 0;
+            }
+            .title {
+              display: inline-block;
+              width: 214px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+            &:first-child {
+              border-top: none;
+              padding-top: 0;
+              .num {
+                background-color: #C30;
+                color: #fff;
+                top: 0;
+                padding: 2px 7px 2px 6px;
+              }
+              .title {
+                width: auto;
+                font-size: 16px;
+                white-space: normal;
+              }
+            }
+          }
+
+          .title {
+            font-size: 14px;
+          }
+          .summary {
+            font-size: 14px;
+            color: #999;
+          }
+        }
+      }
+    }
+  }
+}

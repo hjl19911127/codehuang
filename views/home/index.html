@@ -1,0 +1,141 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <script>
+        var cookies = {}, dc = document.cookie && document.cookie.split(';'), hash = window.location.hash, go = (function () {
+        for (var i = 0; i < dc.length; ++i) {
+            var entry = dc[i].split('='), key = decodeURIComponent(entry.shift()).replace(/^\s*|\s*$/g, ''), value = decodeURIComponent(String(entry.join('')));
+            if (key == 'site' && new RegExp('^/' + value).test(hash)) return true;
+        }
+        })();
+        if (!go && /^\#\//.test(hash)) window.location.href = hash.substr(1);
+    </script>
+    {{ parent() }}
+    <link rel="stylesheet" href="/static/home/css/index.css">
+{% endblock %}
+{% block content %}
+    <div class="content clearfix">
+        <div class="layout layout-lf">
+            <div class="banner clearfix">
+                <div class="block block-lf">
+                    <img src="/static/home/images/banner.png" alt="">
+                </div>
+                <div class="block block-rt">
+                    <a href="/" class="banner-item">
+                        <img src="/static/home/images/banner.png" alt="">
+                        <p class="title">好东西要分享好东西要分享好东西要分享</p>
+                    </a>
+                    <a href="/" class="banner-item">
+                        <img src="/static/home/images/banner.png" alt="">
+                        <p class="title">好东西要分享</p>
+                    </a>
+                    <a href="/" class="banner-item">
+                        <img src="/static/home/images/banner.png" alt="">
+                        <p class="title">好东西要分享</p>
+                    </a>
+                </div>
+            </div>
+            <div class="article">
+                <div class="block clearfix">
+                    <div class="block-lf">
+                        <img src="/static/home/images/banner.png" alt="">
+                    </div>
+                    <div class="block-rt">
+                        <h3><a href="/" class="article-hd">贾樟柯暖流公司估值3亿完成融资，5家投资抢10%股权</a></h3>
+                        <div class="article-bd">5家：微影时代、招银国际、景林资本、头头是道和天津梦想者</div>
+                        <div class="article-ft">娱乐资本论
+                            <span class="time">10:16</span>
+                            <span class="read">阅读（203）</span>
+                            <div class="share">分享
+                                <div class="share-icons">
+                                    <i class="sina"></i>
+                                    <i class="qzone"></i>
+                                    <i class="wechat"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block clearfix">
+                    <div class="block-lf">
+                        <img src="/static/home/images/banner.png" alt="">
+                    </div>
+                    <div class="block-rt">
+                        <h3><a href="/" class="article-hd">贾樟柯暖流公司估值3亿完成融资，5家投资抢10%股权</a></h3>
+                        <div class="article-bd">5家：微影时代、招银国际、景林资本、头头是道和天津梦想者</div>
+                        <div class="article-ft">娱乐资本论
+                            <span class="time">10:16</span>
+                            <span class="read">阅读（203）</span>
+                            <div class="share">分享
+                                <div class="share-icons">
+                                    <i class="sina"></i>
+                                    <i class="qzone"></i>
+                                    <i class="wechat"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="more" href="javascript:;">加载更多</a>
+        </div>
+        <div class="layout layout-rt">
+            <div class="vote">
+                <img src="/static/home/images/banner.png" alt="">
+            </div>
+            <div class="topic"></div>
+            <div class="block ranking">
+                <div class="block-hd">
+                    <p class="title-zh">文章排行</p>
+                    <p class="title-en">TOP ARTICLES</p>
+                </div>
+                <ul class="ranking-tab">
+                    <li class="active">日榜</li>
+                    <li>周榜</li>
+                </ul>
+                <ul class="ranking-bd">
+                    <li>
+                        <span class="num">1</span>
+                        <a href="/" class="title">《奔跑吧兄弟》肥水不流外人田，林允何穗都是自己人</a>
+                        <p class="summary">借用一句广告词来形容这一季跑男，“还是一样的配方，还是熟悉的味...</p>
+                    </li>
+                    <li>
+                        <span class="num">2</span>
+                        <a href="/" class="title">他7次提名TVB视帝，为女友月花千为女友月花千</a>
+                        <span class="user">八卦先生</span>
+                    </li>
+                    <li>
+                        <span class="num">3</span>
+                        <a href="/" class="title">他7次提名TVB视帝，为女友月花千</a>
+                        <span class="user">八卦先生</span>
+                    </li>
+                    <li>
+                        <span class="num">4</span>
+                        <a href="/" class="title">他7次提名TVB视帝，为女友月花千</a>
+                        <span class="user">八卦先生</span>
+                    </li>
+                </ul>
+                <ul class="ranking-bd">
+
+                </ul>
+            </div>
+            <div class="block comment">
+                <div class="block-hd">
+                    <p class="title-zh">热门评论</p>
+                    <p class="title-en">HOT COMMENT</p>
+                </div>
+            </div>
+            <div class="block user">
+                <div class="block-hd">
+                    <p class="title-zh">活跃用户</p>
+                    <p class="title-en">ACTIVE USER</p>
+                </div>
+            </div>
+            <div class="block tag">
+                <div class="block-hd">
+                    <p class="title-zh">热门标签</p>
+                    <p class="title-en">TOP TAGS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
