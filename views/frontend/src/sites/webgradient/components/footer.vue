@@ -70,11 +70,31 @@
   background-color #fff
 .footer__container
   position relative
+@media (max-width: 992px)
+  .footer__social_box
+    position absolute
+    top: 0
+    right: 15px
 .footer__main_box--06
   padding 49px 0 75px
   border-bottom 1px solid rgba(188,198,208,0.4)
-.footer__left_box--06
-  float: left
+  &:after
+    content: ''
+    visibility hidden
+    display block
+    height: 0
+    clear both
+@media (max-width: 500px)
+  .footer__main_box--06
+    padding-bottom: 35px
+@media (min-width: 993px)
+  .footer__left_box--06
+    float:left
+
+@media (max-width: 992px)
+  .footer__left_box--06
+    margin-bottom:40px
+
 .footer__logo_box
   display inline-block
   width: 82px
@@ -83,6 +103,9 @@
     width: 100%
   &:hover
     opacity .8
+@media (max-width: 992px)
+  .footer__logo_box
+    margin-bottom: 20px
 .footer__logo_box--06
   display: block
   margin-bottom: 28px
@@ -94,6 +117,10 @@
   display inline-block
   max-width 300px
   margin-bottom: 60px
+@media (max-width: 992px)
+  .footer__description--06
+    margin-bottom:20px
+
 .social
 .footer__menu
   padding: 0
@@ -142,10 +169,22 @@
   margin-right: 65px
   &:last-child
     margin-right: 0
+@media (max-width: 500px)
+  .footer__menu--06:last-child
+    width:100%
+@media (max-width: 500px)
+  .footer__menu--06
+    float:left;
+    width: 49%;
+    margin-right: 0;
+    margin-bottom: 20px
+
 .footer__menu__item
-  margin-bottom: 25px
-  &:last-child
-    margin-bottom: 0
+  margin-bottom: 15px
+@media (min-width: 993px)
+  .footer__menu__item
+    &:last-child
+      margin-bottom: 0
 .footer__menu__title
   font-family: Montserrat, Helvetica, sans-serif
   color: rgba(51, 52, 53, 0.3)
@@ -212,6 +251,10 @@
     &::-ms-input-placeholder
       opacity 0
       filter: blur(3px)
+@media (max-width: 500px)
+  .footer__input
+    max-width:100%;
+    width: 100%
 .footer__button
   position absolute
   right: 10px
@@ -251,6 +294,9 @@
   letter-spacing 0.05em
 .footer__copyright--06
   float: right
+@media (max-width: 992px)
+  .footer__copyright--06
+    float:left
 @media (min-width: 993px)
   .footer__right_box--06
     float: right

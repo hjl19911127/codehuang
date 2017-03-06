@@ -4,7 +4,8 @@
       <div class="gradient" v-for="(item,index) in cards.items">
         <span class="gradient__title">{{index+1 | formatIndex}} {{item.title}}</span>
         <a class="gradient__download_button">Get .PNG</a>
-        <div class="gradient__background" :style="item.style"></div>
+        <div class="gradient__background" :style="item.style" :data-css-code="item.style"
+             v-on:click.prevent="seeViewFull($event)"></div>
         <div class="gradient__colors_box" v-if="item.sc">
           <span class="gradient__color">{{item.sc}}</span>
           <span class="gradient__arrow_symbol">→</span>
@@ -16,7 +17,7 @@
     </div>
   </section>
 </template>
-<script>
+<script lang="babel">
   import api from '../api/card';
 
   export default {
@@ -44,12 +45,21 @@
         }).catch((err) => {
           // error callback
         });
+      },
+      seeViewFull(e) {
+        this.$store.commit('SET_FULL_VIEW', true)
+        this.$store.commit('SET_STYLE', e.target.attributes['data-css-code'].value + 'left:' + (e.clientX - 1500) + 'px;' + 'top:' + (e.clientY - 1500) + 'px')
+        if(!~document.body.className.lastIndexOf('state-fixed')) document.body.className += ' state-fixed'
+        setTimeout(()=> {
+          this.$store.commit('SET_COMPLETED', true)
+        }, 700)
       }
     },
     created() {
       this.init()
     }
   }
+
 
 </script>
 <style lang="stylus">
@@ -73,6 +83,23 @@
     transition box-shadow 0.25s ease
     &:hover
       box-shadow 5px 12px 20px rgba(36, 37, 38, 0.13)
+
+  @media (min-width: 1025px)
+    .gradient:nth-of-type(3n)
+      margin-right: 0
+
+  @media (max-width: 1024px)
+    .gradient:nth-of-type(2n)
+      margin-right: 0
+
+    .gradient
+      width calc(50% - 15px)
+
+  @media (max-width: 650px)
+    .gradient
+      width 100%
+      margin-right 0
+
   .gradient__title
     position absolute
     left 36px
@@ -121,12 +148,17 @@
     top 0
     margin auto
     border-radius 50%
-    width 200px
-    height 200px
+    width 250px
+    height 250px
     background-repeat no-repeat
     background-size cover
     background-position center
     cursor url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4IiB2aWV3Qm94PSIwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDMuOC4zICgyOTgwMikgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+CiAgICA8dGl0bGU+em9vbS1jdXJzb3I8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBkPSJNMjQsMTIgQzI0LDE4LjYzIDE4LjYyNywyNCAxMiwyNCBDNS4zNzIsMjQgMCwxOC42MyAwLDEyIEMwLDUuMzcgNS4zNzIsMCAxMiwwIEMxOC42MjcsMCAyNCw1LjM3IDI0LDEyIEwyNCwxMiBaIiBpZD0icGF0aC0xIj48L3BhdGg+CiAgICAgICAgPGZpbHRlciB4PSItNTAlIiB5PSItNTAlIiB3aWR0aD0iMjAwJSIgaGVpZ2h0PSIyMDAlIiBmaWx0ZXJVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIGlkPSJmaWx0ZXItMiI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeD0iMSIgZHk9IjEiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiPjwvZmVPZmZzZXQ+CiAgICAgICAgICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjIiIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSI+PC9mZUdhdXNzaWFuQmx1cj4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAgICAwIDAgMCAwIDAgICAwIDAgMCAwIDAgIDAgMCAwIDAuMTY4ODQ2MjQxIDAiIHR5cGU9Im1hdHJpeCIgaW49InNoYWRvd0JsdXJPdXRlcjEiPjwvZmVDb2xvck1hdHJpeD4KICAgICAgICA8L2ZpbHRlcj4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJ6b29tLWN1cnNvciIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMy4wMDAwMDAsIDMuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJQYWdlLTEiPgogICAgICAgICAgICAgICAgPGcgaWQ9Inpvb20tY3Vyc29yIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iU3ZnanNTdmcxMDAwIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9IlN2Z2pzUGF0aDEwMDciPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9InBhdGgtMS1saW5rIiBmaWxsPSJibGFjayIgZmlsbC1vcGFjaXR5PSIxIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0icGF0aC0xIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHVzZSBmaWx0ZXI9InVybCgjZmlsdGVyLTIpIiB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0icGF0aC0xLWxpbmsiIGZpbGw9IiNGRkZGRkYiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0yNCwxMiBDMjQsMTguNjMgMTguNjI3LDI0IDEyLDI0IEM1LjM3MiwyNCAwLDE4LjYzIDAsMTIgQzAsNS4zNyA1LjM3MiwwIDEyLDAgQzE4LjYyNywwIDI0LDUuMzcgMjQsMTIgTDI0LDEyIFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0ibWFnbmlmeWluZy1nbGFzcyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNi4wMDAwMDAsIDYuMDAwMDAwKSIgZmlsbD0iIzFBMUExQiI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iQ2FwYV8xIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTEuODk0OTAwMiwxMS4zODgwMjY2IEw4Ljk3ODcxMzk3LDguNDcxODQwMzUgQzkuNzYwOTc1NjEsNy41NzI1MDU1NCAxMC4yMzQ1ODk4LDYuMzk5MTEzMDggMTAuMjM0NTg5OCw1LjExNjYyOTcxIEMxMC4yMzQ1ODk4LDIuMjkzNTY5ODQgNy45MzgzNTkyLDAgNS4xMTc5NjAwOSwwIEMyLjI5NDkwMDIyLDAgMC4wMDEzMzAzNzY5NCwyLjI5NjIzMDYgMC4wMDEzMzAzNzY5NCw1LjExNjYyOTcxIEMwLjAwMTMzMDM3Njk0LDcuOTM3MDI4ODIgMi4yOTc1NjA5OCwxMC4yMzMyNTk0IDUuMTE3OTYwMDksMTAuMjMzMjU5NCBDNi40MDA0NDM0NiwxMC4yMzMyNTk0IDcuNTczODM1OTIsOS43NTk2NDUyMyA4LjQ3MzE3MDczLDguOTc3MzgzNTkgTDExLjM4OTM1NywxMS44OTM1Njk4IEMxMS40NTg1MzY2LDExLjk2Mjc0OTQgMTEuNTUxNjYzLDEyIDExLjY0MjEyODYsMTIgQzExLjczMjU5NDIsMTIgMTEuODI1NzIwNiwxMS45NjU0MTAyIDExLjg5NDkwMDIsMTEuODkzNTY5OCBDMTIuMDMzMjU5NCwxMS43NTUyMTA2IDEyLjAzMzI1OTQsMTEuNTI2Mzg1OCAxMS44OTQ5MDAyLDExLjM4ODAyNjYgTDExLjg5NDkwMDIsMTEuMzg4MDI2NiBaIE0wLjcxNzA3MzE3MSw1LjExNjYyOTcxIEMwLjcxNzA3MzE3MSwyLjY5MDAyMjE3IDIuNjkxMzUyNTUsMC43MTg0MDM1NDggNS4xMTUyOTkzMywwLjcxODQwMzU0OCBDNy41NDE5MDY4NywwLjcxODQwMzU0OCA5LjUxMzUyNTUsMi42OTI2ODI5MyA5LjUxMzUyNTUsNS4xMTY2Mjk3MSBDOS41MTM1MjU1LDcuNTQwNTc2NSA3LjU0MTkwNjg3LDkuNTE3NTE2NjMgNS4xMTUyOTkzMyw5LjUxNzUxNjYzIEMyLjY5MTM1MjU1LDkuNTE3NTE2NjMgMC43MTcwNzMxNzEsNy41NDMyMzcyNSAwLjcxNzA3MzE3MSw1LjExNjYyOTcxIEwwLjcxNzA3MzE3MSw1LjExNjYyOTcxIFoiIGlkPSJTaGFwZSI+PC9wYXRoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=') , pointer
+
+  @media (max-width: 992px)
+    .gradient__background
+      height: 200px
+      width: 200px
 
   .gradient__colors_box
     position absolute
@@ -177,6 +209,7 @@
       &:after
         opacity 1
         left 100%
+
   @media (min-width: 1025px)
     .gradient:nth-of-type(3n)
       margin-right: 0

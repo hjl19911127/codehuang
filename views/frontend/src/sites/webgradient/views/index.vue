@@ -1,9 +1,10 @@
 <template>
   <main class="page_wrapper">
-    <Headers />
+    <Headers/>
     <Info/>
-    <Sections />
-    <Footers />
+    <Sections/>
+    <Footers/>
+    <FullView />
   </main>
 </template>
 <style lang="stylus">
@@ -25,45 +26,65 @@
     background none
     &:focus
       outline none
+
   @font-face {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
     src: local('Montserrat Bold'), local('Montserrat-Bold'), url(../assets/fonts/IQHow_FEYlDC4Gzy_m8fcnbFhgvWbfSbdVg11QabG8w.woff) format('woff');
   }
+
   @font-face {
     font-family: 'Muli';
     font-style: normal;
     font-weight: 400;
     src: local('Muli Regular'), local('Muli-Regular'), url(../assets/fonts/minRpKQdEvXRRS8oAbAtWvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
   }
+
   @font-face {
     font-family: 'Muli';
     font-style: normal;
     font-weight: 700;
     src: local('Muli Bold'), local('Muli-Bold'), url(../assets/fonts/Rl-5CtBBvmtOyT-alcFUZgLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
   }
-
+  .state-fixed
+    overflow hidden
   .page_wrapper
-    padding-top 370px
+    min-height 100vh
+    padding-top 400px
+  @media (max-width: 600px)
+    .page_wrapper
+      padding-top:350px
+
+  @media (max-width: 500px)
+    .page_wrapper
+      padding-top:370px
+
 </style>
-<script>
-    import Headers from '../components/header';
-    import Info from '../components/info';
-    import Sections from '../components/section';
-    import Footers from '../components/footer';
-    export default{
-        data(){
-            return{
-                msg:'hello vue'
-            }
-        },
-        components:{
-          Headers: Headers,
-          Info: Info,
-          Sections: Sections,
-          Footers: Footers,
-        }
+<script lang="babel">
+  import Headers from '../components/header';
+  import Info from '../components/info';
+  import Sections from '../components/section';
+  import Footers from '../components/footer';
+  import FullView from '../components/FullView';
+
+
+  export default{
+    components: {
+      Headers: Headers,
+      Info: Info,
+      Sections: Sections,
+      Footers: Footers,
+      FullView: FullView
+    },
+    methods: {
+      init() {
+      }
+    },
+    created() {
+      this.init()
     }
+  }
+
 
 </script>
