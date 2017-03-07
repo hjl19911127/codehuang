@@ -42,7 +42,7 @@
         filter: {
           page: 0,
           size: 20
-        },
+        }
       }
     },
 
@@ -63,7 +63,7 @@
       },
       seeViewFull(e) {
         this.$store.commit('SET_FULL_VIEW', true)
-        this.$store.commit('SET_STYLE', e.target.attributes['data-css-code'].value + 'left:' + (e.clientX - 1500) + 'px;' + 'top:' + (e.clientY - 1500) + 'px')
+        this.$store.commit('SET_STYLE', e.target.attributes['data-css-code'].value + ';left:' + (e.clientX - 1500) + 'px;' + 'top:' + (e.clientY - 1500) + 'px')
         if (!~document.body.className.lastIndexOf('state-fixed')) document.body.className += ' state-fixed'
         setTimeout(()=> {
           this.$store.commit('SET_COMPLETED', true)
