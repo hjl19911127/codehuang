@@ -14,7 +14,7 @@
       closeFullView(e){
         this.$store.commit('SET_FULL_VIEW', false)
         this.$store.commit('SET_COMPLETED', false)
-        document.body.className = document.body.className.replace('state-fixed','')
+        document.body.className = document.body.className.replace('state-fixed','').trim()
       }
     }
   }

@@ -5,20 +5,32 @@
         <span class="gradient__title">{{index+1 | formatIndex}} {{item.title}}</span>
         <a class="gradient__download_button">Get .PNG</a>
         <div class="gradient__background" :style="item.style" :data-css-code="item.style"
-             v-on:click.prevent="seeViewFull($event)"></div>
+             @click.prevent="seeViewFull($event)"></div>
         <div class="gradient__colors_box" v-if="item.sc">
           <span class="gradient__color">{{item.sc}}</span>
           <span class="gradient__arrow_symbol">→</span>
           <span class="gradient__color">{{item.ec}}</span>
         </div>
         <div class="gradient__advanced_text" v-if="!item.sc">Many colors</div>
-        <button class="gradient__copy_button" type="button">Copy CSS</button>
+        <button class="gradient__copy_button js-copy-css" type="button" :data-clipboard-text="item.style">Copy CSS
+        </button>
+        <div class="gradients__copy_message">
+          <textarea class="gradients__code_text js-code-textarea" readonly>{{item.style}}</textarea>
+        </div>
+        <div class="gradients__done_message">
+          <div class="gradients__done_message_box">
+            <span class="gradients__done_emoji">{{item.emoji ? decodeURIComponent(item.emoji) : ''}}</span>
+            <br/>
+            <span class="gradients__done_word">{{item.word}}</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 <script lang="babel">
   import api from '../api/card';
+  import Clipboard from '../assets/js/clipboard.min.js'
 
   export default {
     data() {
@@ -30,7 +42,7 @@
         filter: {
           page: 0,
           size: 20
-        }
+        },
       }
     },
 
@@ -42,6 +54,9 @@
         api.getList(this.filter).then((data) => {
           this.cards.items = data.items;
           this.cards.count = data.count;
+          setTimeout(()=> {
+            this.copyCss()
+          }, 1000);
         }).catch((err) => {
           // error callback
         });
@@ -49,15 +64,41 @@
       seeViewFull(e) {
         this.$store.commit('SET_FULL_VIEW', true)
         this.$store.commit('SET_STYLE', e.target.attributes['data-css-code'].value + 'left:' + (e.clientX - 1500) + 'px;' + 'top:' + (e.clientY - 1500) + 'px')
-        if(!~document.body.className.lastIndexOf('state-fixed')) document.body.className += ' state-fixed'
+        if (!~document.body.className.lastIndexOf('state-fixed')) document.body.className += ' state-fixed'
         setTimeout(()=> {
           this.$store.commit('SET_COMPLETED', true)
         }, 700)
+      },
+      copyCss() {
+        let e = new window.Clipboard('.js-copy-css'),
+          t = 2e3,
+          n = 700,
+          self = this;
+        e.on('success', function (e) {
+          e.trigger.parentNode.className += ' state-done-message-visible'
+          setTimeout(()=> {
+            e.trigger.parentNode.className += ' state-done-message-gone'
+          }, t)
+          setTimeout(()=> {
+            e.trigger.parentNode.className = e.trigger.parentNode.className.replace('state-done-message-visible', '').replace('state-done-message-gone', '').trim()
+          }, t + n)
+        })
+        e.on('error', function (e) {
+          e.trigger.parentNode.className += ' state-copy-message-visible'
+          e.trigger.parentNode.querySelector('.js-code-textarea').select()
+          setTimeout(()=> {
+            e.trigger.parentNode.className += ' state-copy-message-gone'
+          }, 5 * t)
+          setTimeout(()=> {
+            e.trigger.parentNode.className = e.trigger.parentNode.className.replace('state-copy-message-visible', '').replace('state-copy-message-gone', '').trim()
+          }, 5 * t + n)
+        })
       }
     },
     created() {
       this.init()
     }
+
   }
 
 
@@ -83,6 +124,10 @@
     transition box-shadow 0.25s ease
     &:hover
       box-shadow 5px 12px 20px rgba(36, 37, 38, 0.13)
+    &:active
+    &.state-done-message-visible
+    &.state-copy-message-visible
+      box-shadow 5px 12px 20px rgba(36, 37, 38, 0)
 
   @media (min-width: 1025px)
     .gradient:nth-of-type(3n)
@@ -213,5 +258,93 @@
   @media (min-width: 1025px)
     .gradient:nth-of-type(3n)
       margin-right: 0
+
+  .gradients__copy_message
+  .gradients__done_message
+    visibility hidden
+    position absolute
+    left 0
+    top 0
+    right 0
+    bottom 0
+    margin auto
+    transition opacity .25s ease
+    &:before
+      content ''
+      width 100%
+      padding-bottom 100%
+      position absolute
+      left 50%
+      top 50%
+      margin auto
+      z-index 1
+      border-radius 50%
+      background-color: rgba(255, 255, 255, .9)
+      transform scale(0)
+      transform-origin center
+      transition transform .7s cubic-bezier(0.47, 0.04, 0.22, 0.92)
+
+  .gradients__code_text
+    opacity 0
+    position absolute
+    z-index 10
+    left 0
+    right 0
+    top 50%
+    transform translateY(-50%)
+    max-width 300px
+    padding 0 30px
+    transition opacity .25s ease
+    text-align center
+    margin auto
+    width 100%
+    border none
+    background-color transparent
+    height: 70px
+    resize none
+
+  .gradients__done_message_box
+    opacity 0
+    position absolute
+    z-index 10
+    left 0
+    right 0
+    top 50%
+    transform translateY(-50%)
+    margin auto
+    text-align center
+    transition opacity .25s ease
+
+  .gradients__done_emoji
+    font-size 50px
+    margin-bottom 10px
+
+  .gradients__done_word
+    font-size .8125em
+
+  .state-done-message-visible
+    .gradients__done_message
+      visibility visible
+      &:before
+        transform scale(3)
+      .gradients__done_message_box
+        transition-delay .6s
+        opacity 1
+
+  .state-done-message-gone
+    .gradients__done_message
+      opacity 0
+
+  .state-copy-message-visible
+    .gradients__copy_message
+      visibility visible
+      &:before
+        transform scale(3)
+      .gradients__code_text
+        opacity 1
+
+  .state-copy-message-gone
+    .gradients__done_message
+      opacity 0
 </style>
 

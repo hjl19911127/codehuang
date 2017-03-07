@@ -22,6 +22,7 @@
 
   button
   input
+  textarea
     border none
     background none
     &:focus
