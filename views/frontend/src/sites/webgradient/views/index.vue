@@ -1,10 +1,10 @@
 <template>
-  <div class="page_wrapper">
+  <div class="page_wrapper sr">
     <Headers/>
     <Info/>
     <Sections/>
     <Footers/>
-    <FullView />
+    <FullView/>
   </div>
 </template>
 <style lang="stylus">
@@ -48,19 +48,25 @@
     font-weight: 700;
     src: local('Muli Bold'), local('Muli-Bold'), url(../assets/fonts/Rl-5CtBBvmtOyT-alcFUZgLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
   }
+
   .state-fixed
     overflow hidden
+
   .page_wrapper
     min-height 100vh
     padding-top 400px
+
   @media (max-width: 600px)
     .page_wrapper
-      padding-top:350px
+      padding-top: 350px
 
   @media (max-width: 500px)
     .page_wrapper
-      padding-top:370px
+      padding-top: 370px
 
+  .sr
+    .js-appearing-card
+      visibility hidden
 </style>
 <script lang="babel">
   import Headers from '../components/header';
