@@ -1,7 +1,7 @@
 <template>
   <section class="index_page__content_section">
     <div class="container index_page__content_container">
-      <div class="gradient" v-for="(item,index) in cards.items">
+      <div class="gradient js-appearing-card" v-for="(item,index) in cards.items">
         <span class="gradient__title">{{index+1 | formatIndex}} {{item.title}}</span>
         <a class="gradient__download_button">Get .PNG</a>
         <div class="gradient__background" :style="item.style" :data-css-code="item.style"
@@ -31,6 +31,7 @@
 <script lang="babel">
   import api from '../api/card';
   import Clipboard from '../assets/js/clipboard.min.js'
+  import ScrollReveal from '../assets/js/scrollreveal.js'
 
   export default {
     data() {
@@ -41,7 +42,7 @@
         },
         filter: {
           page: 0,
-          size: 12
+          size: 180
         },
         isLoading: false
       }
@@ -52,12 +53,14 @@
         this.getList();
       },
       getList() {
+
         api.getList(this.filter).then((data) => {
           this.cards.items = this.cards.items.concat(data.items);
           this.cards.count = data.count;
           this.isLoading = false
           setTimeout(()=> {
             this.copyCss()
+            this.oscrollreveal()
           }, 1000);
         }).catch((err) => {
           // error callback
@@ -108,6 +111,42 @@
             e.trigger.parentNode.className = e.trigger.parentNode.className.replace('state-copy-message-visible', '').replace('state-copy-message-gone', '').trim()
           }, 5 * t + n)
         })
+      },
+      oscrollreveal(){
+        window.sr = window.ScrollReveal();
+        sr.reveal(".js-appearing-card", {
+          origin: "bottom",
+          distance: "10%",
+          duration: 500,
+          delay: 0,
+          rotate: {
+            x: 0,
+            y: 0,
+            z: 0
+          },
+          opacity: .1,
+          scale: .99,
+          easing: "cubic-bezier(0.6, 0.2, 0.1, 1)",
+          container: window.document.documentElement,
+          mobile: !1,
+          reset: !1,
+          useDelay: "always",
+          viewFactor: .2,
+          viewOffset: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+          beforeReveal: function (e) {
+          },
+          beforeReset: function (e) {
+          },
+          afterReveal: function (e) {
+          },
+          afterReset: function (e) {
+          }
+        });
       }
     },
     created() {
@@ -115,6 +154,7 @@
     },
     mounted(){
       this.scroll()
+      this.oscrollreveal()
     }
   }
 
