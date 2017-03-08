@@ -41,8 +41,9 @@
         },
         filter: {
           page: 0,
-          size: 20
-        }
+          size: 12
+        },
+        isLoading: false
       }
     },
 
@@ -52,8 +53,9 @@
       },
       getList() {
         api.getList(this.filter).then((data) => {
-          this.cards.items = data.items;
+          this.cards.items = this.cards.items.concat(data.items);
           this.cards.count = data.count;
+          this.isLoading = false
           setTimeout(()=> {
             this.copyCss()
           }, 1000);
@@ -68,6 +70,19 @@
         setTimeout(()=> {
           this.$store.commit('SET_COMPLETED', true)
         }, 700)
+      },
+      scroll(){
+        let container = document.querySelector('.index_page__content_section'),
+          f = document.getElementById('footer'),
+          doc = document.body;
+        document.body.onscroll = () => {
+          if ((container.offsetTop + container.clientHeight + f.clientHeight - 200 <= doc.clientHeight + doc.scrollTop) && !this.isLoading) {
+            this.filter.page++
+            this.isLoading = true
+            if (this.filter.page * this.filter.size >= this.cards.count) return;
+            this.getList()
+          }
+        }
       },
       copyCss() {
         let e = new window.Clipboard('.js-copy-css'),
@@ -97,8 +112,10 @@
     },
     created() {
       this.init()
+    },
+    mounted(){
+      this.scroll()
     }
-
   }
 
 
