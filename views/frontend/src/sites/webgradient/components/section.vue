@@ -53,7 +53,6 @@
         this.getList();
       },
       getList() {
-
         api.getList(this.filter).then((data) => {
           this.cards.items = this.cards.items.concat(data.items);
           this.cards.count = data.count;
@@ -61,7 +60,7 @@
           setTimeout(()=> {
             this.copyCss()
             this.oscrollreveal()
-          }, 1000);
+          }, 0);
         }).catch((err) => {
           // error callback
         });
@@ -154,7 +153,6 @@
     },
     mounted(){
       this.scroll()
-      this.oscrollreveal()
     }
   }
 

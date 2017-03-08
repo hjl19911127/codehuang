@@ -1,11 +1,11 @@
 <template>
-  <main class="page_wrapper">
+  <div class="page_wrapper">
     <Headers/>
     <Info/>
     <Sections/>
     <Footers/>
     <FullView />
-  </main>
+  </div>
 </template>
 <style lang="stylus">
   *
