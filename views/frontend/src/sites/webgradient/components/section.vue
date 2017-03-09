@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="index_page__loading_wrapper" v-show="isLoading">
+    <div class="index_page__loading_wrapper" v-show="cards.items.length !== cards.count">
       <div class="index_page__loading_section">
         <i></i><i></i><i></i><i></i><i></i>
       </div>
@@ -75,7 +75,7 @@
       },
       seeViewFull(e) {
         this.$store.commit('SET_FULL_VIEW', true)
-        this.$store.commit('SET_STYLE', e.target.attributes['data-css-code'].value + 'left:' + (e.clientX - 1500) + 'px' + 'top:' + (e.clientY - 1500) + 'px')
+        this.$store.commit('SET_STYLE', e.target.attributes['data-css-code'].value + ';left:' + (e.clientX - 1500) + 'px;' + 'top:' + (e.clientY - 1500) + 'px')
         if (!~document.body.className.lastIndexOf('state-fixed')) document.body.className += ' state-fixed'
         setTimeout(()=> {
           this.$store.commit('SET_COMPLETED', true)
@@ -91,9 +91,9 @@
           f = document.getElementById('footer'),
           doc = document.body
         if ((container.offsetTop + container.clientHeight + f.clientHeight - 200 <= doc.clientHeight + doc.scrollTop) && !this.isLoading) {
+          if (this.filter.page * this.filter.size + this.filter.size >= this.cards.count) return
           this.filter.page++
           this.isLoading = true
-          if (this.filter.page * this.filter.size >= this.cards.count) return
           this.getList()
         }
       },
