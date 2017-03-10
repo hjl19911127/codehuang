@@ -82,26 +82,28 @@
         }, 700)
       },
       scroll(){
-        document.body.onscroll = () => {
-          this.throttle(this.getMoreCards, this)
-        }
+        document.body.onscroll = this.throttle(this.getMoreCards, 300)
       },
       getMoreCards(){
         let container = document.querySelector('.index_page__content_section'),
           f = document.getElementById('footer'),
           doc = document.body
         if ((container.offsetTop + container.clientHeight + f.clientHeight - 200 <= doc.clientHeight + doc.scrollTop) && !this.isLoading) {
-          if (this.filter.page * this.filter.size + this.filter.size >= this.cards.count) return
           this.filter.page++
+          if (this.filter.page * this.filter.size >= this.cards.count) return
           this.isLoading = true
           this.getList()
         }
       },
-      throttle(method, context){
-        clearTimeout(method.tId)
-        method.tId = setTimeout(function () {
-          method.call(context)
-        }, 300)
+      throttle(fn, delay){
+        var timer = null
+        return function () {
+          var context = this, args = arguments;
+          clearTimeout(timer)
+          timer = setTimeout(function () {
+            fn.apply(context, args)
+          }, delay)
+        }
       },
       copyCss() {
         let e = new window.Clipboard('.js-copy-css'),
