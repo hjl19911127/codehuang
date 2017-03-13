@@ -8,12 +8,33 @@
   </div>
 </template>
 <script lang="babel">
-  import { mapState } from 'vuex'
+  import GSPreloader from '../assets/js/preloader'
   export default{
     data(){
-      return {}
+      return {
+        preloader: null
+      }
     },
-    methods: {}
+    methods: {
+      init() {
+        this.preloader = new GSPreloader({
+          radius: 42,
+          dotSize: 15,
+          dotCount: 10,
+          colors: ["#61AC27", "#555", "purple", "#FF6600"],
+          boxOpacity: 0.2,
+          boxBorder: "1px solid #AAA",
+          animationOffset: 1.8
+        })
+        this.preloader.active(true)
+        document.onclick = document.ontouchstart = () => {
+          this.preloader.active(!this.preloader.active());
+        };
+      }
+    },
+    mounted(){
+      this.init()
+    }
   }
 
 </script>
