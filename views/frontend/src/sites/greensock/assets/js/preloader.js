@@ -33,6 +33,8 @@ class GSPreloader {
     this.isActive = false
     this.box = document.createElement('div')
     this.colors.push(this.colors.shift())
+
+    this.initAnimation()
   }
 
   createDot(rotation) {
