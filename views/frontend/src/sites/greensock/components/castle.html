@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Castle</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: #2294b3;
+      overflow: hidden;
+    }
+
+    .container {
+      padding-top: 62.5%;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+    }
+
+    .container.active {
+      cursor: ew-resize;
+    }
+
+    img, .mound-group, .houses-group, .flbottom-group, .blbottom-group, .brleg, .frleg, .blleg, .flleg {
+      position: absolute;
+      transform-style: preserve-3d;
+    }
+
+    .castle-container {
+      position: absolute;
+      left: 35%; /*TODO 100%*/
+      bottom: 0;
+    }
+
+    .castle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 600px;
+      height: 750px;
+      perspective: 1000px;
+      transform-origin: 50% 70%;
+      transform: translate(-50%, -70%) rotateZ(9deg);
+    }
+
+    .brleg {
+      left: 400px;
+      top: 625px;
+      transform-origin: 10px -10px;
+      transform: rotateZ(0deg);
+    }
+
+    .brfoot {
+      left: -18px;
+      top: 82px;
+      transform-origin: 56% 44%;
+      transform: rotateZ(0deg);
+    }
+
+    .frleg {
+      left: 240px;
+      top: 653px;
+      transform-origin: 8px -10px;
+      transform: rotate(0deg);
+    }
+
+    .frfoot {
+      left: -18px;
+      top: 51px;
+      transform-origin: 56% 44%;
+      transform: rotateZ(0deg);
+    }
+
+    .chimney3 {
+      left: 400px;
+      top: 30px;
+      transform-origin: -50px 300px;
+      transform: rotateZ(0deg);
+    }
+
+    .houses-group{
+      left: 305px;
+      top: 130px;
+      transform-origin: ;
+    }
+    .background {
+      bottom: 25.5%;
+      left: 0;
+      width: 100%;
+    }
+
+    .foreground {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    .cloud-bg,
+    .cloud-bg2 {
+      bottom: 17%;
+      width: 80%;
+      right: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <img src="../assets/images/background.jpg" class="background">
+  <img src="../assets/images/cloud-bg.png" alt="" class="cloud-bg">
+  <img src="../assets/images/cloud-bg.png" alt="" class="cloud-bg2">
+  <div class="castle-container">
+    <div class="castle">
+      <div class="brleg">
+        <img src="../assets/images/brfoot.png" alt="" class="brfoot">
+        <img src="../assets/images/brbottom.png" alt="" class="brbottom">
+      </div>
+      <div class="frleg">
+        <img src="../assets/images/frfoot.png" alt="" class="frfoot">
+        <img src="../assets/images/frbottom.png" alt="" class="frbottom">
+      </div>
+      <img src="../assets/images/chimney3.png" alt="" class="chimney3">
+      <img src="../assets/images/treehouse.png" alt="" class="treehouse">
+      <div class="houses-group">
+        <img src="../assets/images/point6.png" alt="" class="point6">
+        <img src="../assets/images/point5.png" alt="" class="point5">
+        <img src="../assets/images/point4.png" alt="" class="point4">
+        <img src="../assets/images/houses.png" alt="" class="houses">
+      </div>
+      <img src="../assets/images/chimney2.png" alt="" class="chimney2">
+      <img src="../assets/images/chimney1.png" alt="" class="chimney1">
+      <img src="../assets/images/wing.png" alt="" class="wing">
+      <div class="mound-group">
+        <img src="../assets/images/antenna.png" alt="" class="antenna">
+        <img src="../assets/images/point3.png" alt="" class="point3">
+        <img src="../assets/images/point2.png" alt="" class="point2">
+        <img src="../assets/images/mound.png" alt="" class="mound">
+      </div>
+      <img src="../assets/images/wind.png" alt="" class="wind">
+      <img src="../assets/images/cannon.png" alt="" class="cannon">
+      <img src="../assets/images/main.png" alt="" class="main">
+      <div class="blleg">
+        <div class="blbottom-group">
+          <img src="../assets/images/flfoot.png" alt="" class="blfoot">
+          <img src="../assets/images/flbottom.png" alt="" class="blbottom">
+        </div>
+        <img src="../assets/images/fltop.png" alt="" class="bltop">
+      </div>
+      <img src="../assets/images/blcover.png" alt="" class="blcover">
+      <img src="../assets/images/knob.png" alt="" class="knob">
+      <img src="../assets/images/tele.png" alt="" class="tele">
+      <img src="../assets/images/telecover.png" alt="" class="telecover">
+      <div class="flleg">
+        <div class="flbottom-group">
+          <img src="../assets/images/flfoot.png" alt="" class="flfoot">
+          <img src="../assets/images/flbottom.png" alt="" class="flbottom">
+        </div>
+        <img src="../assets/images/fltop.png" alt="" class="fltop">
+      </div>
+    </div>
+  </div>
+  <img src="../assets/images/foreground.png" alt="" class="foreground">
+  <div class="clouds">
+    <img src="../assets/images/cloud_shadow-1.png" alt="" class="cloud-shadow1">
+    <img src="../assets/images/cloud_shadow-1.png" alt="" class="cloud-shadow2">
+    <img src="../assets/images/cloud_shadow-1.png" alt="" class="cloud-shadow3">
+    <img src="../assets/images/cloud-1.png" alt="" class="cloud1">
+    <img src="../assets/images/cloud-1.png" alt="" class="cloud2">
+    <img src="../assets/images/cloud-2.png" alt="" class="cloud3">
+    <img src="../assets/images/cloud-1.png" alt="" class="cloud4">
+    <img src="../assets/images/cloud-2.png" alt="" class="cloud5">
+  </div>
+</div>
+<div class="control-toggle">Toggle mouse controls</div>
+<div class="load-gate">Loading...</div>
+</body>
+</html>

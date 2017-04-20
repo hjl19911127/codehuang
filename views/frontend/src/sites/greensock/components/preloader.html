@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>preloader</title>
+</head>
+<body>
+<div class="preloader_wrapper">
+  <div class="preloader__info_box">
+    <p class="preloader__info preloader__info_strong">Click to open/close the preloader.</p>
+    <p class="preloader__info">Completely customizable (colors, radius, number of dots, size, etc.).</p>
+    <p class="preloader__info">One JavaScript call opens or closes the preloader elegantly.</p>
+  </div>
+</div>
+<script src="../assets/js/TweenMax-latest-beta.js"></script>
+<script src="../assets/js/preload-es5.js"></script>
+<script>
+  window.onload = function () {
+    var preloader = new GSPreloader({
+      radius: 42,
+      dotSize: 15,
+      dotCount: 10,
+      colors: ["#61AC27", "#555", "purple", "#FF6600"], //have as many or as few colors as you want.
+      boxOpacity: 0.2,
+      boxBorder: "1px solid #AAA",
+      animationOffset: 1.8, //jump 1.8 seconds into the animation for a more active part of the spinning initially (just looks a bit better in my opinion)
+    });
+
+//open the preloader
+    preloader.active(true);
+
+//for testing: click the window to toggle open/close the preloader
+    document.onclick = document.ontouchstart = function () {
+      preloader.active(!preloader.active());
+    };
+  }
+</script>
+</body>
+</html>

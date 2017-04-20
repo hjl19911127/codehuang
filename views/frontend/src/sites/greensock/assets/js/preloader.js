@@ -1,4 +1,3 @@
-import { TweenLite, TimelineLite, TimelineMax,Power1,Power2 } from './TweenMax-latest-beta'
 class GSPreloader {
   constructor({
     parent = document.body,
@@ -34,7 +33,7 @@ class GSPreloader {
     this.box = document.createElement('div')
     this.colors.push(this.colors.shift())
 
-    this.initAnimation()
+    this.render()
   }
 
   createDot(rotation) {
@@ -77,7 +76,7 @@ class GSPreloader {
       top: '45%',
       left: '50%',
       perspective: 600,
-      overflow: visible,
+      overflow: 'visible',
       zIndex: 2000
     })
     this.parent.appendChild(this.element)
@@ -97,7 +96,7 @@ class GSPreloader {
       this.animation.add(tl, this.i * 0.07)
     }
     if (TweenLite.render) {
-      TweenLite.render()
+      TweenLite.render(); //trigger the from() tweens' lazy-rendering (otherwise it'd take one tick to render everything in the beginning state, thus things may flash on the screen for a moment initially). There are other ways around this, but TweenLite.render() is probably the simplest in this case.
     }
   }
 
@@ -108,6 +107,7 @@ class GSPreloader {
   }
 
   active(show) {
+    console.log('active:', this);
     if (!arguments.length) return this.isActive;
     if (this.isActive != show) {
       this.isActive = show;
@@ -145,4 +145,3 @@ class GSPreloader {
   }
 }
 
-export default GSPreloader;
