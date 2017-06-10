@@ -16,7 +16,7 @@ $app->get('/', function ($req, $res, $args) {
     $args['env'] = $this->get('settings')['env'];
     $site = $req->getCookieParam('site');
     if ($site) {
-        return $res->withRedirect('/' . $site);
+//        return $res->withRedirect('/' . $site);
         return $this->renderer->render($res, '/sites/' . $site . '.html', $args);
     } else {
         // return $this->renderer->render($res, '/home/index.html', $args);

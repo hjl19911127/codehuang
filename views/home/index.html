@@ -4,7 +4,7 @@
         var cookies = {}, dc = document.cookie && document.cookie.split(';'), hash = window.location.hash, go = (function () {
         for (var i = 0; i < dc.length; ++i) {
             var entry = dc[i].split('='), key = decodeURIComponent(entry.shift()).replace(/^\s*|\s*$/g, ''), value = decodeURIComponent(String(entry.join('')));
-            if (key == 'site' && new RegExp('^/' + value).test(hash)) return true;
+            if (key == 'site' && new RegExp('^\\#\\/' + value).test(hash)) return true;
         }
         })();
         if (!go && /^\#\//.test(hash)) window.location.href = hash.substr(1);

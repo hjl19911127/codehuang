@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui"><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><meta name=format-detection content="telephone=no, email=no"><title>Codehuang greensock</title><script>var cookies = {}, dc = document.cookie && document.cookie.split(';'), hash = window.location.hash, go = (function () {
       for (var i = 0; i < dc.length; ++i) {
         var entry = dc[i].split('='), key = decodeURIComponent(entry.shift()).replace(/^\s*|\s*$/g, ''), value = decodeURIComponent(String(entry.join('')));
-        if (key == 'site' && new RegExp('^/' + value).test(hash)) return true;
+        if (key == 'site' && new RegExp('^\\#\\/' + value).test(hash)) return true;
       }
     })();
     if (!go && /^\#\//.test(hash)) window.location.href = hash.substr(1);</script><link href=/static/frontend/css/greensock.2ee6a617e7c2c28f8ecb0e3fd3c4baab.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/frontend/js/manifest.d87449eb8e08518eca44.js></script><script type=text/javascript src=/static/frontend/js/vendor.a12f4ca50e12bc1cd4bc.js></script><script type=text/javascript src=/static/frontend/js/greensock.76f72107bec52eddc341.js></script></body></html>
