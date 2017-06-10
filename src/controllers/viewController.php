@@ -1,9 +1,10 @@
 <?php
 
+$sites = ['front', 'system', 'chat', 'share', 'webgradient'];
 /**
  * multiple sites
  */
-$app->get('/{site:(?:front|system|chat|share|webgradient)}{path:.*}', function ($req, $res, $args) {
+$app->get('/{site:(?:' . join('|', $sites) . ')}{path:.*}', function ($req, $res, $args) {
     setcookie('site', $args['site'], time() + 315360000, '/');
     return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
 });
