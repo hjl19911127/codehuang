@@ -75,6 +75,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     return new HtmlWebpackPlugin({
+      title: name,
       filename: path.join(config.build.index, name + '.html'),
       chunks: ['manifest', 'vendor', name],
       template: 'index.html',
