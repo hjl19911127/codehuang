@@ -1,6 +1,6 @@
 <template>
   <div class="demo">
-    <Column v-for="item in res" v-bind:columns="item.columns"></Column>
+    <Column v-for="(item, index) in res" v-bind:columns="item.columns" :key="index"></Column>
   </div>
 </template>
 <style lang="stylus">
