@@ -25,15 +25,15 @@
       })();
       var search = window.location.search, hash = window.location.hash;
       var queryArr = search && search.substr(1).split('&');
-      var query = (function () {
-        var map = {};
-        for (var i = 0; i < queryArr.length; ++i) {
-          var q = queryArr[i].split('=');
-          map[q[0]] = q[1];
-        }
-        return map;
-      })();
-      var site = query.site;
+      var query = queryArr && (function () {
+          var map = {};
+          for (var i = 0; i < queryArr.length; ++i) {
+            var q = queryArr[i].split('=');
+            map[q[0]] = q[1];
+          }
+          return map;
+        })();
+      var site = query && query.site;
       if (supportsPushState) {
         if (site) {
           if (hash) {
@@ -44,9 +44,14 @@
             }
           }
           window.location.href = '/' + site;
-
         } else {
-
+          if (hash) {
+            var isCorrectSite = new RegExp('^\\#\\/' + site).test(hash);
+            if (isCorrectSite) {
+              window.location.href = hash.substr(1);
+              return;
+            }
+          }
         }
       } else {
 
