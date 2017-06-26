@@ -41,7 +41,11 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
-    new OptimizeCSSPlugin(),
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: {
+        safe: true
+      }
+    }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -79,6 +83,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: path.join(config.build.index, name + '.html'),
       chunks: ['manifest', 'vendor', name],
       template: 'index.html',
+      inject: true,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
