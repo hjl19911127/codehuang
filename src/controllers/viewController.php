@@ -17,7 +17,7 @@ $app->get('/', function ($req, $res, $args) {
     if ($site) {
         return $this->renderer->render($res, '/sites/' . $site . '.html', $args);
     } else {
-        return $res->withRedirect('/webgradient');
+        return $this->renderer->render($res, '/home/index.html', $args);
     }
 });
 

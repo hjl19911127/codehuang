@@ -1,7 +1,51 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui"><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><meta name=format-detection content="telephone=no, email=no"><title>Codehuang chat</title><script>var cookies = {}, dc = document.cookie && document.cookie.split(';'), hash = window.location.hash, go = (function () {
-      for (var i = 0; i < dc.length; ++i) {
-        var entry = dc[i].split('='), key = decodeURIComponent(entry.shift()).replace(/^\s*|\s*$/g, ''), value = decodeURIComponent(String(entry.join('')));
-        if (key == 'site' && new RegExp('^\\#\\/' + value).test(hash)) return true;
+<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui"><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black><meta name=format-detection content="telephone=no, email=no"><title>Codehuang chat</title><script>(function () {
+      function deleteCookie(name) {
+        var date = new Date();
+        date.setTime(date.getTime() - 10000);
+        document.cookie = name + "=v; expire=" + date.toGMTString();
       }
-    })();
-    if (!go && /^\#\//.test(hash)) window.location.href = hash.substr(1);</script><link href=/static/frontend/css/chat.daf54d815e4e595a817dadc3a1925fd6.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/frontend/js/manifest.d87449eb8e08518eca44.js></script><script type=text/javascript src=/static/frontend/js/vendor.a12f4ca50e12bc1cd4bc.js></script><script type=text/javascript src=/static/frontend/js/chat.08fbd0e039267bdd2e81.js></script></body></html>
+
+      function setCookie(name, value, expireHours) {
+        var cookieString = name + "=" + encodeURIComponent(value);
+        if (expireHours > 0) {
+          var date = new Date();
+          date.setTime(date.getTime + expireHours * 3600 * 1000);
+          cookieString = cookieString + "; expire=" + date.toGMTString();
+        }
+        document.cookie = cookieString;
+      }
+
+      var supportsPushState = (function () {
+        var ua = window.navigator.userAgent;
+        if (
+          (ua.indexOf('Android 2.') !== -1 || ua.indexOf('Android 4.0') !== -1) &&
+          ua.indexOf('Mobile Safari') !== -1 &&
+          ua.indexOf('Chrome') === -1 &&
+          ua.indexOf('Windows Phone') === -1
+        ) {
+          return false
+        }
+        return window.history && 'pushState' in window.history
+      })();
+      var hash = window.location.hash;
+      if (supportsPushState) {
+        deleteCookie('site');
+        if (hash) window.location.href = hash.substr(1);
+      } else {
+        var cookies = document.cookie && document.cookie.split(';'), site = (function () {
+          for (var i = 0; i < cookies.length; ++i) {
+            var entry = cookies[i].split('='), key = decodeURIComponent(entry.shift()).replace(/^\s*|\s*$/g, ''),
+              value = decodeURIComponent(String(entry.join('')));
+            if (key == 'site') return value;
+          }
+        })();
+        if (hash) {
+          var isCorrectSite = site && new RegExp('^\\#\\/' + site).test(hash);
+          if (!isCorrectSite) {
+            var m = /^\#\/([\w_\-]+)\/?/gi.exec(hash);
+            setCookie('site', m[1]);
+            window.location.reload();
+          }
+        }
+      }
+    })();</script><link href=/static/frontend/css/chat.050990c6d490a02f738196500a19eaca.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/frontend/js/manifest.34f5cc872281438ddac9.js></script><script type=text/javascript src=/static/frontend/js/vendor.a4fee53d61280a24da89.js></script><script type=text/javascript src=/static/frontend/js/chat.15e3174c26f9bd6ad9c1.js></script></body></html>
