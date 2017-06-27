@@ -3,12 +3,13 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var fs = require('fs')
+var webpack = require('webpack')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 const entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites')).map((entry) => {
-  return { [entry]: 'sites/' + entry + '/main.js' };
+  return {[entry]: 'sites/' + entry + '/main.js'};
 }));
 console.log(entries)
 
@@ -62,5 +63,8 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin()
+  ]
 }
