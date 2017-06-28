@@ -9,60 +9,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <meta name="format-detection" content="telephone=no, email=no"/>
   <title>Codehuang <%= htmlWebpackPlugin.options.title %></title>
-  <script>
-    (function () {
-      function deleteCookie(name) {
-        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      }
-
-      function getCookie(name) {
-        var cookies = document.cookie && document.cookie.split(';');
-        for (var i = 0; i < cookies.length; ++i) {
-          var entry = cookies[i].split('='),
-            key = decodeURIComponent(entry.shift()).replace(/^\s*|\s*$/g, ''),
-            value = decodeURIComponent(String(entry.join('')));
-          if (key == name) return value;
-        }
-      }
-
-      function setCookie(name, value, expireHours) {
-        var cookieString = name + "=" + encodeURIComponent(value);
-        if (expireHours > 0) {
-          var date = new Date();
-          date.setTime(date.getTime + expireHours * 3600 * 1000);
-          cookieString = cookieString + "; expire=" + date.toGMTString();
-        }
-        document.cookie = cookieString;
-      }
-
-      var supportsPushState = (function () {
-        var ua = window.navigator.userAgent;
-        if (
-          (ua.indexOf('Android 2.') !== -1 || ua.indexOf('Android 4.0') !== -1) &&
-          ua.indexOf('Mobile Safari') !== -1 &&
-          ua.indexOf('Chrome') === -1 &&
-          ua.indexOf('Windows Phone') === -1
-        ) {
-          return false
-        }
-        return window.history && 'pushState' in window.history
-      })();
-      var hash = window.location.hash, site = getCookie('site');
-      if (supportsPushState) {
-        if (site) deleteCookie('site');
-        if (hash) window.location.href = hash.substr(1);
-      } else {
-        if (hash) {
-          var isCorrectSite = site && new RegExp('^\\#\\/' + site).test(hash);
-          if (!isCorrectSite) {
-            var m = /^\#\/([\w_\-]+)\/?/gi.exec(hash);
-            setCookie('site', m[1]);
-            window.location.reload();
-          }
-        }
-      }
-    })();
-  </script>
 </head>
 
 <body>

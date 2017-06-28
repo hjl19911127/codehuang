@@ -12,10 +12,10 @@ $app->get('/{site:(?:' . join('|', $sites) . ')}{path:.*}', function ($req, $res
  * index
  */
 $app->get('/', function ($req, $res, $args) {
-    $args['env'] = $this->get('settings')['env'];
-    $site = $req->getCookieParam('site');
-    if ($site) {
-        return $this->renderer->render($res, '/sites/' . $site . '.html', $args);
+    $args['site'] =$req->getCookieParam('site');;
+//    var_dump($site);
+    if ($args['site']) {
+        return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
     } else {
         return $this->renderer->render($res, '/home/index.html', $args);
     }
