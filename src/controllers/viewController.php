@@ -1,6 +1,6 @@
 <?php
 
-$sites = ['front', 'system', 'chat', 'share', 'webgradient'];
+$sites = ['front', 'system', 'chat', 'blog', 'share', 'webgradient', 'greensock'];
 /**
  * multiple sites
  */
@@ -12,8 +12,7 @@ $app->get('/{site:(?:' . join('|', $sites) . ')}{path:.*}', function ($req, $res
  * index
  */
 $app->get('/', function ($req, $res, $args) {
-    $args['site'] =$req->getCookieParam('site');;
-//    var_dump($site);
+    $args['site'] = $req->getCookieParam('site');
     if ($args['site']) {
         return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
     } else {
