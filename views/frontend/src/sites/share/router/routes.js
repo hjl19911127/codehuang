@@ -1,8 +1,9 @@
-import Index from '../views/index';
-import BorderRadius from '../views/borderRadius';
-import Parallelogram from '../views/parallelogram';
-import Rotate from '../views/rotate';
-import Perspective from '../views/perspective';
+import Index from '../views/index'
+import BorderRadius from '../views/borderRadius'
+import Parallelogram from '../views/parallelogram'
+import Rotate from '../views/rotate'
+import Perspective from '../views/perspective'
+import shareRoute from '../../../utils/shareRoute'
 
 export default [
   {
@@ -29,15 +30,5 @@ export default [
       },
     ]
   },
-  {
-    path: '*',
-    beforeEnter: (to, from, next) => {
-      let m = /^\/([\w_\-]+)\/?/gi.exec(to.path);
-      if (m) {
-        document.cookie = `site=${m[1]}`
-        window.location.href = to.path
-      }
-      next()
-    }
-  }
+  shareRoute
 ];

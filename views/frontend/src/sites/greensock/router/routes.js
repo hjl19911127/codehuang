@@ -2,6 +2,7 @@ import Greensock from '../views/index'
 import Preloader from '../components/Preloader'
 import Castle from '../components/Castle'
 import KineticJS from '../components/KineticJS'
+import shareRoute from '../../../utils/shareRoute'
 
 export default [
   {
@@ -25,15 +26,5 @@ export default [
       },
     ]
   },
-  {
-    path: '*',
-    beforeEnter: (to, from, next) => {
-      let m = /^\/([\w_\-]+)\/?/gi.exec(to.path);
-      if (m) {
-        document.cookie = `site=${m[1]}`
-        window.location.href = to.path
-      }
-      next()
-    }
-  }
+  shareRoute
 ];
