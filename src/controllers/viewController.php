@@ -1,6 +1,6 @@
 <?php
 
-$sites = ['front', 'system', 'chat', 'blog', 'share', 'webgradient', 'greensock'];
+$sites = ['front', 'system', 'chat', 'share', 'webgradient', 'greensock', 'blog'];
 /**
  * multiple sites
  */
