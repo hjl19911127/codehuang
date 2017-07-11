@@ -1,13 +1,19 @@
 import layout from '../views/layout'
+import login from '../views/login'
 import article from '../views/article'
 import about from '../views/about'
-import shareRoute from '../../../utils/shareRoute'
+import shareRoute from 'utils/shareRoute'
 
 export default [
   {
     path: '/system',
     component: layout,
     children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: login,
+      },
       {
         path: 'article',
         name: 'article',
@@ -16,11 +22,6 @@ export default [
       {
         path: 'about',
         name: 'about',
-        component: about,
-      },
-      {
-        path: 'sign',
-        name: 'sign',
         component: about,
       },
       {

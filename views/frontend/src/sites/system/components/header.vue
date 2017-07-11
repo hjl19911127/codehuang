@@ -1,5 +1,5 @@
 <template>
-  <div id="header" class="header" v-if="session">
+  <div class="header">
     <div class="user-name">姓名：{{session.userName}}</div>
     <div class="user-avatar">头像：{{session.userAvatar}}</div>
   </div>

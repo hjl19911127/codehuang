@@ -1,14 +1,13 @@
 <template>
   <div>
-    <div class="sign-header">
+    <div class="login-header">
       <h1>上天入地黄博士</h1>
     </div>
-    <div class="sign-body">
+    <div class="login-body">
       <div class="tab-nav">
         <router-link class="icon-quanbu iconfont" :to="{'name':'article'}">注册</router-link>
         <router-link class="icon-quanbu iconfont" :to="{'name':'article'}">登录</router-link>
       </div>
-      <router-view></router-view>
     </div>
   </div>
 </template>
