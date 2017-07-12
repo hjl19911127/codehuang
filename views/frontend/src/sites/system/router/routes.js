@@ -18,16 +18,12 @@ export default [
       {
         path: 'article',
         name: 'article',
-        children: [
-          {
-            path: '',
-            component: articleList,
-          },
-          {
-            path: 'create',
-            component: articleCreate,
-          },
-        ]
+        component: articleList,
+      },
+      {
+        path: 'article/create',
+        name: 'articleCreate',
+        component: articleCreate,
       },
       {
         path: 'about',

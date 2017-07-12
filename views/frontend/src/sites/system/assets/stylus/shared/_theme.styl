@@ -1,4 +1,4 @@
-$backgroundColors= {
+$backgroundColors = {
     blue: {
         light: #3498DB,
         dark: #2980B9
@@ -18,18 +18,18 @@ $backgroundColors= {
 };
 
 for $class, $colors in $backgroundColors {
-    .app.{$class} {
-        .header {
-            background-color: $colors.light;
-        }
-        .btn {
-            background-color: $colors.light;
-            &:hover {
-                background-color: lighten($colors.light, 5%);
-            }
-        }
-        .nav {
-            border-right-color: $colors.light;
-        }
+  .container.{$class} {
+    .header {
+      background-color: $colors.light;
     }
+    .btn {
+      background-color: $colors.light;
+      &:hover {
+        background-color: lighten($colors.light, 5%);
+      }
+    }
+    .nav {
+      border-right-color: $colors.light;
+    }
+  }
 }
