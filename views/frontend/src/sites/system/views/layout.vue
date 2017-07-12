@@ -21,6 +21,9 @@
       skin() {
         return this.$store.getters.getSkin;
       },
+      session(){
+        return this.$store.state.session;
+      }
     },
     methods: {
       switchSkin(skin) {

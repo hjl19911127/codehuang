@@ -1,6 +1,7 @@
 import layout from '../views/layout'
 import login from '../views/login'
-import article from '../views/article'
+import articleList from '../views/article/list'
+import articleCreate from '../views/article/create'
 import about from '../views/about'
 import shareRoute from 'utils/shareRoute'
 
@@ -17,7 +18,16 @@ export default [
       {
         path: 'article',
         name: 'article',
-        component: article,
+        children: [
+          {
+            path: '',
+            component: articleList,
+          },
+          {
+            path: 'create',
+            component: articleCreate,
+          },
+        ]
       },
       {
         path: 'about',
