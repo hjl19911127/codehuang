@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :class="[skin]">
+  <div class="container" :class="[skin,{'has-header':session,'has-menu':session}]">
     <system-header v-if="session"></system-header>
     <system-menu v-if="session"></system-menu>
     <div class="main-wrap">
@@ -47,8 +47,19 @@
 <style lang="stylus">
   .main-wrap {
     position: absolute;
-    top: 60px;
-    left: 10%;
+    top: 0;
+    left: 0;
+  }
 
+  .has-header {
+    .main-wrap {
+      top: 70px;
+    }
+  }
+
+  .has-menu {
+    .main-wrap {
+      left: 250px;
+    }
   }
 </style>
