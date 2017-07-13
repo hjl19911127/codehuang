@@ -11,9 +11,9 @@
   </div>
 </template>
 <script>
-  import Cookie from 'utils/cookie';
-  import SystemHeader from '../components/header';
-  import SystemMenu from '../components/menu';
+  import Cookie from '@/utils/cookie';
+  import SystemHeader from '@/sites/system/components/header';
+  import SystemMenu from '@/sites/system/components/menu';
 
   export default {
     components: {SystemHeader, SystemMenu},
@@ -42,14 +42,14 @@
     }
   }
 </script>
-<style src="../assets/stylus/common/reset" lang="stylus"></style>
-<style src="../assets/stylus/style/common" lang="stylus"></style>
+<style src="@/sites/system/assets/stylus/style/reset" lang="stylus"></style>
+<style src="@/sites/system/assets/stylus/style/common" lang="stylus"></style>
 <style lang="stylus">
-  .main-wrap {
+  .main-wrap
     position: absolute;
     top: 0;
     left: 0;
-  }
+
 
   .has-header {
     .main-wrap {

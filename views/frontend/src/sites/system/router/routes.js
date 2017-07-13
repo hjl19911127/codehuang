@@ -1,5 +1,5 @@
 import layout from '../views/layout'
-import login from '../views/login'
+import login from '../views/login/index'
 import article from '../views/article/index'
 import articleCreate from '../views/article/create'
 import about from '../views/about'

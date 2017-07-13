@@ -8,11 +8,11 @@ var webpack = require('webpack')
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-const entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites')).map((entry) => {
-  return {[entry]: 'sites/' + entry + '/main.js'};
+let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites')).map((entry) => {
+  return {[entry]: `sites/${entry}/main.js`};
 }));
-console.log(entries)
-
+console.log(entries);
+entries = {system: entries['system']}
 module.exports = {
   entry: entries,
   output: {

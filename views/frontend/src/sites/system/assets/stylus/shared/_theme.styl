@@ -17,19 +17,14 @@ $backgroundColors = {
     }
 };
 
-for $class, $colors in $backgroundColors {
-  .container.{$class} {
-    .header {
+for $class, $colors in $backgroundColors
+  .container.{$class}
+    .header
       background-color: $colors.light;
-    }
-    .btn {
+    .btn
       background-color: $colors.light;
-      &:hover {
+      &:hover
         background-color: lighten($colors.light, 5%);
-      }
-    }
-    .nav {
+    .nav
       border-right-color: $colors.light;
-    }
-  }
-}
+

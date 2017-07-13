@@ -4,22 +4,29 @@
       <h1>上天入地黄博士</h1>
     </div>
     <div class="login-body">
+      <form action="">
+        <div>
+          <input type="text" class="input">
+        </div>
+        <div>
+          <input type="text" class="input">
+        </div>
+      </form>
       <div class="tab-nav">
-        <router-link class="icon-quanbu iconfont" :to="{'name':'article'}">注册</router-link>
-        <router-link class="icon-quanbu iconfont" :to="{'name':'article'}">登录</router-link>
+        <a class="btn">注册</a>
+        <a class="btn">登录</a>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import api from '../api/session';
+  import api from '@/sites/system/api/session';
 
   export default {
     data() {
       return {
-        flag: {
-          showCreatePanel: false
-        },
+        userName: '',
+        password: ''
       }
     },
 
