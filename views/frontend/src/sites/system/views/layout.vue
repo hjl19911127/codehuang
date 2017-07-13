@@ -3,9 +3,6 @@
     <system-header v-if="session"></system-header>
     <system-menu v-if="session"></system-menu>
     <div class="main-wrap">
-      <a class="btn" href="javascript:;" @click="switchSkin('red')">红色</a>
-      <a class="btn" href="javascript:;" @click="switchSkin('green')">绿色</a>
-      <a class="btn" href="javascript:;" @click="switchSkin('blue')">蓝色</a>
       <router-view></router-view>
     </div>
   </div>
@@ -42,24 +39,20 @@
     }
   }
 </script>
-<style src="@/sites/system/assets/stylus/style/reset" lang="stylus"></style>
-<style src="@/sites/system/assets/stylus/style/common" lang="stylus"></style>
 <style lang="stylus">
   .main-wrap
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0
+    right: 0;
+    background-color: #1F2D3D
 
-
-  .has-header {
-    .main-wrap {
+  .has-header
+    .main-wrap
       top: 70px;
-    }
-  }
 
-  .has-menu {
-    .main-wrap {
+  .has-menu
+    .main-wrap
       left: 250px;
-    }
-  }
 </style>
