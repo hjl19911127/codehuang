@@ -7,10 +7,10 @@
       <div class="login-body">
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="用户名">
-            <el-input v-model="input" placeholder="请输入用户名"></el-input>
+            <el-input v-model="user.userName" placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="input" placeholder="请输入密码"></el-input>
+            <el-input v-model="user.password" placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary">登录</el-button>
@@ -27,8 +27,10 @@
   export default {
     data() {
       return {
-        userName: '',
-        password: ''
+        user: {
+          userName: '',
+          password: ''
+        }
       }
     },
 
@@ -36,26 +38,11 @@
       init() {
         this.query();
       },
-      create() {
-        api.create(this.article).then((res) => {
-          this.flag.showCreatePanel = false;
-          this.query();
-        }, (res) => {
-          // error callback
-        });
-      },
-      query() {
-        api.query(this.filter).then((res) => {
-          res.json().then((data) => {
-            this.articles.items = data.items;
-            this.articles.count = data.count;
-          });
-        }, (res) => {
-          // error callback
-        });
-      },
-      showCreatePanel() {
-        this.flag.showCreatePanel = true;
+      login(){
+        api.login(this.user).then(() => {
+
+        })
+
       }
     },
     created() {
@@ -83,9 +70,12 @@
     display: inline-block;
     vertical-align: middle;
     background-color: #D3DCE6;
-    padding: 0 30px;
     border-radius: 10px;
+    padding: 10px 20px;
 
   .login-header
-    padding: 20px 0;
+    padding: 25px 0;
+
+  .login-body
+    padding-right: 30px;
 </style>

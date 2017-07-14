@@ -4,7 +4,7 @@ const api = {
   getList(data) {
     return request({
       method: 'get',
-      url: '/api/cards',
+      url: '/api/v1/cards',
       params: data
     });
   }

@@ -1,11 +1,19 @@
 import request from 'utils/request';
-const url = '/api/sessions';
+const sessionUrl = '/api/sessions';
+const loginUrl = '/api/login';
 
 const api = {
   get(data) {
     return request({
       method: 'get',
-      url: url,
+      url: sessionUrl,
+      data: data
+    });
+  },
+  login(data){
+    return request({
+      method: 'post',
+      url: loginUrl,
       data: data
     });
   }
