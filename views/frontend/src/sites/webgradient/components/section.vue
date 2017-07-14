@@ -2,7 +2,7 @@
   <section class="index_page__content_section">
     <div class="container index_page__content_container">
       <div class="gradient js-appearing-card" v-for="(item,index) in cards.items">
-        <span class="gradient__title">{{index+1 | formatIndex}} {{item.title}}</span>
+        <span class="gradient__title">{{index + 1 | formatIndex}} {{item.title}}</span>
         <a class="gradient__download_button">Get .PNG</a>
         <div class="gradient__background" :style="item.style" :data-css-code="item.style"
              @click.prevent="seeViewFull($event)"></div>
@@ -34,7 +34,7 @@
 
   </section>
 </template>
-<script lang="babel">
+<script>
   import api from '../api/card'
   import Clipboard from '../assets/js/clipboard.min.js'
   import ScrollReveal from '../assets/js/scrollreveal.js'
@@ -63,9 +63,9 @@
           this.cards.items = this.cards.items.concat(data.items)
           this.cards.count = data.count
           this.isLoading = false
-          this.$nextTick(()=> {
+          this.$nextTick(() => {
             this.copyCss()
-            if (!window.sr)this.oscrollreveal()
+            if (!window.sr) this.oscrollreveal()
             else window.sr.sync()
           })
 
@@ -77,18 +77,21 @@
         this.$store.commit('SET_FULL_VIEW', true)
         this.$store.commit('SET_STYLE', e.target.attributes['data-css-code'].value + ';left:' + (e.clientX - 1500) + 'px;' + 'top:' + (e.clientY - 1500) + 'px')
         if (!~document.body.className.lastIndexOf('state-fixed')) document.body.className += ' state-fixed'
-        setTimeout(()=> {
+        setTimeout(() => {
           this.$store.commit('SET_COMPLETED', true)
         }, 700)
       },
       scroll(){
         document.body.onscroll = this.throttle(this.getMoreCards, 300)
       },
+      getScrollTop(){
+        return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      },
       getMoreCards(){
         let container = document.querySelector('.index_page__content_section'),
           f = document.getElementById('footer'),
           doc = document.body
-        if ((container.offsetTop + container.clientHeight + f.clientHeight - 200 <= doc.clientHeight + doc.scrollTop) && !this.isLoading) {
+        if ((container.offsetTop + container.clientHeight + f.clientHeight - 200 <= doc.clientHeight + this.getScrollTop()) && !this.isLoading) {
           this.filter.page++
           if (this.filter.page * this.filter.size >= this.cards.count) return
           this.isLoading = true
@@ -112,20 +115,20 @@
           self = this
         e.on('success', function (e) {
           e.trigger.parentNode.className += ' state-done-message-visible'
-          setTimeout(()=> {
+          setTimeout(() => {
             e.trigger.parentNode.className += ' state-done-message-gone'
           }, t)
-          setTimeout(()=> {
+          setTimeout(() => {
             e.trigger.parentNode.className = e.trigger.parentNode.className.replace('state-done-message-visible', '').replace('state-done-message-gone', '').trim()
           }, t + n)
         })
         e.on('error', function (e) {
           e.trigger.parentNode.className += ' state-copy-message-visible'
           e.trigger.parentNode.querySelector('.js-code-textarea').select()
-          setTimeout(()=> {
+          setTimeout(() => {
             e.trigger.parentNode.className += ' state-copy-message-gone'
           }, 5 * t)
-          setTimeout(()=> {
+          setTimeout(() => {
             e.trigger.parentNode.className = e.trigger.parentNode.className.replace('state-copy-message-visible', '').replace('state-copy-message-gone', '').trim()
           }, 5 * t + n)
         })
