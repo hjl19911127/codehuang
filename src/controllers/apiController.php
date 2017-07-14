@@ -17,13 +17,13 @@ $app->group('/api/v1/users', function () {
     });
     $this->post('', function ($req, $res, $args) {
         $data = $req->getParsedBody();
-        $result = $this->get('db')->table('gradient')->insert($data);
+        $result = $this->get('db')->table('user')->insert($data);
         return $res->withJson($data);
     });
     $this->post('/actions/login', function ($req, $res, $args) {
         $data = $req->getParsedBody();
-        $result = $this->get('db')->table('gradient')->insert($data);
-        return $res->withJson($data);
+        $result = $this->get('db')->table('user')->where()->insert($data);
+        return $res->withJson($result);
     });
 });
 
