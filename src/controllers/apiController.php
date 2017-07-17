@@ -13,7 +13,7 @@ $app->group('/api', function () {
         $this->group('/users', function () {
             $this->get('', function ($req, $res, $args) {
                 $filter = $req->getQueryParams();
-                $data = $this->get('db')->table('user')->skip($filter['page'] * $filter['size'])->take($filter['size'])->get();
+                $data = $this->get('db')->table('user')->skip(($filter['page'] - 1) * $filter['size'])->take($filter['size'])->get();
                 $count = $this->get('db')->table('user')->count();
                 return $res->withJson(['items' => $data, 'count' => $count]);
             });
@@ -54,7 +54,7 @@ $app->group('/api', function () {
             });
             $this->get('', function ($req, $res, $args) {
                 $filter = $req->getQueryParams();
-                $data = $this->get('db')->table('article')->skip($filter['page'] * $filter['size'])->take($filter['size'])->get();
+                $data = $this->get('db')->table('article')->skip(($filter['page'] - 1) * $filter['size'])->take($filter['size'])->get();
                 $count = $this->get('db')->table('article')->count();
                 return $res->withJson(['items' => $data, 'count' => $count]);
             });

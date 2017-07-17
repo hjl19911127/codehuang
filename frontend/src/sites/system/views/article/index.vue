@@ -1,62 +1,59 @@
 <template>
   <div>
-    <div class="head">{{articles.count}}</div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>标题</th>
-        </tr>
-      </thead>
-      <tbody>
-        <template v-for="item in articles.items">
-          <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.title}}</td>
-          </tr>
-        </template>
-      </tbody>
-    </table>
-    <a class="btn" href="javascript:;" @click="showCreatePanel">添加</a>
-    <div class="edit" v-show=flag.showCreatePanel>
-      <form id="articleForm">
-        <div class="control-group">
-          <label class="control-label" for="title">标题</label>
-          <div class="control-input">
-            <input id="title" v-model="article.title" />
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="content">内容</label>
-          <div class="control-input">
-            <textarea id="content" v-model="article.content"></textarea>
-          </div>
-        </div>
-        <div class="control-group">
-
-        </div>
-        <div class="control-group">
-          <a href="javascript:;" class="btn" @click="create">提交</a>
-        </div>
-      </form>
-    </div>
+    <el-row class="toolbar">
+      <el-form :inline="true" :model="filter" class="demo-form-inline">
+        <el-form-item label="标题">
+          <el-input v-model="filter.title" placeholder="标题"></el-input>
+        </el-form-item>
+        <el-form-item label="文章类型">
+          <el-select v-model="filter.type" placeholder="文章类型">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+        <el-button type="primary" class="pull-right" @click="toggleSelection()">添加文章</el-button>
+      </el-form>
+    </el-row>
+    <el-row>
+      <el-table
+        :data="articles.items"
+        tooltip-effect="dark"
+        @selection-change="handleSelectionChange">
+        <el-table-column type="selection"></el-table-column>
+        <el-table-column prop="id" label="ID"></el-table-column>
+        <el-table-column prop="title" label="标题" show-overflow-tooltip></el-table-column>
+      </el-table>
+    </el-row>
+    <el-row class="toolbar">
+      <el-button :plain="true" type="danger" @click="batchDelete()" :disabled="!multipleSelection.length">批量删除
+      </el-button>
+      <el-pagination
+        class="pull-right"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="filter.page"
+        :page-sizes="[5, 10, 15, 20]"
+        :page-size="filter.size"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="articles.count">
+      </el-pagination>
+    </el-row>
   </div>
 </template>
 <script>
-  import api from 'sites/system/api/article';
+  import api from '@/sites/system/api/article';
 
   export default {
     data() {
       return {
-        flag: {
-          showCreatePanel: false
-        },
-        article: {
-          title: "",
-          content: ""
-        },
+        multipleSelection: [],
         filter: {
-          page: 0,
+          title: '',
+          type: 0,
+          page: 1,
           size: 10
         },
         articles: {
@@ -69,7 +66,6 @@
     methods: {
       init() {
         this.query();
-        this.getList();
       },
       create() {
         api.create(this.article).then((data) => {
@@ -90,11 +86,20 @@
       showCreatePanel() {
         this.flag.showCreatePanel = true;
       },
-      getList() {
-        api.getList(this.filter).then((data) => {
-        }).catch((err) => {
-          // error callback
-        });
+      handleSizeChange(val) {
+        this.filter.size = val;
+        this.filter.page = 1;
+        this.query();
+      },
+      handleCurrentChange(val){
+        this.filter.page = val;
+        this.query();
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
+      batchDelete(){
+
       }
     },
     created() {

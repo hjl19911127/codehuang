@@ -1,45 +1,25 @@
 <template>
-  <div>
-    <div class="head">{{articles.count}}</div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>标题</th>
-        </tr>
-      </thead>
-      <tbody>
-        <template v-for="item in articles.items">
-          <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.title}}</td>
-          </tr>
-        </template>
-      </tbody>
-    </table>
-    <a class="btn" href="javascript:;" @click="showCreatePanel">添加</a>
-    <div class="edit" v-show=flag.showCreatePanel>
-      <form id="articleForm">
-        <div class="control-group">
-          <label class="control-label" for="title">标题</label>
-          <div class="control-input">
-            <input id="title" v-model="article.title" />
-          </div>
+  <div class="edit" v-show=flag.showCreatePanel>
+    <form id="articleForm">
+      <div class="control-group">
+        <label class="control-label" for="title">标题</label>
+        <div class="control-input">
+          <input id="title" v-model="article.title"/>
         </div>
-        <div class="control-group">
-          <label class="control-label" for="content">内容</label>
-          <div class="control-input">
-            <textarea id="content" v-model="article.content"></textarea>
-          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="content">内容</label>
+        <div class="control-input">
+          <textarea id="content" v-model="article.content"></textarea>
         </div>
-        <div class="control-group">
+      </div>
+      <div class="control-group">
 
-        </div>
-        <div class="control-group">
-          <a href="javascript:;" class="btn" @click="create">提交</a>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="control-group">
+        <a href="javascript:;" class="btn" @click="create">提交</a>
+      </div>
+    </form>
   </div>
 </template>
 <script>

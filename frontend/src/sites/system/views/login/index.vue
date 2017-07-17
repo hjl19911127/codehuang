@@ -13,7 +13,7 @@
             <el-input v-model="user.password" placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary">登录</el-button>
+            <el-button type="primary" @click="login()">登录</el-button>
             <el-button>注册</el-button>
           </el-form-item>
         </el-form>
@@ -57,7 +57,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-    text-align center
+    background-color: #1F2D3D;
+    text-align center;
     &:before
       content: '';
       display: inline-block;

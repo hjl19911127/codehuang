@@ -7,14 +7,15 @@ import shareRoute from 'utils/shareRoute'
 
 export default [
   {
+    path: '/system/login',
+    name: 'login',
+    component: login,
+  },
+  {
     path: '/system',
     component: layout,
     children: [
-      {
-        path: 'login',
-        name: 'login',
-        component: login,
-      },
+
       {
         path: 'article',
         name: 'article',

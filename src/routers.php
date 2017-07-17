@@ -9,7 +9,7 @@ function router($app, $dir) {
                     if (filetype($dir . DIRECTORY_SEPARATOR . $file) === 'dir') {
                         router($app, $dir . DIRECTORY_SEPARATOR . $file);
                     } else {
-                        include $dir . DIRECTORY_SEPARATOR . $file;
+                        require_once $dir . DIRECTORY_SEPARATOR . $file;
                     }
 
                 }

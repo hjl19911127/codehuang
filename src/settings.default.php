@@ -8,7 +8,7 @@ return [
         // Renderer settings
         'renderer' => [
             'template_path' => __DIR__ . '/../views',
-//            'cache' => __DIR__ . '/../cache/',
+            'cache' => __DIR__ . '/../cache/',
             'auto_reload' => true
         ],
 
