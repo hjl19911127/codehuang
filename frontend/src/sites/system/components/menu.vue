@@ -1,5 +1,5 @@
 <template>
-  <el-menu default-active="2" class="menu" @open="handleOpen" @close="handleClose">
+  <el-menu default-active="2" class="menu" @select="handleSelect" @open="handleOpen" @close="handleClose">
     <el-submenu index="1">
       <template slot="title"><i class="el-icon-message"></i>导航一</template>
       <el-menu-item-group>
@@ -26,8 +26,16 @@
         return this.$store.getters.getShowMenu;
       }
     },
-    components: {
-//        'userInfo':require('./user-info.vue')
+    methods: {
+      handleSelect(obj,path){
+        console.log(path)
+      },
+      handleOpen(){
+
+      },
+      handleClose(){
+
+      }
     }
   };
 </script>

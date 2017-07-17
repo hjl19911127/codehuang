@@ -7,7 +7,7 @@
       </div>
       <div class="content-wrap">
         <el-row class="breadcrumb-wrap">
-          <el-breadcrumb separator="/">
+          <el-breadcrumb class="breadcrumb" separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>活动管理</el-breadcrumb-item>
             <el-breadcrumb-item>活动列表</el-breadcrumb-item>
@@ -58,7 +58,10 @@
     left: 0
 
   .menu-wrap
-    height 100%;
+    position: absolute;
+    top: 0;
+    left: 0
+    bottom: 0
     width: 240px
 
   .content-wrap
@@ -67,14 +70,33 @@
     right: 0
     bottom: 0
     left: 240px;
-    height 100%;
 
   .breadcrumb-wrap
-    padding: 25px 20px;
+    position: absolute;
+    top: 0;
+    right: 0
+    left: 0
+    height: 40px;
     background-color: #F9FAFC;
+    padding 0 25px
+    &:before
+      content "";
+      display: inline-block;
+      height 100%;
+      vertical-align middle;
+    .breadcrumb
+      display: inline-block;
+      vertical-align middle;
 
   .page-wrap
+    position: absolute;
+    top: 40px;
+    right: 0
+    left: 0
+    bottom: 0
     padding: 0 30px;
+    overflow: auto;
+    min-width 1000px;
 
   .toolbar
     background-color: #f2f2f2;

@@ -12,10 +12,10 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">查询</el-button>
+          <el-button type="primary" @click="onSubmit" icon="search">查询</el-button>
         </el-form-item>
         <router-link :to="{ name: 'articleCreate'}">
-          <el-button type="primary" class="pull-right">添加文章</el-button>
+          <el-button type="primary" class="pull-right" icon="plus">添加文章</el-button>
         </router-link>
       </el-form>
     </el-row>
@@ -23,6 +23,7 @@
       <el-table
         :data="articles.items"
         tooltip-effect="dark"
+        v-loading.body="loading"
         @selection-change="handleSelectionChange">
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="id" label="ID"></el-table-column>
@@ -30,7 +31,13 @@
       </el-table>
     </el-row>
     <el-row class="toolbar">
-      <el-button :plain="true" type="danger" @click="batchDelete()" :disabled="!multipleSelection.length">批量删除
+      <el-button
+        :plain="true"
+        type="danger"
+        icon="delete"
+        @click="batchDelete()"
+        :disabled="!multipleSelection.length">
+        批量删除
       </el-button>
       <el-pagination
         class="pull-right"
@@ -52,6 +59,7 @@
     data() {
       return {
         multipleSelection: [],
+        loading: false,
         filter: {
           title: '',
           type: 0,
@@ -78,9 +86,11 @@
         });
       },
       query() {
+        this.loading = true;
         api.query(this.filter).then((data) => {
           this.articles.items = data.items;
           this.articles.count = data.count;
+          this.loading = false;
         }).catch((err) => {
           // error callback
         });
