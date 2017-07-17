@@ -1,6 +1,6 @@
 import request from 'utils/request';
-const sessionUrl = '/api/sessions';
-const loginUrl = '/api/login';
+const sessionUrl = '/api/v1/sessions';
+const loginUrl = '/api/v1/login';
 
 const api = {
   get(data) {

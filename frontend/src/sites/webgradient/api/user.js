@@ -1,5 +1,5 @@
 import request from 'utils/request';
-const url = '/api/users';
+const url = '/api/v1/users';
 
 const api = {
   create(data) {

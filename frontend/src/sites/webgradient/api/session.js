@@ -1,5 +1,5 @@
 import request from 'utils/request';
-const url = '/api/sessions';
+const url = '/api/v1/sessions';
 
 const api = {
   get(data) {

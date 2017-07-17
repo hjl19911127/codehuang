@@ -1,5 +1,5 @@
 import request from 'utils/request';
-const url = '/api/articles';
+const url = '/api/v1/articles';
 
 const api = {
   create(data) {
@@ -19,7 +19,7 @@ const api = {
   getList(data) {
     return request({
       method: 'get',
-      url: '/api/cards',
+      url: '/api/v1/cards',
       params: data
     });
   }
