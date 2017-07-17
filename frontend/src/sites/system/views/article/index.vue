@@ -14,7 +14,9 @@
         <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
         </el-form-item>
-        <el-button type="primary" class="pull-right" @click="toggleSelection()">添加文章</el-button>
+        <router-link :to="{ name: 'articleCreate'}">
+          <el-button type="primary" class="pull-right">添加文章</el-button>
+        </router-link>
       </el-form>
     </el-row>
     <el-row>
