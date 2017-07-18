@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-  import api from '@/sites/system/api/article';
+  import api from '@/sites/admin/api/article';
 
   export default {
     data() {

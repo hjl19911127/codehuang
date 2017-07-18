@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="logo"><img src="~@/sites/system/assets/images/logo.png"></div>
+    <div class="logo"><img src="~@/sites/admin/assets/images/logo.png"></div>
     <div class="user">
       <el-dropdown>
         <span class="user-name el-dropdown-link">

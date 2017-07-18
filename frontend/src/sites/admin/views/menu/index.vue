@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-  import api from '@/sites/system/api/menu';
+  import api from '@/sites/admin/api/menu';
   export default {
     data() {
       return {

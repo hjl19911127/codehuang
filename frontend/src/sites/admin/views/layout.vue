@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <system-header></system-header>
+    <admin-header></admin-header>
     <div class="main-wrap">
       <div class="menu-wrap">
-        <system-menu></system-menu>
+        <admin-menu></admin-menu>
       </div>
       <div class="content-wrap">
         <el-row class="breadcrumb-wrap">
@@ -23,13 +23,13 @@
 </template>
 <script>
   import Cookie from '@/utils/cookie';
-  import SystemHeader from '@/sites/system/components/header';
-  import SystemMenu from '@/sites/system/components/menu';
+  import AdminHeader from '@/sites/admin/components/header';
+  import AdminMenu from '@/sites/admin/components/menu';
 
   export default {
     components: {
-      SystemHeader,
-      SystemMenu
+      AdminHeader,
+      AdminMenu
     },
     computed: {
       session(){

@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-  import api from '@/sites/system/api/session';
+  import api from '@/sites/admin/api/session';
 
   export default {
     data() {

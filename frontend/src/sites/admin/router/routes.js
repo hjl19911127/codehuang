@@ -12,12 +12,12 @@ const menu = resolve => require(['../views/menu/index'], resolve);
 
 export default [
   {
-    path: '/system/login',
+    path: '/admin/login',
     name: 'login',
     component: login,
   },
   {
-    path: '/system',
+    path: '/admin',
     component: layout,
     children: [
 
