@@ -94,16 +94,19 @@
     right: 0
     left: 0
     bottom: 0
-    padding: 0 30px;
+    padding: 30px 30px 0;
     overflow: auto;
     min-width 1000px;
 
   .toolbar
     background-color: #f2f2f2;
     padding: 10px 20px;
-    margin: 20px 0;
+    margin-bottom 20px;
     .el-form-item
       margin-bottom: 0;
+
+  .contentBar
+    margin-bottom 20px;
 
   .pull-right
     float right;

@@ -1,9 +1,14 @@
 import layout from '../views/layout'
-import login from '../views/login/index'
-import article from '../views/article/index'
-import articleCreate from '../views/article/create'
+// import login from '../views/login/index'
+// import article from '../views/article/index'
+// import articleCreate from '../views/article/create'
 import about from '../views/about'
 import shareRoute from 'utils/shareRoute'
+
+const login = resolve => require(['../views/login/index'], resolve);
+const article = resolve => require(['../views/article/index'], resolve);
+const articleEdit = resolve => require(['../views/article/edit'], resolve);
+const menu = resolve => require(['../views/menu/index'], resolve);
 
 export default [
   {
@@ -24,7 +29,17 @@ export default [
       {
         path: 'article/create',
         name: 'articleCreate',
-        component: articleCreate,
+        component: articleEdit,
+      },
+      {
+        path: 'article/:id',
+        name: 'articleEdit',
+        component: articleEdit,
+      },
+      {
+        path: 'menu',
+        name: 'menu',
+        component: menu,
       },
       {
         path: 'about',

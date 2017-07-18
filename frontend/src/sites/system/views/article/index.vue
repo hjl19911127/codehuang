@@ -19,7 +19,7 @@
         </router-link>
       </el-form>
     </el-row>
-    <el-row>
+    <el-row class="contentBar">
       <el-table
         :data="articles.items"
         tooltip-effect="dark"
@@ -35,7 +35,7 @@
         :plain="true"
         type="danger"
         icon="delete"
-        @click="batchDelete()"
+        @click="batchDelete"
         :disabled="!multipleSelection.length">
         批量删除
       </el-button>
