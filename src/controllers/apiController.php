@@ -47,11 +47,6 @@ $app->group('/api', function () {
             });
         });
         $this->group('/articles', function () {
-            $this->post('', function ($req, $res, $args) {
-                $data = $req->getParsedBody();
-                $result = $this->get('db')->table('article')->insert($data);
-                return $res->withJson($data);
-            });
             $this->get('', function ($req, $res, $args) {
                 $filter = $req->getQueryParams();
                 $data = $this->get('db')->table('article')->skip(($filter['page'] - 1) * $filter['size'])->take($filter['size'])->get();
@@ -61,6 +56,28 @@ $app->group('/api', function () {
             $this->get('/{id:\d+}', function ($req, $res, $args, $db) {
                 $db->where('title', 'like', '%foo%')->get();
                 $data = ['id' => 1, 'title' => 'adsd'];
+                return $res->withJson($data);
+            });
+            $this->post('', function ($req, $res, $args) {
+                $data = $req->getParsedBody();
+                $result = $this->get('db')->table('article')->insert($data);
+                return $res->withJson($data);
+            });
+        });
+        $this->group('/menus', function () {
+            $this->get('', function ($req, $res, $args) {
+                $filter = $req->getQueryParams();
+                $data = $this->get('db')->table('menu')->get();
+                return $res->withJson($data);
+            });
+            $this->get('/{id:\d+}', function ($req, $res, $args, $db) {
+                $db->where('title', 'like', '%foo%')->get();
+                $data = ['id' => 1, 'title' => 'adsd'];
+                return $res->withJson($data);
+            });
+            $this->post('', function ($req, $res, $args) {
+                $data = $req->getParsedBody();
+                $result = $this->get('db')->table('article')->insert($data);
                 return $res->withJson($data);
             });
         });

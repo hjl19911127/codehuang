@@ -1,5 +1,5 @@
 import request from 'utils/request';
-const url = '/api/v1/articles';
+const url = '/api/v1/menus';
 
 const api = {
   create(data) {

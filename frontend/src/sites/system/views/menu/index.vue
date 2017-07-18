@@ -1,17 +1,32 @@
 <template>
-  <el-tree
-    :data="data2"
-    show-checkbox
-    node-key="id"
-    :default-expanded-keys="[2, 3]"
-    :default-checked-keys="[5]"
-    :props="defaultProps">
-  </el-tree>
+  <div>
+    <el-row class="toolbar">
+      <el-button type="primary" class="pull-right">刷新菜单</el-button>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <el-tree
+          :data="data2"
+          show-checkbox
+          :highlight-current="true"
+          node-key="id"
+          :default-expanded-keys="[2, 3]"
+          :default-checked-keys="[5]"
+          @node-click="handleNodeClick"
+          :props="defaultProps">
+        </el-tree>
+      </el-col>
+      <el-col :span="12">
+      </el-col>
+    </el-row>
+  </div>
 </template>
 <script>
+  import api from '@/sites/system/api/menu';
   export default {
     data() {
       return {
+        menu: [],
         data2: [{
           id: 1,
           label: '一级 1',
@@ -52,6 +67,27 @@
           label: 'label'
         }
       };
+    },
+    methods: {
+      init(){
+        this.query();
+      },
+      formatTree(){
+
+      },
+      query(){
+        api.query().then((res) => {
+          this.menu = res;
+        })
+      },
+      handleNodeClick(data, node, component){
+        if (!node.isLeaf) {
+          node.expanded = !node.expanded;
+        }
+      }
+    },
+    created(){
+      this.init();
     }
   };
 </script>
