@@ -53,20 +53,17 @@ Object.keys(proxyTable).forEach(function (context) {
   }
   app.use(proxyMiddleware(options.filter || context, options))
 });
-let router = Object.assign(...Object.keys(webpackConfig.entry).map(function (entry) {
-  // app.use(proxyMiddleware(`/`, {
-  //   target: `${uri}/${entry}.html`
-  // }));
-  return {[`${entry}.codehuang.local:${port}`]: `${uri}/${entry}.html`};
-}))
-console.log(router)
-//proxy pages
-app.use(proxyMiddleware((pathname) => {
-  console.log(pathname);
-  return !/[\/\._]/.test(pathname)
-}, {
-  target: `${uri}`
-}));
+
+//proxy entries
+Object.keys(webpackConfig.entry).forEach(function (entry) {
+  app.use(proxyMiddleware((pathname, req) => {
+    return ~req.hostname.indexOf(`${entry}.codehuang`) && /\/[a-z0-9\-]*(?!.)/.test(pathname)
+  }, {
+    target: `${uri}`,
+    changeOrigin: true,
+    pathRewrite: {'\/[a-z0-9\-]*(?!.)': `/${entry}.html`}
+  }));
+});
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
