@@ -8,6 +8,7 @@ var webpack = require('webpack')
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
+
 let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites')).map((entry) => {
   return {[entry]: `sites/${entry}/main.js`};
 }));
@@ -34,7 +35,6 @@ module.exports = {
     }
   },
   module: {
-    noParse: /es6-promise\.js$/,
     rules: [
       {
         test: /\.vue$/,
@@ -64,7 +64,10 @@ module.exports = {
       }
     ]
   },
-  // plugins: [
-  //   new webpack.optimize.ModuleConcatenationPlugin()
-  // ]
+  plugins: [
+    new webpack.ProvidePlugin({
+      'Promise': 'es6-promise'
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin()
+  ]
 }

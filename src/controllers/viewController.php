@@ -1,10 +1,9 @@
 <?php
 
-$sites = ['front', 'admin', 'chat', 'share', 'webgradient', 'greensock', 'blog'];
 /**
  * multiple sites
  */
-$app->get('/{site:(?:' . join('|', $sites) . ')}{path:.*}', function ($req, $res, $args) {
+$app->get('/{site:(?:' . join('|', SITES) . ')}{path:.*}', function ($req, $res, $args) {
     return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
 });
 

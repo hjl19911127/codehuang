@@ -17,6 +17,8 @@ define('SITE_PROTOCOL', isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'
 define('SITE_HOST', (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''), true);
 //系统开始时间
 define('SYS_START_TIME', microtime(), true);
+//系统开始时间
+define('SITES', ['front', 'admin', 'chat', 'share', 'webgradient', 'greensock', 'blog'], true);
 
 require __DIR__ . '/../vendor/autoload.php';
 

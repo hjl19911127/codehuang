@@ -57,11 +57,12 @@ Object.keys(proxyTable).forEach(function (context) {
 //proxy entries
 Object.keys(webpackConfig.entry).forEach(function (entry) {
   app.use(proxyMiddleware((pathname, req) => {
-    return ~req.hostname.indexOf(`${entry}.codehuang`) && /\/[a-z0-9\-]*(?!.)/.test(pathname)
+    console.log(pathname + ' ' + (~req.hostname.indexOf(`${entry}.codehuang`) && /\/[a-z0-9A-Z\-\/]*(?!.)/.test(pathname)));
+    return ~req.hostname.indexOf(`${entry}.codehuang`) && /\/[a-z0-9A-Z\-\/]*(?!.)/.test(pathname)
   }, {
     target: `${uri}`,
     changeOrigin: true,
-    pathRewrite: {'\/[a-z0-9\-]*(?!.)': `/${entry}.html`}
+    pathRewrite: {'\/[a-z0-9A-Z\-\/]*(?!.)': `/${entry}.html`}
   }));
 });
 
