@@ -12,37 +12,37 @@ const menu = resolve => require(['../views/menu/index'], resolve);
 
 export default [
   {
-    path: '/admin/login',
+    path: '/login',
     name: 'login',
     component: login,
   },
   {
-    path: '/admin',
+    path: '/',
     component: layout,
     children: [
 
       {
-        path: 'article',
+        path: '/article',
         name: 'article',
         component: article,
       },
       {
-        path: 'article/create',
+        path: '/article/create',
         name: 'articleCreate',
         component: articleEdit,
       },
       {
-        path: 'article/:id',
-        name: 'articleEdit',
+        path: '/article/:id',
+        name: '/articleEdit',
         component: articleEdit,
       },
       {
-        path: 'menu',
+        path: '/menu',
         name: 'menu',
         component: menu,
       },
       {
-        path: 'about',
+        path: '/about',
         name: 'about',
         component: about,
       },

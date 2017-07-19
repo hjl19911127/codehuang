@@ -14,6 +14,7 @@ var webpackConfig = require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
+var uri = 'http://localhost:' + port
 // automatically open browser, if not set will be false
 var autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
@@ -33,12 +34,13 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-  log: () => {}
+  log: () => {
+  }
 })
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({action: 'reload'})
     cb()
   })
 })
@@ -47,17 +49,27 @@ compiler.plugin('compilation', function (compilation) {
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {target: options}
   }
   app.use(proxyMiddleware(options.filter || context, options))
-})
+});
+let router = Object.assign(...Object.keys(webpackConfig.entry).map(function (entry) {
+  // app.use(proxyMiddleware(`/`, {
+  //   target: `${uri}/${entry}.html`
+  // }));
+  return {[`${entry}.codehuang.local:${port}`]: `${uri}/${entry}.html`};
+}))
+console.log(router)
+//proxy pages
+app.use(proxyMiddleware((pathname) => {
+  console.log(pathname);
+  return !/[\/\._]/.test(pathname)
+}, {
+  target: `${uri}`
+}));
 
 // handle fallback for HTML5 history API
-app.use(require('connect-history-api-fallback')({
-  rewrites: Object.keys(webpackConfig.entry).map(function (name) {
-    return { from: new RegExp(`/${name}(?!\\.)`), to: `/${name}.html` }
-  })
-}))
+app.use(require('connect-history-api-fallback')())
 
 
 // serve webpack bundle output
@@ -71,7 +83,6 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://localhost:' + port
 
 var _resolve
 var readyPromise = new Promise(resolve => {
