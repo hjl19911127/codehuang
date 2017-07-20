@@ -6,12 +6,12 @@ import sign from '../views/sign'
 
 export default [
   {
-    path: '/chat/sign',
+    path: '/sign',
     name: 'sign',
     component: sign
   },
   {
-    path: '/chat',
+    path: '',
     component: layout,
     meta: {
       auth: false

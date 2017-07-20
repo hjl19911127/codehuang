@@ -1,7 +1,6 @@
 class AjaxHelper {
   defaults = {
-    "method": "get",
-    "headers": []
+    "method": "get"
   };
 
   constructor() {
@@ -33,7 +32,7 @@ class AjaxHelper {
     let url = config.url + (config.params ? (~config.url.indexOf('?') ? '&' : '?') + this._formatQueryString(config.params) : ''),
       option = {
         method: config.method.toLowerCase(),
-        headers: config.headers[config.method],
+        headers: Object.assign({}, config.headers, this.defaults.headers[config.method]),
         body: JSON.stringify(config.data)
       };
     return new Promise(function (resolve, reject) {
