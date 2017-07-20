@@ -10,10 +10,28 @@ $cors = function ($req, $res, $next) {
 
     foreach (SITES as $val) {
         if (strstr($origin[0], $val . '.codehuang')) {
+            $acceptHeaders = [
+                'Accept',
+                'Accept-Encoding',
+                'Accept-Language',
+                'Access-Control-Request-Headers',
+                'Access-Control-Request-Method',
+                'Cache-control',
+                'Connection',
+                'DNT',
+                'Host',
+                'Origin',
+                'Pragma',
+                'Referer',
+                'User-Agent',
+                'X-Requested-With',
+                'Content-Type',
+                'Authorization',
+            ];
             return $response
                 ->withHeader('Access-Control-Allow-Origin', $origin)
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                ->withHeader('Access-Control-Allow-Headers', join(',', $acceptHeaders))
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, HEAD, OPTIONS, PUT, DELETE, TRACE, PATCH');
         }
     }
     return $response;

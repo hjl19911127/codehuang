@@ -1,10 +1,9 @@
 <?php
 
-$app->options('/{routes:.+}', function ($req, $res, $args) {
-    return $res;
-});
-
 $app->group('/v1', function () {
+    $this->options('/{routes:.+}', function ($req, $res, $args) {
+        return $res;
+    });
     $this->get('/token', function ($req, $res, $args) {
         $name = $req->getAttribute('csrf_name');
         $value = $req->getAttribute('csrf_value');
@@ -70,7 +69,11 @@ $app->group('/v1', function () {
     $this->group('/menus', function () {
         $this->get('', function ($req, $res, $args) {
             $filter = $req->getQueryParams();
-            $data = $this->get('db')->table('menu')->get();
+            $data = $this->get('db')->table('menu');
+            if (!$filter['with_root']) {
+                $data->where('parent_id', '!=', 0);
+            }
+            $data = $data->get();
             return $res->withJson($data);
         });
         $this->get('/{id:\d+}', function ($req, $res, $args, $db) {

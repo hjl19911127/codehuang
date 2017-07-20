@@ -2,7 +2,6 @@ import Greensock from '../views/index'
 import Preloader from '../components/Preloader'
 import Castle from '../components/Castle'
 import KineticJS from '../components/KineticJS'
-import shareRoute from '../../../utils/shareRoute'
 
 export default [
   {

@@ -2,13 +2,14 @@ class AjaxHelper {
   defaults = {
     "method": "get"
   };
+  defaultsMethodHeaders = {};
 
   constructor() {
     ['delete', 'get', 'head'].forEach((method) => {
-      this.defaults.headers[method] = {};
+      this.defaultsMethodHeaders[method] = {};
     });
     ['post', 'put', 'patch'].forEach((method) => {
-      this.defaults.headers[method] = {'Content-Type': 'application/json;charset=utf-8'}
+      this.defaultsMethodHeaders[method] = {'Content-Type': 'application/json;charset=utf-8'}
     });
   }
 
@@ -29,10 +30,11 @@ class AjaxHelper {
 
   request(config) {
     config = Object.assign({}, this.defaults, config);
+    config.method = config.method.toLowerCase();
     let url = config.url + (config.params ? (~config.url.indexOf('?') ? '&' : '?') + this._formatQueryString(config.params) : ''),
       option = {
-        method: config.method.toLowerCase(),
-        headers: Object.assign({}, config.headers, this.defaults.headers[config.method]),
+        method: config.method,
+        headers: Object.assign({}, config.headers, this.defaultsMethodHeaders[config.method]),
         body: JSON.stringify(config.data)
       };
     return new Promise(function (resolve, reject) {

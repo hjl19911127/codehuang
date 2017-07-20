@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 
-const url = `${apiHost}/api/v1/menus`;
+const url = `${apiHost}/v1/menus`;
 export default {
   create(data) {
     return request({
