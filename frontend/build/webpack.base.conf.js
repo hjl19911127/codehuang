@@ -13,7 +13,7 @@ let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites
   return {[entry]: `sites/${entry}/main.js`};
 }));
 console.log(entries);
-// entries = {admin: entries['admin']}
+entries = {admin: entries['admin']}
 module.exports = {
   entry: entries,
   output: {

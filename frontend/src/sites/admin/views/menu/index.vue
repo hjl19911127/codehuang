@@ -6,12 +6,12 @@
     <el-row>
       <el-col :span="12">
         <el-tree
-          :data="data2"
+          :data="menu"
           show-checkbox
           :highlight-current="true"
+          :default-expand-all="true"
           node-key="id"
           :default-expanded-keys="[2, 3]"
-          :default-checked-keys="[5]"
           @node-click="handleNodeClick"
           :props="defaultProps">
         </el-tree>
@@ -23,70 +23,46 @@
 </template>
 <script>
   import api from '@/sites/admin/api/menu';
+
   export default {
     data() {
       return {
         menu: [],
-        data2: [{
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
-            }, {
-              id: 10,
-              label: '三级 1-1-2'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2'
-          }]
-        }],
         defaultProps: {
           children: 'children',
-          label: 'label'
+          label: 'title'
         }
       };
     },
     methods: {
-      init(){
+      init() {
         this.query();
       },
-      formatTree(){
-
+      formatTree(flatData) {
+        let map = {};
+        flatData.forEach((v) => {
+          v.children = [];
+          map[v.id] = v;
+        });
+        flatData.forEach((v) => {
+          if (map[v.parent_id]) {
+            map[v.parent_id].children.push(v);
+          }
+        });
+        return [map[1]];
       },
-      query(){
-        api.query().then((res) => {
-          this.menu = res;
+      query() {
+        api.query({'with_root': true}).then((res) => {
+          this.menu = this.formatTree(res);
         })
       },
-      handleNodeClick(data, node, component){
+      handleNodeClick(data, node, component) {
         if (!node.isLeaf) {
           node.expanded = !node.expanded;
         }
       }
     },
-    created(){
+    created() {
       this.init();
     }
   };

@@ -70,7 +70,7 @@ $app->group('/v1', function () {
         $this->get('', function ($req, $res, $args) {
             $filter = $req->getQueryParams();
             $data = $this->get('db')->table('menu');
-            if (!$filter['with_root']) {
+            if (!isset($filter['with_root']) || !$filter['with_root']) {
                 $data->where('parent_id', '!=', 0);
             }
             $data = $data->get();
