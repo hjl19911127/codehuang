@@ -17,3 +17,5 @@ $cors = function ($req, $res, $next) {
     }
     return $response;
 };
+
+$middlewares = ['cors' => $cors];

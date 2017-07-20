@@ -1,15 +1,16 @@
 <?php
 // Routes
 $dir = __DIR__ . '/controllers';
-function router($app, $dir) {
+function router($app, $dir, $middlewares) {
+    global $middlewares;
     if (is_dir($dir)) {
         if ($dh = opendir($dir)) {
             while (($file = readdir($dh)) !== false) {
                 if (!in_array($file, ['.', '..'], true)) {
                     if (filetype($dir . DIRECTORY_SEPARATOR . $file) === 'dir') {
-                        router($app, $dir . DIRECTORY_SEPARATOR . $file);
+                        router($app, $dir . DIRECTORY_SEPARATOR . $file, $middlewares);
                     } else {
-                        require_once $dir . DIRECTORY_SEPARATOR . $file;
+                        require $dir . DIRECTORY_SEPARATOR . $file;
                     }
 
                 }
@@ -19,4 +20,4 @@ function router($app, $dir) {
     }
 }
 
-router($app, $dir);
+router($app, $dir, $middlewares);

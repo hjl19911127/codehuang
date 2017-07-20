@@ -4,7 +4,7 @@ $app->options('/{routes:.+}', function ($req, $res, $args) {
     return $res;
 });
 
-$this->group('/v1', function () {
+$app->group('/v1', function () {
     $this->get('/token', function ($req, $res, $args) {
         $name = $req->getAttribute('csrf_name');
         $value = $req->getAttribute('csrf_value');
@@ -84,5 +84,5 @@ $this->group('/v1', function () {
             return $res->withJson($data);
         });
     });
-})->add($cors);
+})->add($middlewares['cors']);
 
