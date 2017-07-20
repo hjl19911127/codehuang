@@ -3,11 +3,10 @@ import BorderRadius from '../views/borderRadius'
 import Parallelogram from '../views/parallelogram'
 import Rotate from '../views/rotate'
 import Perspective from '../views/perspective'
-import shareRoute from '../../../utils/shareRoute'
 
 export default [
   {
-    path: '/share',
+    path: '',
     name: 'share',
     component: Index,
     children: [
@@ -29,6 +28,5 @@ export default [
         component: Perspective
       },
     ]
-  },
-  shareRoute
+  }
 ];

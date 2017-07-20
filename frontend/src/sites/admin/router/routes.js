@@ -3,7 +3,6 @@ import layout from '../views/layout'
 // import article from '../views/article/index'
 // import articleCreate from '../views/article/create'
 import about from '../views/about'
-import shareRoute from 'utils/shareRoute'
 
 const login = resolve => require(['../views/login/index'], resolve);
 const article = resolve => require(['../views/article/index'], resolve);
@@ -17,10 +16,9 @@ export default [
     component: login,
   },
   {
-    path: '/',
+    path: '',
     component: layout,
     children: [
-
       {
         path: '/article',
         name: 'article',
@@ -52,6 +50,5 @@ export default [
         component: about,
       }
     ],
-  },
-  shareRoute
+  }
 ];

@@ -3,7 +3,6 @@ import message from '../views/message'
 import contact from '../views/contact'
 import mine from '../views/mine'
 import sign from '../views/sign'
-import shareRoute from '../../../utils/shareRoute'
 
 export default [
   {
@@ -33,7 +32,6 @@ export default [
         name: 'mine',
         component: mine,
       }
-    ],
-  },
-  shareRoute
+    ]
+  }
 ];

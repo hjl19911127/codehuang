@@ -15,6 +15,9 @@ $app->get('/{path:.*}', function ($req, $res, $args) {
     if ($args['site']) {
         return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
     } else {
+        foreach (SITES as $value) {
+            $args['sites'][$value] = '//' . $value . '.' . $this->get('settings')['domain'][$this->get('settings')['env']];
+        }
         return $this->renderer->render($res, '/home/index.html', $args);
     }
 });

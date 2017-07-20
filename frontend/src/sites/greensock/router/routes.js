@@ -6,7 +6,7 @@ import shareRoute from '../../../utils/shareRoute'
 
 export default [
   {
-    path: '/greensock',
+    path: '',
     component: Greensock,
     children: [
       {
@@ -25,6 +25,5 @@ export default [
         component: KineticJS
       },
     ]
-  },
-  shareRoute
+  }
 ];

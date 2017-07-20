@@ -1,4 +1,4 @@
-import request from 'utils/request';
+import request from '@/utils/request';
 const sessionUrl = '/api/v1/sessions';
 const loginUrl = '/api/v1/login';
 

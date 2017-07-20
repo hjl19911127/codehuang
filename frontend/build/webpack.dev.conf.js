@@ -32,6 +32,7 @@ module.exports = merge(baseWebpackConfig, {
       chunks: [name],
       template: 'index.html',
       inject: true,
+      globalVariables: config.build.globalVariables
     })
   }))
 })

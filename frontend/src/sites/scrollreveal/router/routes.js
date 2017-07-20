@@ -3,7 +3,7 @@ import shareRoute from '../../../utils/shareRoute'
 
 export default [
   {
-    path: '/scrollreveal',
+    path: '',
     component: Scrollreveal
   },
   shareRoute

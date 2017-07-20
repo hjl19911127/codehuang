@@ -1,7 +1,7 @@
-import request from 'utils/request';
-const url = '/api/v1/articles';
+import request from '@/utils/request';
 
-const api = {
+const url = `${apiHost}/v1/articles`;
+export default {
   create(data) {
     return request({
       method: 'post',
@@ -17,4 +17,3 @@ const api = {
     });
   }
 };
-export default api;
