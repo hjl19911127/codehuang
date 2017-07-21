@@ -69,21 +69,35 @@ $app->group('/v1', function () {
     $this->group('/menus', function () {
         $this->get('', function ($req, $res, $args) {
             $filter = $req->getQueryParams();
-            $data = $this->get('db')->table('menu');
+            $table = $this->get('db')->table('menu');
             if (!isset($filter['with_root']) || !$filter['with_root']) {
-                $data->where('parent_id', '!=', 0);
+                $table->where('parent_id', '!=', 0);
             }
-            $data = $data->get();
+            $data = $table->get();
             return $res->withJson($data);
         });
-        $this->get('/{id:\d+}', function ($req, $res, $args, $db) {
-            $db->where('title', 'like', '%foo%')->get();
-            $data = ['id' => 1, 'title' => 'adsd'];
+        $this->get('/{id:\d+}', function ($req, $res, $args) {
+            $data = $this->get('db')->table('menu')->where('id', $args['id'])->get();
             return $res->withJson($data);
         });
         $this->post('', function ($req, $res, $args) {
-            $data = $req->getParsedBody();
-            $result = $this->get('db')->table('article')->insert($data);
+            $body = $req->getParsedBody();
+            $result = $this->get('db')->table('menu')->insert($body);
+            return $res->withJson($result, 201);
+        });
+        $this->put('/{id:\d+}', function ($req, $res, $args) {
+            $body = $req->getParsedBody();
+            $data = $this->get('db')->table('menu')->where('id', $args['id'])->update($body);
+            return $res->withJson($data);
+        });
+        $this->delete('/{id:\d+}', function ($req, $res, $args) {
+            $data = $this->get('db')->table('menu')->where('id', $args['id'])->delete();
+            return $res->withJson($data);
+        });
+        $this->post('/deletion', function ($req, $res, $args) {
+            $body = $req->getParsedBody();
+            $body['ids'];
+            $data = $this->get('db')->table('menu')->where('id', $args['id'])->delete();
             return $res->withJson($data);
         });
     });

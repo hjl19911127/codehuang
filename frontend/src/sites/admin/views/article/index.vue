@@ -14,9 +14,11 @@
         <el-form-item>
           <el-button type="primary" @click="onSubmit" icon="search">查询</el-button>
         </el-form-item>
-        <router-link :to="{ name: 'articleCreate'}">
-          <el-button type="primary" class="pull-right" icon="plus">添加文章</el-button>
-        </router-link>
+        <div class="pull-right">
+          <router-link :to="{ name: 'articleCreate'}">
+            <el-button type="primary" icon="plus">添加文章</el-button>
+          </router-link>
+        </div>
       </el-form>
     </el-row>
     <el-row class="contentBar">
@@ -103,14 +105,14 @@
         this.filter.page = 1;
         this.query();
       },
-      handleCurrentChange(val){
+      handleCurrentChange(val) {
         this.filter.page = val;
         this.query();
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
-      batchDelete(){
+      batchDelete() {
 
       }
     },
