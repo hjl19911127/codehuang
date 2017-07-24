@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <admin-header></admin-header>
+    <admin-header :data="session"></admin-header>
     <div class="main-wrap">
       <div class="menu-wrap">
-        <admin-menu></admin-menu>
+        <admin-menu :data="menu"></admin-menu>
       </div>
       <div class="content-wrap">
         <el-row class="breadcrumb-wrap">
@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+  import {mapGetters} from 'vuex';
   import Cookie from '@/utils/cookie';
   import AdminHeader from '@/sites/admin/components/header';
   import AdminMenu from '@/sites/admin/components/menu';
@@ -32,20 +33,21 @@
       AdminMenu
     },
     computed: {
-      session(){
-        return this.$store.state.session;
+      ...mapGetters([
+        'menu',
+        'session'
+      ])
+    },
+    methods: {
+      init() {
+        this.getMenu();
+      },
+      getMenu() {
+        this.$store.dispatch('GET_MENU');
       }
     },
-    methods: {},
     created() {
-      console.log(new Cookie().get('auth'));
-      this.$store.dispatch('GET_SKIN')
-      if (new Cookie().get('auth')) {
-        this.$store.dispatch('GET_SKIN')
-      } else {
-        console.log(1);
-        // this.$router.go('login');
-      }
+      this.init();
     }
   }
 </script>

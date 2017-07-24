@@ -22,19 +22,19 @@
       <el-col :span="16" v-show="isEdit">
         <el-form ref="form" :model="menu" label-width="120px">
           <el-form-item label="父节点名称">
-            <span v-text="menu.parent_title"></span>
+            <span>{{menu.parent_title}}</span>
           </el-form-item>
           <el-form-item label="菜单名称">
             <el-input v-model="menu.title"></el-input>
           </el-form-item>
           <el-form-item label="菜单地址">
-            <el-input v-model="menu.path"></el-input>
+            <el-input v-model="menu.route"></el-input>
           </el-form-item>
           <el-form-item label="是否启用">
             <el-switch on-text="" off-text="" v-model="menu.enabled"></el-switch>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">保存</el-button>
+            <el-button type="primary" @click="onSubmit">{{menu.id?'更新':'新增'}}</el-button>
             <el-button @click="onCancel">取消</el-button>
           </el-form-item>
         </el-form>
@@ -44,6 +44,7 @@
 </template>
 <script>
   import Vue from 'vue';
+  import asyncTree from '@/utils/asyncTree';
   import api from '@/sites/admin/api/menu';
 
   export default {
@@ -59,7 +60,7 @@
           title: '',
           parent_id: 0,
           parent_title: '',
-          path: '',
+          route: '',
           enabled: true,
         },
         isEdit: false
@@ -69,31 +70,22 @@
       init() {
         this.query();
       },
-      formatTree(flatData) {
-        let map = {};
-        flatData.forEach((v) => {
-          v.children = [];
-          map[v.id] = v;
-        });
-        flatData.forEach((v) => {
-          if (map[v.parent_id]) {
-            v.parent_title = map[v.parent_id].title;
-            map[v.parent_id].children.push(v);
-          }
-        });
-        return [map[1]];
-      },
       query() {
         api.query({'with_root': true}).then((res) => {
-          this.menus = this.formatTree(res);
+          asyncTree.arrayToTree(res).then((tree) => {
+            this.menus = tree;
+          });
         })
       },
       onSubmit() {
-        let body = Vue.util.extend({}, this.menu);
+        let body = Object.assign({}, this.menu), id = body.id;
+        body.id = undefined;
         body.parent_title = undefined;
-        api.create(body).then(res => {
-          this.cancel();
-        })
+        body.children = undefined;
+        Promise.resolve(id ? api.update(id, body) : api.create(body)).then(res => {
+          this.onCancel();
+          this.query();
+        });
       },
       handleNodeCollapse() {
 
@@ -105,18 +97,25 @@
 
       },
       add(store, data) {
-        console.log(store);
-        this.menu.parent_id = data.id;
-        this.menu.parent_title = data.title;
+        Object.assign(this.menu, {
+          id: 0,
+          title: '',
+          parent_id: data.id,
+          parent_title: data.title,
+          route: '',
+          enabled: true,
+        });
         this.isEdit = true;
       },
       edit(store, data) {
-        console.log(store);
         Object.assign(this.menu, data);
+        this.menu.enabled = !!this.menu.enabled;
         this.isEdit = true;
       },
-      remove() {
-
+      remove(store, data) {
+        api.remove(data.id).then(res => {
+          this.query();
+        })
       },
       renderContent(h, {node, data, store}) {
         return h(
@@ -153,6 +152,7 @@
                 h(
                   "el-button",
                   {
+                    style: data.parent_id ? "" : "visibility:hidden;",
                     attrs: {
                       type: "info",
                       size: "mini",
@@ -169,6 +169,7 @@
                 h(
                   "el-button",
                   {
+                    style: data.parent_id ? "" : "visibility:hidden;",
                     attrs: {
                       type: "danger",
                       size: "mini",

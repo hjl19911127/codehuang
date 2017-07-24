@@ -1,6 +1,9 @@
 class AjaxHelper {
   defaults = {
-    "method": "get"
+    "method": "get",
+    "headers": {
+      'Accept': 'application/json',
+    }
   };
   defaultsMethodHeaders = {};
 
@@ -31,7 +34,11 @@ class AjaxHelper {
   request(config) {
     config = Object.assign({}, this.defaults, config);
     config.method = config.method.toLowerCase();
-    let url = config.url + (config.params ? (~config.url.indexOf('?') ? '&' : '?') + this._formatQueryString(config.params) : ''),
+    if (config.cache === false) {
+      config.params = config.params || {};
+      config.params['_'] = +new Date();
+    }
+    let url = `${config.url}${config.params ? `${(~config.url.indexOf('?') ? '&' : '?')}${this._formatQueryString(config.params)}` : ''}`,
       option = {
         method: config.method,
         headers: Object.assign({}, config.headers, this.defaultsMethodHeaders[config.method]),

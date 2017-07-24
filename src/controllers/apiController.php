@@ -88,7 +88,7 @@ $app->group('/v1', function () {
         $this->put('/{id:\d+}', function ($req, $res, $args) {
             $body = $req->getParsedBody();
             $data = $this->get('db')->table('menu')->where('id', $args['id'])->update($body);
-            return $res->withJson($data);
+            return $res->withJson($body);
         });
         $this->delete('/{id:\d+}', function ($req, $res, $args) {
             $data = $this->get('db')->table('menu')->where('id', $args['id'])->delete();

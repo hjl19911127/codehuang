@@ -1,13 +1,13 @@
 export default {
-  getShowMenu(state, getters) {
-    return state.showMenu
+  menu(state, getters) {
+    return state.menu
   },
 
-  getSkin(state, getters) {
+  skin(state, getters) {
     return state.skin
   },
 
-  getSession(state, getters) {
+  session(state, getters) {
     return state.session
   }
 }

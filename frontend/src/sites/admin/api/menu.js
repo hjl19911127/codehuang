@@ -2,6 +2,14 @@ import request from '@/utils/request';
 
 const url = `${apiHost}/v1/menus`;
 export default {
+  query(data) {
+    return request({
+      method: 'get',
+      url: url,
+      params: data,
+      cache: false
+    });
+  },
   create(data) {
     return request({
       method: 'post',
@@ -9,11 +17,17 @@ export default {
       data: data
     });
   },
-  query(data) {
+  update(id, data) {
     return request({
-      method: 'get',
-      url: url,
-      params: data
+      method: 'put',
+      url: `${url}/${id}`,
+      data: data
     });
-  }
+  },
+  remove(id) {
+    return request({
+      method: 'delete',
+      url: `${url}/${id}`
+    });
+  },
 };

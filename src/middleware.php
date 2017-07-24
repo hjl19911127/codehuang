@@ -31,7 +31,8 @@ $cors = function ($req, $res, $next) {
             return $response
                 ->withHeader('Access-Control-Allow-Origin', $origin)
                 ->withHeader('Access-Control-Allow-Headers', join(',', $acceptHeaders))
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, HEAD, OPTIONS, PUT, DELETE, TRACE, PATCH');
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, HEAD, OPTIONS, PUT, DELETE, TRACE, PATCH')
+                ->withHeader('Access-Control-Allow-Credentials', 'true');
         }
     }
     return $response;

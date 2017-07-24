@@ -4,14 +4,12 @@
     <div class="user">
       <el-dropdown>
         <span class="user-name el-dropdown-link">
-          {{session.username}}<img class="user-avatar" :src="session.avatar">
+          {{data.username}}<img class="user-avatar" :src="data.avatar">
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>黄金糕</el-dropdown-item>
-          <el-dropdown-item>狮子头</el-dropdown-item>
-          <el-dropdown-item>螺蛳粉</el-dropdown-item>
-          <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-          <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+          <el-dropdown-item>个人资料</el-dropdown-item>
+          <el-dropdown-item>修改密码</el-dropdown-item>
+          <el-dropdown-item divided>退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -21,12 +19,12 @@
 <script>
   export default {
     data() {
-      return {}
-    },
-    computed: {
-      session() {
-        return this.$store.state.session;
+      return {
+
       }
+    },
+    props: {
+      data: Object
     }
   }
 </script>
