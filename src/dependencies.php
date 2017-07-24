@@ -30,3 +30,5 @@ $container['db'] = function ($container) {
     $capsule->bootEloquent();
     return $capsule;
 };
+
+$conn = $container['db']->connection();
