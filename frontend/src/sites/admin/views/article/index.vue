@@ -30,6 +30,15 @@
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="id" label="ID"></el-table-column>
         <el-table-column prop="title" label="标题" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="is_top" label="标题" show-overflow-tooltip></el-table-column>
+        <el-table-column label="操作">
+          <template scope="scope">
+            <router-link :to="`/article/${scope.row.id}`">
+              <el-button :plain="true" type="primary" size="small">编辑</el-button>
+            </router-link>
+            <el-button type="danger" size="small">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-row>
     <el-row class="toolbar">

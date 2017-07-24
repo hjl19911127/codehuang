@@ -15,7 +15,9 @@
           </el-breadcrumb>
         </el-row>
         <el-row class="page-wrap">
-          <router-view></router-view>
+          <transition name="slide-fade">
+            <router-view></router-view>
+          </transition>
         </el-row>
       </div>
     </div>
@@ -32,7 +34,7 @@
       AdminMenu
     },
     computed: {
-      session(){
+      session() {
         return this.$store.state.session;
       }
     },
@@ -110,4 +112,14 @@
 
   .pull-right
     float right;
+
+  .slide-fade-enter-active
+    transition: all .3s ease;
+
+  .slide-fade-leave-active
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+
+  .slide-fade-enter, .slide-fade-leave-to
+    transform: translateX(10px);
+    opacity: 0;
 </style>
