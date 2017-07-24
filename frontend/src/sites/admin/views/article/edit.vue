@@ -35,6 +35,7 @@
           showCreatePanel: false
         },
         article: {
+          id: 0,
           title: "",
           content: "",
           is_top: false,
@@ -45,7 +46,8 @@
 
     methods: {
       init() {
-        this.get();
+        this.article.id = this.$route.params.id;
+        if (this.article.id) this.get();
       },
       onSubmit() {
         api.create(this.article).then((data) => {
@@ -56,7 +58,7 @@
         });
       },
       get() {
-        api.get(this.$route.params.id).then((res) => {
+        api.get(this.article.id).then((res) => {
           this.article = res;
         }).catch((err) => {
           // error callback

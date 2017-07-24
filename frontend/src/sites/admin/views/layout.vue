@@ -3,7 +3,7 @@
     <admin-header :data="session"></admin-header>
     <div class="main-wrap">
       <div class="menu-wrap">
-        <admin-menu :data="menu"></admin-menu>
+        <admin-menu :data="menu" :active-index="path"></admin-menu>
       </div>
       <div class="content-wrap">
         <el-row class="breadcrumb-wrap">
@@ -15,7 +15,7 @@
           </el-breadcrumb>
         </el-row>
         <el-row class="page-wrap">
-          <transition name="slide-fade">
+          <transition name="el-fade-in">
             <router-view></router-view>
           </transition>
         </el-row>
@@ -38,7 +38,10 @@
       ...mapGetters([
         'menu',
         'session'
-      ])
+      ]),
+      path() {
+        return this.$route.path;
+      }
     },
     methods: {
       init() {
@@ -114,14 +117,4 @@
 
   .pull-right
     float right;
-
-  .slide-fade-enter-active
-    transition: all .3s ease;
-
-  .slide-fade-leave-active
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-
-  .slide-fade-enter, .slide-fade-leave-to
-    transform: translateX(10px);
-    opacity: 0;
 </style>

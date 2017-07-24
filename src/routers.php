@@ -82,16 +82,8 @@ $app->group('/v1', function () {
     });
     $this->group('/articles', function () {
         $this->get('', \App\Controllers\ArticleController::class . ':page');
-        $this->get('/{id:\d+}', function ($req, $res, $args, $db) {
-            $db->where('title', 'like', '%foo%')->get();
-            $data = ['id' => 1, 'title' => 'adsd'];
-            return $res->withJson($data);
-        });
-        $this->post('', function ($req, $res, $args) {
-            $data = $req->getParsedBody();
-            $result = $this->get('db')->table('article')->insert($data);
-            return $res->withJson($data);
-        });
+        $this->get('/{id:\d+}', \App\Controllers\ArticleController::class . ':get');
+        $this->post('', \App\Controllers\ArticleController::class . ':create');
     });
     $this->group('/menus', function () {
         $this->get('', function ($req, $res, $args) {

@@ -2,13 +2,13 @@
   <div>
     <template v-for="item in data">
       <template v-if="item.children.length">
-        <el-submenu index="1">
-          <template slot="title">{{item.title}}</template>
-          <menu-tree-item :data="item"></menu-tree-item>
+        <el-submenu :index="item.route">
+          <template slot="title"><i class="el-icon-menu"></i>{{item.title}}</template>
+          <menu-tree-item :data="item.children"></menu-tree-item>
         </el-submenu>
       </template>
       <template v-else>
-        <el-menu-item index="2"><i class="el-icon-menu"></i>{{item.title}}</el-menu-item>
+        <el-menu-item :index="item.route"><i class="el-icon-menu"></i>{{item.title}}</el-menu-item>
       </template>
     </template>
   </div>
@@ -17,6 +17,7 @@
   import MenuTreeItem from './menu-tree-item';
 
   export default {
+    name: 'menu-tree-item',
     components: {
       MenuTreeItem
     },

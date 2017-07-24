@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading.body="isLoading">
     <el-row class="toolbar">
       <el-form :inline="true" :model="filter" class="demo-form-inline">
         <el-form-item label="标题">
@@ -12,7 +12,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" icon="search">查询</el-button>
+          <el-button type="primary" @click="search" icon="search">查询</el-button>
         </el-form-item>
         <div class="pull-right">
           <router-link :to="{ name: 'articleCreate'}">
@@ -25,7 +25,6 @@
       <el-table
         :data="articles.items"
         tooltip-effect="dark"
-        v-loading.body="loading"
         @selection-change="handleSelectionChange">
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="id" label="ID"></el-table-column>
@@ -70,7 +69,7 @@
     data() {
       return {
         multipleSelection: [],
-        loading: false,
+        isLoading: false,
         filter: {
           title: '',
           type: 0,
@@ -90,29 +89,28 @@
       },
       create() {
         api.create(this.article).then((data) => {
-          this.flag.showCreatePanel = false;
           this.query();
         }).catch((err) => {
           // error callback
         });
       },
       query() {
-        this.loading = true;
+        this.isLoading = true;
         api.query(this.filter).then((data) => {
           this.articles.items = data.items;
           this.articles.count = data.count;
-          this.loading = false;
+          this.isLoading = false;
         }).catch((err) => {
           // error callback
         });
       },
-      showCreatePanel() {
-        this.flag.showCreatePanel = true;
+      search() {
+        this.filter.page = 1;
+        this.query();
       },
       handleSizeChange(val) {
         this.filter.size = val;
-        this.filter.page = 1;
-        this.query();
+        this.search();
       },
       handleCurrentChange(val) {
         this.filter.page = val;

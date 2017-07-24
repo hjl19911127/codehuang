@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading.body="isLoading">
     <el-row class="toolbar">
       <div class="pull-right">
         <el-button type="danger" @click="refreshMenu">批量删除</el-button>
@@ -34,7 +34,7 @@
             <el-switch on-text="" off-text="" v-model="menu.enabled"></el-switch>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">{{menu.id?'更新':'新增'}}</el-button>
+            <el-button type="primary" @click="onSubmit">{{menu.id ? '更新' : '新增'}}</el-button>
             <el-button @click="onCancel">取消</el-button>
           </el-form-item>
         </el-form>
@@ -63,7 +63,8 @@
           route: '',
           enabled: true,
         },
-        isEdit: false
+        isEdit: false,
+        isLoading: false
       };
     },
     methods: {
@@ -71,9 +72,11 @@
         this.query();
       },
       query() {
+        this.isLoading = true;
         api.query({'with_root': true}).then((res) => {
           asyncTree.arrayToTree(res).then((tree) => {
             this.menus = tree;
+            this.isLoading = false;
           });
         })
       },

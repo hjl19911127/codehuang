@@ -15,4 +15,15 @@ class ArticleController extends BaseController {
         $count = Article::count();
         return $response->withJson(['items' => $data, 'count' => $count]);
     }
+
+    public function get(Request $request, Response $response, $args) {
+        $data = Article::where('id', $args['id'])->first();
+        return $response->withJson($data);
+    }
+
+    public function create(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        $result = Article::insert($data);
+        return $response->withJson($data);
+    }
 }

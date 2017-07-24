@@ -1,5 +1,6 @@
 <template>
-  <el-menu default-active="2" class="menu" @select="handleSelect" @open="handleOpen" @close="handleClose">
+  <el-menu class="menu" :default-active="activeIndex" :router="true" @select="handleSelect" @open="handleOpen"
+           @close="handleClose">
     <menu-tree-item :data="data"></menu-tree-item>
   </el-menu>
 </template>
@@ -8,7 +9,8 @@
 
   export default {
     props: {
-      data: Array
+      data: Array,
+      activeIndex: String
     },
     components: {
       MenuTreeItem
