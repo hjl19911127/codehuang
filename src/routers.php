@@ -81,20 +81,12 @@ $app->group('/v1', function () {
         });
     });
     $this->group('/articles', function () {
-        $this->get('', \App\Controllers\ArticleController::class . ':page');
-        $this->get('/{id:\d+}', \App\Controllers\ArticleController::class . ':get');
-        $this->post('', \App\Controllers\ArticleController::class . ':create');
+        $this->get('', App\Controllers\ArticleController::class . ':query');
+        $this->get('/{id:\d+}', App\Controllers\ArticleController::class . ':get');
+        $this->post('', App\Controllers\ArticleController::class . ':create');
     });
     $this->group('/menus', function () {
-        $this->get('', function ($req, $res, $args) {
-            $filter = $req->getQueryParams();
-            $table = $this->get('db')->table('menu');
-            if (!isset($filter['with_root']) || !$filter['with_root']) {
-                $table->where('parent_id', '!=', 0);
-            }
-            $data = $table->get();
-            return $res->withJson($data);
-        });
+        $this->get('', App\Controllers\MenuController::class . ':query');
         $this->get('/{id:\d+}', function ($req, $res, $args) {
             $data = $this->get('db')->table('menu')->where('id', $args['id'])->get();
             return $res->withJson($data);

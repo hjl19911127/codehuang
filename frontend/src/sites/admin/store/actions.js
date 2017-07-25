@@ -10,7 +10,7 @@ export default {
     if (!menu) {
       commit('SET_MENU', menu);
     } else {
-      menuApi.query().then((res) => {
+      menuApi.query({'no_root': true, 'is_enabled': true}).then((res) => {
         asyncTree.arrayToTree(res).then((tree) => {
           // storage.set(`${STORAGE_PREFIX}MENU`, asyncTree.arrayToTree(res));
           commit('SET_MENU', tree);

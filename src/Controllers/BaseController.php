@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use \Interop\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 
 class BaseController {
     protected $container;

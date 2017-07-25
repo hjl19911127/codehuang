@@ -65,25 +65,25 @@
 
 
 </style>
-<script lang="babel">
+<script>
   const exampleList = [
     {
       name: 'preloader',
       title: 'Circular Preloader Animation',
       description: 'This is the preloader we use during all AJAX calls on GreenSock.com.',
-      cover: 'http://localhost:20081/static/images/example-preloader.jpg'
+      cover: 'http://static.codehuang.local:20081/static/images/example-preloader.jpg'
     },
     {
       name: 'castle',
       title: 'Howl’s Moving Castle',
       description: 'A magical wonder of animation grandeur by Nathan Gordon.',
-      cover: 'http://localhost:20081/static/images/showcase-howls-moving-castle.jpg'
+      cover: 'http://static.codehuang.local:20081/static/images/showcase-howls-moving-castle.jpg'
     },
     {
       name: 'kineticjs',
       title: 'Bezier Tweens with KineticJS (v5)',
       description: 'Random bezier tweens created with the canvas library KineticJS.',
-      cover: 'http://localhost:20081/static/images/example_kineticBezier.png'
+      cover: 'http://static.codehuang.local:20081/static/images/example_kineticBezier.png'
     }
   ];
   export default{

@@ -31,7 +31,7 @@
             <el-input v-model="menu.route"></el-input>
           </el-form-item>
           <el-form-item label="是否启用">
-            <el-switch on-text="" off-text="" v-model="menu.enabled"></el-switch>
+            <el-switch on-text="" off-text="" v-model="menu.is_enabled"></el-switch>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">{{menu.id ? '更新' : '新增'}}</el-button>
@@ -61,7 +61,7 @@
           parent_id: 0,
           parent_title: '',
           route: '',
-          enabled: true,
+          is_enabled: true,
         },
         isEdit: false,
         isLoading: false
@@ -73,7 +73,7 @@
       },
       query() {
         this.isLoading = true;
-        api.query({'with_root': true}).then((res) => {
+        api.query().then((res) => {
           asyncTree.arrayToTree(res).then((tree) => {
             this.menus = tree;
             this.isLoading = false;
@@ -106,13 +106,12 @@
           parent_id: data.id,
           parent_title: data.title,
           route: '',
-          enabled: true,
+          is_enabled: true,
         });
         this.isEdit = true;
       },
       edit(store, data) {
         Object.assign(this.menu, data);
-        this.menu.enabled = !!this.menu.enabled;
         this.isEdit = true;
       },
       remove(store, data) {
