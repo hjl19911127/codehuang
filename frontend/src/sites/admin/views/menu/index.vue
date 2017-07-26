@@ -14,6 +14,7 @@
           :default-expand-all="true"
           :expand-on-click-node="false"
           node-key="id"
+          @node-click="handleNodeClick"
           :render-content="renderContent"
           :props="menuProps">
         </el-tree>
@@ -26,7 +27,7 @@
           <el-form-item label="菜单名称">
             <el-input v-model="menu.title"></el-input>
           </el-form-item>
-          <el-form-item label="菜单地址" v-if="!menu.children.length">
+          <el-form-item label="菜单地址">
             <el-input v-model="menu.route"></el-input>
           </el-form-item>
           <el-form-item label="是否启用">
@@ -96,7 +97,10 @@
       refreshMenu() {
 
       },
-      onAdd(store, data) {
+      handleNodeClick(data) {
+        this.onEdit(data);
+      },
+      onAdd(data) {
         Object.assign(this.menu, {
           id: 0,
           title: '',
@@ -107,11 +111,11 @@
         });
         this.isEdit = true;
       },
-      onEdit(store, data) {
+      onEdit(data) {
         Object.assign(this.menu, data);
         this.isEdit = true;
       },
-      onRemove(store, data) {
+      onRemove(data) {
         this.$confirm('此操作将永久删除该菜单及其子菜单, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -146,11 +150,11 @@
           ),
             h(
               "span",
-              {style: `float: right; margin-right: 20px;`},
+              {"class": "option-button-group"},
               [h(
                 "el-button",
                 {
-                  style: node.level < 3 ? "" : "visibility:hidden;",
+                  style: node.level < 3 ? "" : "display:none;",
                   attrs: {
                     type: "success",
                     size: "mini",
@@ -158,7 +162,7 @@
                   },
                   on: {
                     "click": () => {
-                      return this.onAdd(store, data);
+                      return this.onAdd(data);
                     }
                   }
                 },
@@ -167,7 +171,7 @@
                 h(
                   "el-button",
                   {
-                    style: data.parent_id ? "" : "visibility:hidden;",
+                    style: data.parent_id ? "" : "display:none;",
                     attrs: {
                       type: "info",
                       size: "mini",
@@ -175,7 +179,7 @@
                     },
                     on: {
                       "click": () => {
-                        return this.onEdit(store, data, node);
+                        return this.onEdit(data);
                       }
                     }
                   },
@@ -184,7 +188,7 @@
                 h(
                   "el-button",
                   {
-                    style: data.parent_id ? "" : "visibility:hidden;",
+                    style: data.parent_id && !data.children.length ? "" : "display:none;",
                     attrs: {
                       type: "danger",
                       size: "mini",
@@ -193,7 +197,7 @@
                     },
                     on: {
                       "click": () => {
-                        return this.onRemove(store, data);
+                        return this.onRemove(data);
                       }
                     }
                   },
@@ -208,3 +212,13 @@
     }
   };
 </script>
+<style lang="stylus">
+  .option-button-group
+    float: right;
+    margin-right: 20px;
+    display: none;
+
+  .el-tree-node__content:hover
+    .option-button-group
+      display: block;
+</style>

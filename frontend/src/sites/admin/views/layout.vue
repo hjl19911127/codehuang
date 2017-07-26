@@ -46,7 +46,7 @@
         this.getMenu();
       },
       getMenu() {
-        this.$store.dispatch('GET_MENU');
+        this.$store.dispatch('GET_MENU', {route: this.$route.path});
       }
     },
     created() {

@@ -28,6 +28,7 @@ class MenuController extends BaseController {
 
     public function create(Request $request, Response $response, $args) {
         $body = $request->getParsedBody();
+
         $result = Menu::insert($body);
         return $response->withJson($result, 201);
     }

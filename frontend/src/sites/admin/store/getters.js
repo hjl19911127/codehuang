@@ -3,8 +3,9 @@ export default {
     return state.menu
   },
 
-  skin(state, getters) {
-    return state.skin
+  defaultOpenedsMenu(state, getters) {
+
+    return state.menu
   },
 
   session(state, getters) {
