@@ -15,13 +15,6 @@ const api = {
       url: url,
       params: data
     });
-  },
-  getList(data) {
-    return request({
-      method: 'get',
-      url: '/api/cards',
-      params: data
-    });
   }
 };
 export default api;

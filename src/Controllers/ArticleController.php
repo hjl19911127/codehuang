@@ -24,6 +24,6 @@ class ArticleController extends BaseController {
     public function create(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
         $result = Article::insert($data);
-        return $response->withJson($data);
+        return $response->withJson($data, 201);
     }
 }

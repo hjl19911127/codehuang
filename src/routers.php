@@ -63,21 +63,11 @@ $app->group('/v1', function () {
         });
     });
     $this->group('/cards', function () {
-        $this->post('', function ($req, $res, $args) {
-            $data = $req->getParsedBody();
-            $result = $this->get('db')->table('gradient')->insert($data);
-            return $res->withJson($data);
-        });
         $this->get('', function ($req, $res, $args) {
             $filter = $req->getQueryParams();
             $data = $this->get('db')->table('gradient')->skip($filter['page'] * $filter['size'])->take($filter['size'])->get();
             $count = $this->get('db')->table('gradient')->count();
             return $res->withJson(['items' => $data, 'count' => $count]);
-        });
-        $this->get('/{id:\d+}', function ($req, $res, $args, $db) {
-            $db->where('title', 'like', '%foo%')->get();
-            $data = ['id' => 1, 'title' => 'adsd'];
-            return $res->withJson($data);
         });
     });
     $this->group('/articles', function () {
@@ -87,29 +77,10 @@ $app->group('/v1', function () {
     });
     $this->group('/menus', function () {
         $this->get('', App\Controllers\MenuController::class . ':query');
-        $this->get('/{id:\d+}', function ($req, $res, $args) {
-            $data = $this->get('db')->table('menu')->where('id', $args['id'])->get();
-            return $res->withJson($data);
-        });
-        $this->post('', function ($req, $res, $args) {
-            $body = $req->getParsedBody();
-            $result = $this->get('db')->table('menu')->insert($body);
-            return $res->withJson($result, 201);
-        });
-        $this->put('/{id:\d+}', function ($req, $res, $args) {
-            $body = $req->getParsedBody();
-            $data = $this->get('db')->table('menu')->where('id', $args['id'])->update($body);
-            return $res->withJson($body);
-        });
-        $this->delete('/{id:\d+}', function ($req, $res, $args) {
-            $data = $this->get('db')->table('menu')->where('id', $args['id'])->delete();
-            return $res->withJson($data);
-        });
-        $this->post('/deletion', function ($req, $res, $args) {
-            $body = $req->getParsedBody();
-            $body['ids'];
-            $data = $this->get('db')->table('menu')->where('id', $args['id'])->delete();
-            return $res->withJson($data);
-        });
+        $this->get('/{id:\d+}', App\Controllers\MenuController::class . ':get');
+        $this->post('', App\Controllers\MenuController::class . ':create');
+        $this->put('/{id:\d+}', App\Controllers\MenuController::class . ':update');
+        $this->delete('/{id:\d+}', App\Controllers\MenuController::class . ':remove');
+        $this->post('/deletions', App\Controllers\MenuController::class . ':batchRemove');
     });
 })->add($middlewares['cors']);

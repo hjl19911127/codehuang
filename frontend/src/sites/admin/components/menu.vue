@@ -17,7 +17,6 @@
     },
     methods: {
       handleSelect(obj, path) {
-        console.log(path)
       },
       handleOpen() {
 

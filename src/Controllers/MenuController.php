@@ -27,14 +27,26 @@ class MenuController extends BaseController {
     }
 
     public function create(Request $request, Response $response, $args) {
-        $data = $request->getParsedBody();
-        Article::insert($data);
-        return $response->withJson($data);
+        $body = $request->getParsedBody();
+        $result = Menu::insert($body);
+        return $response->withJson($result, 201);
+    }
+
+    public function update(Request $request, Response $response, $args) {
+        $body = $request->getParsedBody();
+        $data = Menu::where('id', $args['id'])->update($body);
+        return $response->withJson($body);
     }
 
     public function remove(Request $request, Response $response, $args) {
-        $data = $request->getParsedBody();
-        $result = Article::insert($data);
+        $data = Menu::where('id', $args['id'])->delete();
+        return $response->withJson($data);
+    }
+
+    public function batchRemove(Request $request, Response $response, $args) {
+        $body = $request->getParsedBody();
+        $body['ids'];
+        $data = Menu::where('id', $args['id'])->delete();
         return $response->withJson($data);
     }
 }

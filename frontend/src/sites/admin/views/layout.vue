@@ -15,9 +15,7 @@
           </el-breadcrumb>
         </el-row>
         <el-row class="page-wrap">
-          <transition name="el-fade-in">
-            <router-view></router-view>
-          </transition>
+          <router-view></router-view>
         </el-row>
       </div>
     </div>

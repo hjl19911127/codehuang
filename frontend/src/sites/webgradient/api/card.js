@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 
-const url = `${apiHost}/v1/cards`;
+const url = `${apiHost}/v1/gradients`;
 const api = {
   getList(data) {
     return request({

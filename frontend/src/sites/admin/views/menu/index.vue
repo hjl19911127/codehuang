@@ -13,7 +13,6 @@
           show-checkbox
           :default-expand-all="true"
           :expand-on-click-node="false"
-          :node-collapse="handleNodeCollapse"
           node-key="id"
           :render-content="renderContent"
           :props="menuProps">
@@ -27,13 +26,13 @@
           <el-form-item label="菜单名称">
             <el-input v-model="menu.title"></el-input>
           </el-form-item>
-          <el-form-item label="菜单地址">
+          <el-form-item label="菜单地址" v-if="!menu.children.length">
             <el-input v-model="menu.route"></el-input>
           </el-form-item>
           <el-form-item label="是否启用">
             <el-switch on-text="" off-text="" v-model="menu.is_enabled"></el-switch>
           </el-form-item>
-          <el-form-item>
+          <el-form-item label-width="120px">
             <el-button type="primary" @click="onSubmit">{{menu.id ? '更新' : '新增'}}</el-button>
             <el-button @click="onCancel">取消</el-button>
           </el-form-item>
@@ -62,6 +61,7 @@
           parent_title: '',
           route: '',
           is_enabled: true,
+          children: []
         },
         isEdit: false,
         isLoading: false
@@ -90,16 +90,13 @@
           this.query();
         });
       },
-      handleNodeCollapse() {
-
-      },
       onCancel() {
         this.isEdit = false;
       },
       refreshMenu() {
 
       },
-      add(store, data) {
+      onAdd(store, data) {
         Object.assign(this.menu, {
           id: 0,
           title: '',
@@ -110,14 +107,29 @@
         });
         this.isEdit = true;
       },
-      edit(store, data) {
+      onEdit(store, data) {
         Object.assign(this.menu, data);
         this.isEdit = true;
       },
-      remove(store, data) {
-        api.remove(data.id).then(res => {
-          this.query();
-        })
+      onRemove(store, data) {
+        this.$confirm('此操作将永久删除该菜单及其子菜单, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          api.remove(data.id).then(res => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.query();
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       },
       renderContent(h, {node, data, store}) {
         return h(
@@ -134,10 +146,11 @@
           ),
             h(
               "span",
-              {style: "float: right; margin-right: 20px"},
+              {style: `float: right; margin-right: 20px;`},
               [h(
                 "el-button",
                 {
+                  style: node.level < 3 ? "" : "visibility:hidden;",
                   attrs: {
                     type: "success",
                     size: "mini",
@@ -145,7 +158,7 @@
                   },
                   on: {
                     "click": () => {
-                      return this.add(store, data);
+                      return this.onAdd(store, data);
                     }
                   }
                 },
@@ -162,7 +175,7 @@
                     },
                     on: {
                       "click": () => {
-                        return this.edit(store, data);
+                        return this.onEdit(store, data, node);
                       }
                     }
                   },
@@ -175,11 +188,12 @@
                     attrs: {
                       type: "danger",
                       size: "mini",
-                      icon: "delete"
+                      icon: "delete",
+                      "v-popover": "popover5"
                     },
                     on: {
                       "click": () => {
-                        return this.remove(store, data);
+                        return this.onRemove(store, data);
                       }
                     }
                   },
