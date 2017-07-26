@@ -68,7 +68,7 @@
     .js-appearing-card
       visibility hidden
 </style>
-<script lang="babel">
+<script>
   import Headers from '../components/header';
   import Info from '../components/info';
   import Sections from '../components/section';
@@ -76,7 +76,7 @@
   import FullView from '../components/FullView';
 
 
-  export default{
+  export default {
     components: {
       Headers: Headers,
       Info: Info,

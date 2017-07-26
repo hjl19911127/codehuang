@@ -35,7 +35,7 @@
   </section>
 </template>
 <script>
-  import api from '../api/card'
+  import api from '../api/gradient'
   import Clipboard from '../assets/js/clipboard.min.js'
   import ScrollReveal from '../assets/js/scrollreveal.js'
 
@@ -81,13 +81,13 @@
           this.$store.commit('SET_COMPLETED', true)
         }, 700)
       },
-      scroll(){
+      scroll() {
         document.body.onscroll = this.throttle(this.getMoreCards, 300)
       },
-      getScrollTop(){
+      getScrollTop() {
         return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
       },
-      getMoreCards(){
+      getMoreCards() {
         let container = document.querySelector('.index_page__content_section'),
           f = document.getElementById('footer'),
           doc = document.body
@@ -98,7 +98,7 @@
           this.getList()
         }
       },
-      throttle(fn, delay){
+      throttle(fn, delay) {
         var timer = null
         return function () {
           var context = this, args = arguments;
@@ -133,7 +133,7 @@
           }, 5 * t + n)
         })
       },
-      oscrollreveal(){
+      oscrollreveal() {
         window.sr = window.ScrollReveal()
         sr.reveal(".js-appearing-card", {
           origin: "bottom",
@@ -173,7 +173,7 @@
     created() {
       this.init()
     },
-    mounted(){
+    mounted() {
       this.scroll()
     }
   }

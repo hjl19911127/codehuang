@@ -12,8 +12,8 @@ function resolve(dir) {
 let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites')).map((entry) => {
   return {[entry]: `sites/${entry}/main.js`};
 }));
-console.log(entries);
 // entries = {admin: entries['admin']}
+console.log(entries);
 module.exports = {
   entry: entries,
   output: {
