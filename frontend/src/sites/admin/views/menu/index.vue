@@ -44,7 +44,7 @@
 </template>
 <script>
   import Vue from 'vue';
-  import asyncTree from '@/utils/asyncTree';
+  import asyncTree from '@/utils/async-tree';
   import api from '@/sites/admin/api/menu';
 
   export default {

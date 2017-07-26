@@ -1,6 +1,6 @@
 import menuApi from '@/sites/admin/api/menu';
 import storage from '@/utils/localstorage';
-import asyncTree from '@/utils/asyncTree';
+import asyncTree from '@/utils/async-tree';
 
 const STORAGE_PREFIX = 'ADMIN:';
 
