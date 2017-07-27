@@ -28,19 +28,18 @@ class MenuController extends BaseController {
 
     public function create(Request $request, Response $response, $args) {
         $body = $request->getParsedBody();
-
-        $result = Menu::insert($body);
+        $result = Menu::create($body);
         return $response->withJson($result, 201);
     }
 
     public function update(Request $request, Response $response, $args) {
         $body = $request->getParsedBody();
-        $data = Menu::where('id', $args['id'])->update($body);
-        return $response->withJson($body);
+        $data = Menu::find($args['id'])->update($body);
+        return $response->withJson($data);
     }
 
     public function remove(Request $request, Response $response, $args) {
-        $data = Menu::where('id', $args['id'])->delete();
+        $data = Menu::find($args['id'])->delete();
         return $response->withJson($data);
     }
 

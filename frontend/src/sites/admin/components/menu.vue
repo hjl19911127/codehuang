@@ -1,24 +1,32 @@
 <template>
-  <el-menu class="menu" :default-active="activeIndex" :router="true" @select="handleSelect" @open="handleOpen"
-           @close="handleClose">
-    <menu-tree-item :data="data"></menu-tree-item>
+  <el-menu
+    class="menu"
+    :default-active="activeIndex"
+    :default-openeds="defaultOpeneds"
+    :router="true"
+    @select="handleSelect"
+    @open="handleOpen"
+    @close="handleClose">
+    <menu-tree-item :data="menu"></menu-tree-item>
   </el-menu>
 </template>
 <script>
+  import {mapGetters} from 'vuex';
   import MenuTreeItem from './menu-tree-item';
 
   export default {
-    props: {
-      data: Array,
-      activeIndex: String
-    },
     components: {
       MenuTreeItem
     },
+    computed: {
+      ...mapGetters([
+        'menu',
+        'activeIndex',
+        'defaultOpeneds'
+      ]),
+    },
     methods: {
       handleSelect(obj, path) {
-        console.log(obj)
-        console.log(path)
       },
       handleOpen() {
 
@@ -26,6 +34,9 @@
       handleClose() {
 
       }
+    },
+    created() {
+      this.$store.dispatch('GET_MENU', {route: this.$route.path});
     }
   };
 </script>

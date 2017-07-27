@@ -2,7 +2,7 @@
   <div>
     <template v-for="item in data">
       <template v-if="item.children.length">
-        <el-submenu :index="item.id">
+        <el-submenu :index="`${item.id}`">
           <template slot="title"><i class="el-icon-menu"></i>{{item.title}}</template>
           <menu-tree-item :data="item.children"></menu-tree-item>
         </el-submenu>

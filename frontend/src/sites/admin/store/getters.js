@@ -3,9 +3,13 @@ export default {
     return state.menu
   },
 
-  defaultOpenedsMenu(state, getters) {
+  defaultOpeneds(state, getters) {
+    let activeMenu = state.menuMap[state.route];
+    return activeMenu && activeMenu.parent_id !== 1 ? [`${activeMenu.parent_id}`] : [];
+  },
 
-    return state.menu
+  activeIndex(state, getters) {
+    return state.route
   },
 
   session(state, getters) {

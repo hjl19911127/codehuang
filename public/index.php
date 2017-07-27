@@ -7,6 +7,7 @@ if (PHP_SAPI == 'cli-server') {
         return false;
     }
 }
+date_default_timezone_set('Asia/Shanghai');
 //路径分隔符
 define('DIRECTORY_SEPARATOR', '/', true);
 //站点根目录

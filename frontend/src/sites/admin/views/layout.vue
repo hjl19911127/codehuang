@@ -3,7 +3,7 @@
     <admin-header :data="session"></admin-header>
     <div class="main-wrap">
       <div class="menu-wrap">
-        <admin-menu :data="menu" :active-index="path"></admin-menu>
+        <admin-menu></admin-menu>
       </div>
       <div class="content-wrap">
         <el-row class="breadcrumb-wrap">
@@ -34,19 +34,11 @@
     },
     computed: {
       ...mapGetters([
-        'menu',
         'session'
-      ]),
-      path() {
-        return this.$route.path;
-      }
+      ])
     },
     methods: {
       init() {
-        this.getMenu();
-      },
-      getMenu() {
-        this.$store.dispatch('GET_MENU', {route: this.$route.path});
       }
     },
     created() {

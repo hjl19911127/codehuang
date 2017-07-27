@@ -17,13 +17,13 @@ class ArticleController extends BaseController {
     }
 
     public function get(Request $request, Response $response, $args) {
-        $data = Article::where('id', $args['id'])->first();
+        $data = Article::find($args['id']);
         return $response->withJson($data);
     }
 
     public function create(Request $request, Response $response, $args) {
-        $data = $request->getParsedBody();
-        $result = Article::insert($data);
+        $body = $request->getParsedBody();
+        $data = Article::create($body);;
         return $response->withJson($data, 201);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div v-loading.body="isLoading">
+  <div v-loading="isLoading">
     <el-row class="toolbar">
       <div class="pull-right">
         <el-button type="danger" @click="refreshMenu">批量删除</el-button>
@@ -20,15 +20,15 @@
         </el-tree>
       </el-col>
       <el-col :span="16" v-show="isEdit">
-        <el-form ref="form" :model="menu" label-width="120px">
+        <el-form ref="menuForm" :model="menu" :rules="rules" label-width="120px">
           <el-form-item label="父节点名称">
             <span>{{menu.parent_title}}</span>
           </el-form-item>
-          <el-form-item label="菜单名称">
-            <el-input v-model="menu.title"></el-input>
+          <el-form-item label="菜单名称" prop="title">
+            <el-input v-model="menu.title" placeholder="请选择菜单名称"></el-input>
           </el-form-item>
-          <el-form-item label="菜单地址">
-            <el-input v-model="menu.route"></el-input>
+          <el-form-item label="菜单地址" prop="route">
+            <el-input v-model="menu.route" placeholder="请选择菜单地址"></el-input>
           </el-form-item>
           <el-form-item label="是否启用">
             <el-switch on-text="" off-text="" v-model="menu.is_enabled"></el-switch>
@@ -64,6 +64,15 @@
           is_enabled: true,
           children: []
         },
+        rules: {
+          title: [
+            {required: true, message: '请输入菜单名称', trigger: 'blur'},
+            {max: 10, message: '长度在10个字符以内', trigger: 'blur'}
+          ],
+          route: [
+            {required: true, message: '请输入菜单地址', trigger: 'blur'}
+          ]
+        },
         isEdit: false,
         isLoading: false
       };
@@ -81,14 +90,24 @@
           });
         })
       },
+      resetForm() {
+        this.$refs['menuForm'].resetFields();
+      },
       onSubmit() {
-        let body = Object.assign({}, this.menu), id = body.id;
-        body.id = undefined;
-        body.parent_title = undefined;
-        body.children = undefined;
-        Promise.resolve(id ? api.update(id, body) : api.create(body)).then(res => {
-          this.onCancel();
-          this.query();
+        this.$refs['menuForm'].validate((valid) => {
+          if (valid) {
+            let body = Object.assign({}, this.menu), id = body.id;
+            body.id = undefined;
+            body.parent_title = undefined;
+            body.children = undefined;
+            Promise.resolve(id ? api.update(id, body) : api.create(body)).then(res => {
+              this.onCancel();
+              this.query();
+            });
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
         });
       },
       onCancel() {
@@ -98,7 +117,7 @@
 
       },
       handleNodeClick(data) {
-        this.onEdit(data);
+//        this.onEdit(data);
       },
       onAdd(data) {
         Object.assign(this.menu, {
@@ -145,7 +164,7 @@
             [h(
               "span",
               null,
-              node.label
+              `${node.label}${data.route ? ` ---- ${data.route}` : ''}`
             )]
           ),
             h(
@@ -216,7 +235,8 @@
   .option-button-group
     float: right;
     margin-right: 20px;
-    display: none;
+
+  /*display: none;*/
 
   .el-tree-node__content:hover
     .option-button-group

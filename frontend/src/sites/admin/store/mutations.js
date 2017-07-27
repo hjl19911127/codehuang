@@ -8,5 +8,9 @@ export default {
 
   SET_MENU_MAP: (state, data) => {
     state.menuMap = data;
-  }
+  },
+
+  SET_ROUTE: (state, data) => {
+    state.route = data;
+  },
 }

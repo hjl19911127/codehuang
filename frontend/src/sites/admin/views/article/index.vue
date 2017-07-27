@@ -1,5 +1,5 @@
 <template>
-  <div v-loading.body="isLoading">
+  <div v-loading="isLoading">
     <el-row class="toolbar">
       <el-form :inline="true" :model="filter" class="demo-form-inline">
         <el-form-item label="标题">

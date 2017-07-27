@@ -13,8 +13,8 @@ export default {
       commit('SET_MENU', menu);
     } else {
       menuApi.query({'no_root': true, 'is_enabled': true}).then((res) => {
-        let map =
-        commit('SET_MENU_MAP',)
+        let map = _.keyBy(res, 'route');
+        commit('SET_MENU_MAP', map);
         asyncTree.arrayToTree(res).then((tree) => {
           // storage.set(`${STORAGE_PREFIX}MENU`, asyncTree.arrayToTree(res));
           commit('SET_MENU', tree);
