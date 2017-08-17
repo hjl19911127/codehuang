@@ -1,0 +1,72 @@
+.paint path,
+.paint polygon,
+.paint line {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  -webkit-animation: dash 5s linear;
+          animation: dash 5s linear;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards; }
+
+.wrap {
+  position: relative;
+  width: 1000px;
+  border: 1px solid #000; }
+
+.subtitle {
+  position: absolute;
+  font-weight: bold;
+  top: 40px;
+  right: 0;
+  bottom: 0;
+  left: 40px;
+  word-break: break-all;
+  word-wrap: break-word; }
+  .subtitle.right {
+    -webkit-writing-mode: vertical-rl;
+        -ms-writing-mode: tb-rl;
+            writing-mode: vertical-rl; }
+  .subtitle.left {
+    -webkit-writing-mode: vertical-lr;
+        -ms-writing-mode: tb-lr;
+            writing-mode: vertical-lr; }
+  .subtitle.sm {
+    font-size: 20px; }
+  .subtitle.md {
+    font-size: 30px; }
+  .subtitle.bg {
+    font-size: 40px; }
+
+.page {
+  -webkit-transform: translateX(20px);
+          transform: translateX(20px);
+  display: none; }
+  .page.paint {
+    -webkit-animation: move 5s linear;
+            animation: move 5s linear;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+
+@-webkit-keyframes move {
+  from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  to {
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px); } }
+
+@keyframes move {
+  from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  to {
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px); } }
+@-webkit-keyframes dash {
+  to {
+    stroke-dashoffset: 0; } }
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0; } }

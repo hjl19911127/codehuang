@@ -10,6 +10,23 @@
 //    echo('老婆我爱你');
 //});
 
+$app->get('/propose', function ($req, $res, $args) {
+    $svgPath = SITE_ROOT . '/static/propose/svg';
+    $svg = [];
+    if (is_dir($svgPath)) {
+        if ($dh = opendir($svgPath)) {
+            while (($file = readdir($dh)) !== false) {
+                if (!in_array($file, ['.', '..'], true)) {
+                    array_push($svg, basename($file,'.svg'));
+                }
+            }
+            closedir($dh);
+        }
+    }
+    $args['svg'] = $svg;
+    return $this->renderer->render($res, '/propose/index.html', $args);
+});
+
 /**
  * multiple sites
  */
