@@ -1,11 +1,10 @@
 (function () {
-    var svg = document.querySelectorAll('.svg-data'), svgArr = [];
+    var svg = document.querySelectorAll('.svg-data'), svgMap = {};
     svg.forEach(function (v, i) {
         v.addEventListener("load", function () {
             var doc = this.getSVGDocument();
-            svgArr[i] = {s: ~v.name.indexOf('static'), c: doc.getElementsByTagName('svg')[0].outerHTML};
-            console.log(svgArr[i]);
-            if (svgArr.length === svg.length) initPlayer();
+            svgMap[i] = {s: ~v.name.indexOf('static'), c: doc.getElementsByTagName('svg')[0].outerHTML};
+            if (Object.keys(svgMap).length === svg.length) initPlayer();
         });
     });
 
@@ -21,10 +20,15 @@
         function createPages() {
             var container = document.getElementById('container');
             var fragment = document.createDocumentFragment();
+            var svgArr = Object.keys(svgMap).sort(function (p, n) {
+                return p - n;
+            }).map(function (v) {
+                return svgMap[v];
+            });
             svgArr.forEach(function (v) {
                 var page = document.createElement('div');
-                page.classList.push('page');
-                v.s && page.classList.push('paint');
+                page.classList.add('page');
+                !v.s && page.classList.add('paint');
                 page.innerHTML = v.c;
                 fragment.appendChild(page);
                 pages.push(page);
