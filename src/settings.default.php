@@ -18,6 +18,12 @@ return [
             'path' => __DIR__ . '/../logs/app.log',
         ],
 
+        //domain
+        'domain' => [
+            'development' => 'codehuang.local:20081',
+            'production' => 'codehuang.com',
+        ],
+
         //db
         'db' => [
             'driver' => 'mysql',

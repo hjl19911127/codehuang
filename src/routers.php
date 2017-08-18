@@ -17,12 +17,13 @@ $app->get('/propose', function ($req, $res, $args) {
         if ($dh = opendir($svgPath)) {
             while (($file = readdir($dh)) !== false) {
                 if (!in_array($file, ['.', '..'], true)) {
-                    array_push($svg, basename($file,'.svg'));
+                    array_push($svg, basename($file, '.svg'));
                 }
             }
             closedir($dh);
         }
     }
+    sort($svg, 1);
     $args['svg'] = $svg;
     return $this->renderer->render($res, '/propose/index.html', $args);
 });
