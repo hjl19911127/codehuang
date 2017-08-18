@@ -21,7 +21,7 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
     globalVariables: {
-      apiHost: '//api.codehuang.local:20081'
+      apiHost: '//api.codehuang.com'
     }
   },
   dev: {
@@ -39,7 +39,7 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: false,
     globalVariables: {
-      apiHost: '//api.codehuang.com'
+      apiHost: '//api.codehuang.local:20081'
     }
   }
 }
