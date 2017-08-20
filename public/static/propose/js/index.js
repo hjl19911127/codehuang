@@ -17,6 +17,10 @@
             play();
         }
 
+        function syncPageIndex() {
+            document.getElementById('pageIndex').innerHTML = i + 1;
+        }
+
         function createPages() {
             var container = document.getElementById('container');
             var fragment = document.createDocumentFragment();
@@ -55,6 +59,7 @@
                 pages[i] && (pages[i].style.display = 'none');
                 pages[i + 1].style.display = 'block';
                 i++;
+                syncPageIndex();
             }
         }
 
@@ -63,6 +68,7 @@
                 pages[i] && (pages[i].style.display = 'none');
                 pages[i - 1].style.display = 'block';
                 i--;
+                syncPageIndex();
             }
         }
 
