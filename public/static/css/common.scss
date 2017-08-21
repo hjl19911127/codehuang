@@ -1,5 +1,5 @@
 body {
-  min-width: 1180px;
+  min-width: 1200px;
 }
 
 @mixin footer-block($width,$sep) {
@@ -40,26 +40,30 @@ body {
 .header {
   position: fixed;
   z-index: 100;
-  width: 100%;
-  padding: 10px 0 0 0;
+  top: 0;
+  right: 0;
+  left: 0;
   background-color: #262627;
   .container {
+    position: relative;
+    width: 1200px;
     margin: 0 auto;
-    padding: 0 10%;
   }
   .logo {
-    float: left;
     width: 86px;
-    height: 44px;
-    margin: 0;
+    height: 60px;
+    line-height: 60px;
+    font-size: 0;
+    img {
+      vertical-align: middle;
+    }
   }
   .pos {
-    float: left;
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
   @at-root .nav {
-    float: left;
-    margin: 0 20px 0 50px ;
-    padding-top: 16px;
     a {
       display: inline-block;
       line-height: 35px;
@@ -67,9 +71,9 @@ body {
       padding: 0 10px;
       text-align: center;
       margin-right: 10px;
-      cursor: pointer;
       font-size: 16px;
       color: #fff;
+      border-bottom: 3px #262627 solid;
       &.active, &:hover {
         border-bottom: 3px #E94C3D solid;
         background: linear-gradient(top, #262627, #1B1A1B);
