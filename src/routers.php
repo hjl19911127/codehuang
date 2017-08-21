@@ -59,7 +59,7 @@ $app->group('/v1', function () {
             return $res->withJson($result);
         });
     });
-    $this->group('/cards', function () {
+    $this->group('/gradients', function () {
         $this->get('', function ($req, $res, $args) {
             $filter = $req->getQueryParams();
             $data = $this->get('db')->table('gradient')->skip($filter['page'] * $filter['size'])->take($filter['size'])->get();
@@ -85,7 +85,7 @@ $app->group('/v1', function () {
 /**
  * index
  */
-$app->get('/{path:[_v]?[\w\-\/]*}', function ($req, $res, $args) {
+$app->get('/{path:[^v]?[\w\-\/]*}', function ($req, $res, $args) {
     $args['site'] = $req->getQueryParam('site');
     if ($args['site']) {
         return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
