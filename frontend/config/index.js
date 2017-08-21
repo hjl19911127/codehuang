@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../../views/sites/'),
     assetsRoot: path.resolve(__dirname, '../../public'),
     assetsSubDirectory: 'static/frontend',
-    assetsPublicPath: '/',
+    assetsPublicPath: '//static.codehuang.com/',
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
