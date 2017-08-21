@@ -8,6 +8,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no, email=no" />
+    <meta http-equiv='x-dns-prefetch-control' content='on'>
+    {% for k,v in sites %}
+        <link rel='dns-prefetch' href='{{ v }}'>
+    {% endfor %}
     <title>{% block title %}上天入地黄博士{% endblock %}</title>
     {% block head %}
     <link rel="stylesheet" href="/static/css/reset.css">
