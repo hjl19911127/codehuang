@@ -1,3 +1,9 @@
+body {
+  overflow: hidden; }
+
+.wrap {
+  position: relative; }
+
 .paint path,
 .paint polygon,
 .paint line {
@@ -8,15 +14,12 @@
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards; }
 
-.wrap {
-  position: relative;
-  width: 800px;
-  border: 1px solid #000; }
-
 .page {
   -webkit-transform: translateX(20px);
           transform: translateX(20px);
-  display: none; }
+  display: none;
+  height: 100vh;
+  width: 100vw; }
   .page.paint {
     -webkit-animation: move 5s linear;
             animation: move 5s linear;
@@ -24,6 +27,11 @@
             animation-fill-mode: forwards;
     -webkit-transform: translateX(0);
             transform: translateX(0); }
+
+.btn-group {
+  position: fixed;
+  top: 0;
+  right: 0; }
 
 @-webkit-keyframes move {
   from {

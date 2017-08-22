@@ -34,6 +34,8 @@
                 page.classList.add('page');
                 !v.s && page.classList.add('paint');
                 page.innerHTML = v.c;
+                page.firstChild.setAttribute('width', '100%');
+                page.firstChild.setAttribute('height', '100%');
                 fragment.appendChild(page);
                 pages.push(page);
             });

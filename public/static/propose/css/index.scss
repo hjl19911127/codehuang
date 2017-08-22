@@ -1,41 +1,51 @@
-.paint {
-    path,
-    polygon,
-    line {
-        stroke-dasharray: 2000;
-        stroke-dashoffset: 2000;
-        animation: dash 5s linear;
-        animation-fill-mode: forwards;
-    }
+body {
+  overflow: hidden;
 }
 
 .wrap {
-    position: relative;
-    width: 800px;
-    border: 1px solid #000;
+  position: relative;
+}
+
+.paint {
+  path,
+  polygon,
+  line {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: dash 5s linear;
+    animation-fill-mode: forwards;
+  }
 }
 
 .page {
-    transform: translateX(20px);
-    display: none;
-    &.paint {
-        animation: move 5s linear;
-        animation-fill-mode: forwards;
-        transform: translateX(0);
-    }
+  transform: translateX(20px);
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  &.paint {
+    animation: move 5s linear;
+    animation-fill-mode: forwards;
+    transform: translateX(0);
+  }
+}
+
+.btn-group {
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 @keyframes move {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(20px);
-    }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
+  }
 }
 
 @keyframes dash {
-    to {
-        stroke-dashoffset: 0;
-    }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
