@@ -4,6 +4,7 @@ body {
 
 .wrap {
   position: relative;
+  background-color: #f2ebd9;
 }
 
 .paint {
@@ -32,7 +33,13 @@ body {
 .btn-group {
   position: fixed;
   top: 0;
-  right: 0;
+  right: 10px;
+  .btn {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid;
+  }
 }
 
 @keyframes move {

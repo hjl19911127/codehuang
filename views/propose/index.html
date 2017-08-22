@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <title>Propose</title>
     <link rel="stylesheet" href="/static/propose/css/reset.css">
     <link rel="stylesheet" href="/static/propose/css/index.css">
 </head>
 <body>
 <div id="container" class="wrap"></div>
 <div class="btn-group">
-    <button type="button" id="prev">上一页</button>
-    <button type="button" id="play">播放<span id="pageIndex"></span></button>
-    <button type="button" id="next">下一页</button>
+    <a class="btn" id="prev" href="javascript:void 0;" >上一页</a>
+    <a class="btn" id="play" href="javascript:void 0;" >播放 第<span id="pageIndex"></span> 页</a>
+    <a class="btn" id="next" href="javascript:void 0;" >下一页</a>
 </div>
 <div>
     {% for k,v in svg %}
-    <object class="svg-data" name="{{ v }}" data="/static/propose/svg/{{ v }}.svg" height="1px" width="1px" type="image/svg+xml"></object>
+        <object class="svg-data" name="{{ v }}" data="/static/propose/svg/{{ v }}.svg" height="1px" width="1px"
+                type="image/svg+xml"></object>
     {% endfor %}
 </div>
 <script src="/static/propose/js/index.js"></script>
