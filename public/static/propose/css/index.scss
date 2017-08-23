@@ -1,12 +1,14 @@
-$theme: #324057;
+$theme: #A52A2A;
 $sceneColor: #f2ebd9;
+
 body {
   overflow: hidden;
   width: 100%;
   height: 100%;
+  color: $theme;
 }
 
-.wrap {
+.container {
   position: absolute;
   background-color: $sceneColor;
   top: 0;
@@ -18,43 +20,117 @@ body {
 .paint {
   path,
   polygon,
-  line {
+  line,
+  polyline {
     stroke-dasharray: 2000;
     stroke-dashoffset: 2000;
-    animation: dash 5s linear;
+    animation: dash 5s ease-in-out;
     animation-fill-mode: forwards;
   }
 }
 
 .page {
-  transform: translateX(20px);
+  transform: translateX(10px);
   display: none;
   height: 100%;
   width: 100%;
+  path,
+  polygon,
+  line,
+  polyline,
+  rect {
+    stroke-width: 3;
+    stroke: $theme;
+  }
+  text {
+    font-weight: bold;
+    fill: $theme;
+  }
   &.paint {
-    animation: move 5s linear;
+    animation: move 5s ease-in-out;
     animation-fill-mode: forwards;
-    transform: translateX(0);
+    transform: translateX(-10px);
   }
 }
 
-.btn-group {
+.user-interface {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.control-panel {
   position: absolute;
   top: 10px;
   right: 10px;
+  .btn-group {
+    display: none;
+  }
+  &.active {
+    .btn-group {
+      display: block;
+    }
+    .btn-toggle {
+      &:before {
+        border-top: none;
+        border-bottom: 8px solid $theme;
+      }
+      &:hover, &:active {
+        &:before {
+          border-top-color: transparent;
+          border-bottom-color: #fff;
+        }
+      }
+    }
+  }
   .btn {
-    display: inline-block;
+    display: block;
+    width: 60px;
     height: 30px;
     line-height: 30px;
     text-align: center;
     border: 1px solid $theme;
-    padding: 0 10px;
+    margin-bottom: 10px;
     transition: all .3s ease-in-out;
-    &:hover, &.active {
+    color: $theme;
+    &:hover, &:active {
       background-color: $theme;
       color: #fff;
     }
   }
+  .btn-toggle {
+    height: 16px;
+    line-height: 16px;
+    &:before {
+      display: inline-block;
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 8px solid $theme;
+      border-right: 8px dashed transparent;
+      border-left: 8px dashed transparent;
+    }
+    &:hover, &:active {
+      &:before {
+        border-top-color: #fff;
+        border-bottom-color: transparent;
+      }
+    }
+  }
+}
+
+.page-index {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid $theme;
 }
 
 #svg_source {
@@ -64,10 +140,10 @@ body {
 
 @keyframes move {
   from {
-    transform: translateX(0);
+    transform: translateX(-10px);
   }
   to {
-    transform: translateX(20px);
+    transform: translateX(10px);
   }
 }
 
@@ -77,7 +153,7 @@ body {
   }
 }
 
-.spinner {
+.loading {
   width: 60px;
   height: 60px;
   top: 0;

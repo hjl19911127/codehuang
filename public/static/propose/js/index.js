@@ -11,23 +11,29 @@
         });
 
         function initPlayer() {
-            var pages = [], i = -1, timerId = 0, indexDom = document.getElementById('page_index');
+            var pages = [],
+                i = -1,
+                timerId = 0,
+                pageIndexDom = document.querySelector('.page-index'),
+                controlPanelDom = document.querySelector('.control-panel'),
+                audio = document.getElementById('audio');
 
             function init() {
                 initScene();
                 createPages();
                 bindEvent();
                 play();
+                audio.play();
             }
 
             function initScene() {
-                document.querySelector('.spinner').style.display = 'none';
                 document.body.removeChild(document.getElementById('svg_source'));
-                document.getElementById('btn_group').style.display = 'block';
+                document.querySelector('.user-interface').style.display = 'block';
+                document.querySelector('.loading').style.display = 'none';
             }
 
             function syncPageIndex() {
-                indexDom.innerHTML = i + 1;
+                pageIndexDom.innerHTML = i + 1;
             }
 
             function createPages() {
@@ -56,13 +62,12 @@
                     stop();
                     prev();
                 }, false);
-                document.getElementById('play').addEventListener('click', function () {
-                    play();
-                }, false);
+                document.getElementById('repeat').addEventListener('click', repeat, false);
                 document.getElementById('next').addEventListener('click', function () {
                     stop();
                     next();
                 }, false);
+                document.getElementById('toggle').addEventListener('click', toggle, false);
             }
 
             function next() {
@@ -83,6 +88,14 @@
                 }
             }
 
+            function repeat() {
+                pages[i] && (pages[i].style.display = 'none');
+                i = -1;
+                play();
+                audio.currentTime = 0;
+                audio.play();
+            }
+
             function stop() {
                 clearTimeout(timerId);
             }
@@ -93,6 +106,10 @@
                 timerId = setTimeout(function () {
                     play();
                 }, 5000)
+            }
+
+            function toggle() {
+                controlPanelDom.classList.toggle("active");
             }
 
             init();
