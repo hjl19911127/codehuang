@@ -7,21 +7,25 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta name="format-detection" content="telephone=no, email=no"/>
-    <title>Propose</title>
+    <title>PROPOSE</title>
     <link rel="stylesheet" href="/static/propose/css/reset.css">
     <link rel="stylesheet" href="/static/propose/css/index.css">
 </head>
 <body>
-<div id="container" class="wrap"></div>
-<div class="btn-group">
-    <a class="btn" id="prev" href="javascript:void 0;" >上一页</a>
-    <a class="btn" id="play" href="javascript:void 0;" >播放 第<span id="pageIndex"></span> 页</a>
-    <a class="btn" id="next" href="javascript:void 0;" >下一页</a>
+<div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
 </div>
-<div>
+<div id="container" class="wrap"></div>
+<div id="btn_group" class="btn-group" style="display: none;">
+    <a class="btn" id="prev" href="javascript:void 0;">上一页</a>
+    <a class="btn" id="play" href="javascript:void 0;">播放 第 <span id="page_index"></span> 页</a>
+    <a class="btn" id="next" href="javascript:void 0;">下一页</a>
+</div>
+<div id="svg_source">
     {% for k,v in svg %}
-        <object class="svg-data" name="{{ v }}" data="/static/propose/svg/{{ v }}.svg" height="1px" width="1px"
-                type="image/svg+xml"></object>
+    <object class="svg-data" name="{{ v }}" data-origin="/static/propose/svg/{{ v }}.svg" height="1px" width="1px"
+            type="image/svg+xml"></object>
     {% endfor %}
 </div>
 <script src="/static/propose/js/index.js"></script>

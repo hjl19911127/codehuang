@@ -1,10 +1,18 @@
+$theme: #324057;
+$sceneColor: #f2ebd9;
 body {
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .wrap {
-  position: relative;
-  background-color: #f2ebd9;
+  position: absolute;
+  background-color: $sceneColor;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .paint {
@@ -21,8 +29,8 @@ body {
 .page {
   transform: translateX(20px);
   display: none;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   &.paint {
     animation: move 5s linear;
     animation-fill-mode: forwards;
@@ -31,7 +39,7 @@ body {
 }
 
 .btn-group {
-  position: fixed;
+  position: absolute;
   top: 10px;
   right: 10px;
   .btn {
@@ -39,14 +47,19 @@ body {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    border: 1px solid #000;
+    border: 1px solid $theme;
     padding: 0 10px;
-    transition: all .3s;
+    transition: all .3s ease-in-out;
     &:hover, &.active {
-      background-color: #000;
+      background-color: $theme;
       color: #fff;
     }
   }
+}
+
+#svg_source {
+  position: absolute;
+  right: -9999px;
 }
 
 @keyframes move {
@@ -61,5 +74,56 @@ body {
 @keyframes dash {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  margin: auto;
+  z-index: 999;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% {
+    -webkit-transform: scale(0.0)
+  }
+  50% {
+    -webkit-transform: scale(1.0)
+  }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  }
+  50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
   }
 }
