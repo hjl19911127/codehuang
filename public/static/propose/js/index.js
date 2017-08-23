@@ -1,29 +1,47 @@
 (function () {
     window.onload = function () {
-        var svg = document.querySelectorAll('.svg-data'), svgMap = {};
-        svg.forEach(function (v, i) {
-            v.setAttribute('data', v.getAttribute('data-origin'));
-            v.addEventListener("load", function () {
-                var doc = this.getSVGDocument();
-                svgMap[i] = {s: ~v.name.indexOf('static'), c: doc.getElementsByTagName('svg')[0].outerHTML};
-                if (Object.keys(svgMap).length === svg.length) initPlayer();
+        var svg = document.querySelectorAll('object'), svgMap = {}, version = +new Date();
+        var hint = document.querySelector('.hint');
+        var audio = document.getElementById('audio'), ready = {svg: false, audio: false};
+
+        function scanSVGLoading() {
+            svg.forEach(function (v, i) {
+                var doc = v.getSVGDocument && v.getSVGDocument();
+                if (doc && doc.readyState === 'complete' && !svgMap[i]) {
+                    svgMap[i] = {
+                        s: ~v.name.indexOf('static'),
+                        c: doc.getElementsByTagName('svg')[0].outerHTML
+                    };
+                }
             });
-        });
+            if (Object.keys(svgMap).length === svg.length) {
+                ready.svg = true;
+                hint.innerHTML = '加载音频中......';
+                if (ready.audio) initPlayer();
+            } else {
+                setTimeout(scanSVGLoading, 0);
+            }
+        }
 
         function initPlayer() {
             var pages = [],
                 i = -1,
                 timerId = 0,
                 pageIndexDom = document.querySelector('.page-index'),
-                controlPanelDom = document.querySelector('.control-panel'),
-                audio = document.getElementById('audio');
+                playBtn = document.getElementById('play'),
+                controlPanelDom = document.querySelector('.control-panel');
 
             function init() {
                 initScene();
                 createPages();
                 bindEvent();
+            }
+
+            function handleClick() {
                 play();
                 audio.play();
+                playBtn.style.display = 'none';
+                playBtn.nextSibling.style.display = 'block';
             }
 
             function initScene() {
@@ -68,6 +86,7 @@
                     next();
                 }, false);
                 document.getElementById('toggle').addEventListener('click', toggle, false);
+                playBtn.addEventListener('click', handleClick, false);
             }
 
             function next() {
@@ -114,5 +133,16 @@
 
             init();
         }
+
+        audio.src = audio.getAttribute('data-origin');
+        audio.addEventListener("canplay", function () {
+            ready.audio = true;
+            hint.innerHTML = '加载资源中......';
+            if (ready.svg) initPlayer();
+        });
+        svg.forEach(function (v, i) {
+            v.setAttribute('data', v.getAttribute('data-origin') + '?v=' + version);
+        });
+        scanSVGLoading();
     }
 })();

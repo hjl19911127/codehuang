@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta name="format-detection" content="telephone=no, email=no"/>
+    <meta name="x5-fullscreen" content="true">
     <title>PROPOSE</title>
     <link rel="stylesheet" href="/static/propose/css/reset.css">
-    <link rel="stylesheet" href="/static/propose/css/index.css">
+    <link rel="stylesheet" href="/static/propose/css/index.css?v={{ date().timestamp }}">
 </head>
 <body>
 <div class="loading">
     <div class="double-bounce1"></div>
     <div class="double-bounce2"></div>
+    <div class="hint">加载中......</div>
 </div>
 <div class="container" id="container"></div>
 <div class="user-interface" style="display: none;">
-    <div class="page-index"></div>
-    <div class="control-panel">
-        <a class="btn btn-toggle" id="toggle" href="javascript:void 0;"></a>
-        <div class="btn-group">
-            <a class="btn" id="prev" href="javascript:void 0;">上一页</a>
-            <a class="btn" id="repeat" href="javascript:void 0;">重播</a>
-            <a class="btn" id="next" href="javascript:void 0;">下一页</a>
+    <a class="btn btn-play" id="play" href="javascript:void 0;">点我开始</a>
+    <div style="display: none;">
+        <div class="page-index"></div>
+        <div class="control-panel">
+            <a class="btn btn-toggle" id="toggle" href="javascript:void 0;"></a>
+            <div class="btn-group">
+                <a class="btn" id="prev" href="javascript:void 0;">上一页</a>
+                <a class="btn" id="repeat" href="javascript:void 0;">重播</a>
+                <a class="btn" id="next" href="javascript:void 0;">下一页</a>
+            </div>
         </div>
     </div>
 </div>
@@ -34,9 +39,9 @@
                 type="image/svg+xml"></object>
     {% endfor %}
 </div>
-<audio id="audio" src="/static/propose/audio/bgm.mp3" loop preload="auto">
+<audio id="audio" data-origin="/static/propose/audio/bgm.mp3" loop>
     <p>你的浏览器不支持audio标签</p>
 </audio>
-<script src="/static/propose/js/index.js"></script>
+<script src="/static/propose/js/index.js?v={{ date().timestamp }}"></script>
 </body>
 </html>
