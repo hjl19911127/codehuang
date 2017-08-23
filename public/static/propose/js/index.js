@@ -41,7 +41,7 @@
                 play();
                 audio.play();
                 playBtn.style.display = 'none';
-                playBtn.nextSibling.style.display = 'block';
+                document.querySelector('.play-controls').style.display = 'block';
             }
 
             function initScene() {
