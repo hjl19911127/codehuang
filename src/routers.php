@@ -1,5 +1,7 @@
 <?php
-
+$app->get('/ellipsis', function ($req, $res, $args) {
+    return $this->renderer->render($res, '/ellipsis.html', $args);
+});
 $app->get('/propose', function ($req, $res, $args) {
     $svgPath = SITE_ROOT . '/static/propose/svg';
     $svg = [];
