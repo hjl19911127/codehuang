@@ -1,21 +1,10 @@
 <?php
-/**
- * index
- */
-$app->get('/{path:[^v]?[\w\-\/]*}', function ($req, $res, $args) {
-    $args['site'] = $req->getQueryParam('site');
-    if ($args['site']) {
-        return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
-    } else {
-        foreach (unserialize(SITES) as $value) {
-            $args['sites'][$value] = '//' . $value . '.' . $this->get('settings')['domain'][$this->get('settings')['env']];
-        }
-        return $this->renderer->render($res, '/home/index.html', $args);
-    }
-});
 
 $app->get('/ellipsis', function ($req, $res, $args) {
     return $this->renderer->render($res, '/test/ellipsis.html', $args);
+});
+$app->get('/machine-learning', function ($req, $res, $args) {
+    return $this->renderer->render($res, '/test/machine-learning.html', $args);
 });
 
 $app->get('/propose', function ($req, $res, $args) {
@@ -88,3 +77,18 @@ $app->group('/v1', function () {
         $this->post('/deletions', App\Controllers\MenuController::class . ':batchRemove');
     });
 })->add($middlewares['cors']);
+
+/**
+ * index
+ */
+$app->get('/{path:[^v]?[\w\-\/]*}', function ($req, $res, $args) {
+    $args['site'] = $req->getQueryParam('site');
+    if ($args['site']) {
+        return $this->renderer->render($res, '/sites/' . $args['site'] . '.html', $args);
+    } else {
+        foreach (unserialize(SITES) as $value) {
+            $args['sites'][$value] = '//' . $value . '.' . $this->get('settings')['domain'][$this->get('settings')['env']];
+        }
+        return $this->renderer->render($res, '/home/index.html', $args);
+    }
+});
