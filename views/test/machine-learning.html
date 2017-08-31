@@ -217,10 +217,29 @@
         [0.52707, 3.952681],
         [0.116163, 3.129283]
     ];
+    var markLineOpt = {
+        animation: false,
+        label: {
+            normal: {
+                formatter: 'y = 0.5 * x + 3',
+                textStyle: {
+                    align: 'right'
+                }
+            }
+        },
+        lineStyle: {
+            normal: {
+                type: 'solid'
+            }
+        },
+        tooltip: {
+            formatter: 'y = 0.5 * x + 3'
+        }
+    };
 
     //h(x) = t0+t1*x1 求t0,t1
     function worker() {
-        var alpha = 0.001, t0 = 1, t1 = 1;
+        var alpha = 0.005, t0 = 1, t1 = 1;
 
         function h(x) {
             return t0 + t1 * x
@@ -237,16 +256,27 @@
             var ot0 = t0, ot1 = t1;
             t0 = t0 - alpha * mm(data);
             t1 = t1 - alpha * mm(data);
-            if (ot0 === t0 && ot1 === t1) console.log([t0, t1]);
+            console.log([t0, t1]);
+//            if (Math.abs(ot0 - t0) <= 1e-6 && Math.abs(ot1 - t1) <= 1e-6) return;
+            if (ot0 === t0 && ot1 === t1) return;
             if (isNaN(t0) || isNaN(t1)) return;
             regression(data);
         }
 
         regression(data);
+        markLineOpt.label.normal.formatter = 'y = ' + t1 + ' * x + ' + t0;
+        markLineOpt.tooltip.formatter = 'y = ' + t1 + ' * x + ' + t0;
+        markLineOpt.data = [[{
+            coord: [0, h(0)],
+            symbol: 'none'
+        }, {
+            coord: [1, h(1)],
+            symbol: 'none'
+        }]]
     }
 
-
     worker();
+
     var option = {
         title: {
             text: 'Linear Regression',
@@ -290,12 +320,13 @@
                     }
                 }
             },
-            data: data
+            data: data,
+            markLine: markLineOpt
         }]
     };
 
     // 使用刚指定的配置项和数据显示图表。
-    //    myChart.setOption(option);
+    myChart.setOption(option);
 </script>
 </body>
 </html>
