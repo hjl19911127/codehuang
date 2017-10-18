@@ -28,14 +28,6 @@
       },
     },
     created() {
-      console.log(new Cookie().get('auth'));
-      this.$store.dispatch('GET_SKIN')
-      if (new Cookie().get('auth')) {
-        this.$store.dispatch('GET_SKIN')
-      } else {
-        console.log(1);
-        this.$router.replace({ name: 'sign' });
-      }
     }
   }
 </script>

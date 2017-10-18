@@ -1,7 +1,7 @@
 import layout from '../views/layout'
 import message from '../views/message'
 import contact from '../views/contact'
-import mine from '../views/mine'
+import activity from '../views/activity'
 import sign from '../views/sign'
 
 export default [
@@ -28,9 +28,9 @@ export default [
         component: contact,
       },
       {
-        path: 'mine',
-        name: 'mine',
-        component: mine,
+        path: 'activity',
+        name: 'activity',
+        component: activity,
       }
     ]
   }

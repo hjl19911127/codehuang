@@ -1,27 +1,26 @@
 <template>
-    <div class="nav" :class="{'show':showMenu}">
-            <router-link class="icon-message" :to="{'name':'message'}">消息</router-link>
-            <router-link class="icon-message" :to="{'name':'contact'}">通讯录</router-link>
-            <router-link class="icon-message" :to="{'name':'mine'}">我</router-link>
-    </div>
+  <div class="nav">
+    <router-link class="icon-message" :to="{'name':'message'}">消息</router-link>
+    <router-link class="icon-message" :to="{'name':'contact'}">联系人</router-link>
+    <router-link class="icon-message" :to="{'name':'activity'}">动态</router-link>
+  </div>
 </template>
 <script>
-    export default {
-        computed: {
-            showMenu (){
-                return this.$store.getters.getShowMenu;
-            }
-        },
-        components: {
-//        'userInfo':require('./user-info.vue')
-        }
-    };
+  export default {
+    computed: {
+      showMenu() {
+        return this.$store.getters.getShowMenu;
+      }
+    },
+    components: {
+    }
+  };
 </script>
 
 <style scoped>
-    .navigation {
-        border-right: 1px solid;
-        width: 10%;
-        height: calc(100vh - 60px);
-    }
+  .nav {
+    border-right: 1px solid;
+    width: 10%;
+    height: calc(100vh - 60px);
+  }
 </style>
