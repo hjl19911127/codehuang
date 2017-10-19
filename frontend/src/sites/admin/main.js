@@ -1,7 +1,7 @@
+import 'normalize.css'
 import 'es6-promise/auto'
 import 'whatwg-fetch'
 import Vue from 'vue'
-import 'normalize.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import app from '@/app'

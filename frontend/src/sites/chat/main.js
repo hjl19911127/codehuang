@@ -1,3 +1,4 @@
+import 'normalize.css'
 import 'es6-promise/auto'
 import 'whatwg-fetch'
 import Vue from 'vue'

@@ -74,6 +74,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'API_HOST': JSON.stringify(process.env.NODE_ENV === 'production'
+        ? config.build.apiHost
+        : config.dev.apiHost)
+    }),
     new webpack.ProvidePlugin({
       'Promise': 'es6-promise'
     }),

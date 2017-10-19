@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 
-const url = `${apiHost}/v1/menus`;
+const url = `${API_HOST}/v1/menus`;
 export default {
   query(data) {
     return request({

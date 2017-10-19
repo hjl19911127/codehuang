@@ -1,4 +1,3 @@
-
 'use strict'
 // Template version: 1.1.3
 // see http://vuejs-templates.github.io/webpack for documentation.
@@ -24,9 +23,7 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report,
-    globalVariables: {
-      apiHost: '//api.codehuang.com'
-    }
+    apiHost: '//api.codehuang.com'
   },
   dev: {
     env: require('./dev.env'),
@@ -43,8 +40,6 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false,
-    globalVariables: {
-      apiHost: '//api.codehuang.local:20081'
-    }
+    apiHost: '//api.codehuang.local:20081'
   }
 }

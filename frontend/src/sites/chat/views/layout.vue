@@ -2,9 +2,6 @@
   <div class="app" :class="[skin]">
     <chat-header></chat-header>
     <div class="container">
-      <a class="btn" href="javascript:;" @click="switchSkin('red')">红色</a>
-      <a class="btn" href="javascript:;" @click="switchSkin('green')">绿色</a>
-      <a class="btn" href="javascript:;" @click="switchSkin('blue')">蓝色</a>
       <router-view></router-view>
     </div>
     <chat-navbar></chat-navbar>
@@ -16,7 +13,7 @@
   import ChatNavbar from '../components/navbar';
 
   export default {
-    components: { ChatHeader, ChatNavbar },
+    components: {ChatHeader, ChatNavbar},
     computed: {
       skin() {
         return this.$store.getters.getSkin;
@@ -24,17 +21,12 @@
     },
     methods: {
       switchSkin(skin) {
-        this.$store.dispatch('SET_SKIN', { skin: skin })
+        this.$store.dispatch('SET_SKIN', {skin: skin})
       },
     },
     created() {
     }
   }
 </script>
-<style>
-  .container {
-    position: absolute;
-    top: 60px;
-    left: 10%;
-  }
+<style lang="stylus">
 </style>
