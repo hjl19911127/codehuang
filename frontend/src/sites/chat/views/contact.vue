@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-  import api from '../api/article';
+  import api from '../api/message';
 
   export default {
     data() {

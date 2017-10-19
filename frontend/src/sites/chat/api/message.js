@@ -1,5 +1,5 @@
 import request from 'utils/request';
-const url = '/api/articles';
+const url = '/api/messages';
 
 const api = {
   create(data) {

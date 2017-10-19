@@ -12,15 +12,17 @@
         return this.$store.getters.getShowMenu;
       }
     },
-    components: {
-    }
+    components: {}
   };
 </script>
 
-<style scoped>
-  .nav {
-    border-right: 1px solid;
-    width: 10%;
-    height: calc(100vh - 60px);
-  }
+<style lang="stylus" scoped>
+  .nav
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    height: 112px
+    background-color: #fff
+
 </style>

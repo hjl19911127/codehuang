@@ -13,7 +13,7 @@ function resolve(dir) {
 let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites')).map((entry) => {
   return {[entry]: `sites/${entry}/main.js`};
 }));
-// entries = {admin: entries['admin']}
+entries = {chat: entries['chat']}
 console.log(entries);
 module.exports = {
   entry: entries,

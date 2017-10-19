@@ -1,7 +1,6 @@
 <template>
-  <div class="header" v-if="session">
-    <div class="user-name">姓名：{{session.userName}}</div>
-    <div class="user-avatar">头像：{{session.userAvatar}}</div>
+  <div class="header">
+
   </div>
 </template>
 
@@ -18,10 +17,9 @@
     components: {}
   }
 </script>
-<style scoped>
-    .header {
-        height: 60px;
-        width: 100%;
-    }
-
+<style lang="stylus" scoped>
+  @import '../assets/stylus/shared/_mixin.styl'
+  .header
+    height: px2rem(112px)
+    background-color: #3ca9fe
 </style>
