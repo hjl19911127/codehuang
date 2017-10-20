@@ -1,25 +1,22 @@
 <template>
-  <div class="header">
-
+  <div class="search-wrap">
+    <div class="search">
+    </div>
   </div>
 </template>
-
 <script>
   export default {
-    data() {
-      return {}
-    },
     computed: {
-      session() {
-        return this.$store.getters.session;
+      showMenu() {
+        return this.$store.getters.getShowMenu;
       }
     },
     components: {}
-  }
+  };
 </script>
+
 <style lang="stylus" scoped>
   @import '../assets/stylus/shared/_mixin'
-  .header
-    height: px2rem(104px)
-    background-color: #3ca9fe
+  .search-box
+    height
 </style>

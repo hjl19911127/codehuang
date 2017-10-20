@@ -28,37 +28,4 @@
     }
   }
 </script>
-<style lang="stylus">
-  html
-    -webkit-tap-highlight-color: transparent;
-    overflow-x: hidden;
-    height: 100%;
-    min-width: 6.4rem;
-    font-size: 312.5%;
-    background-color: #f6f6f6;
-
-  @media screen and (min-width: 410px) {
-    html {
-      font-size: 400%
-    }
-  }
-
-  @media screen and (min-width: 480px) {
-    html {
-      font-size: 469%
-    }
-  }
-
-  @media screen and (min-width: 640px) {
-    html {
-      font-size: 625%
-    }
-  }
-
-  body, .app
-    height 100%;
-
-  .app
-    background-color: #c5c5c5;
-
-</style>
+<style lang="stylus" src="@/sites/chat/assets/stylus/style/common"></style>
