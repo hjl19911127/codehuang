@@ -17,9 +17,10 @@ class AjaxHelper {
   }
 
   _formatQueryString(data) {
-    return Object.keys(data).map(function (key) {
-      return encodeURIComponent(key) + '=' +
-        encodeURIComponent(data[key]);
+    return Object.keys(data).filter(function (key) {
+      return data[key] !== undefined;
+    }).map(function (key) {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
     }).join('&');
   }
 
