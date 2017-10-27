@@ -1,8 +1,10 @@
 import layout from '../views/layout'
-import message from '../views/message'
-import contact from '../views/contact'
-import activity from '../views/activity'
-import sign from '../views/sign'
+
+const message = resolve => require(['../views/message'], resolve);
+const messageDetail = resolve => require(['../views/message-detail'], resolve);
+const contact = resolve => require(['../views/contact'], resolve);
+const activity = resolve => require(['../views/activity'], resolve);
+const sign = resolve => require(['../views/sign'], resolve);
 
 export default [
   {
@@ -18,7 +20,7 @@ export default [
     },
     children: [
       {
-        path: '',
+        path: 'message',
         name: 'message',
         component: message,
       },
@@ -31,7 +33,12 @@ export default [
         path: 'activity',
         name: 'activity',
         component: activity,
-      }
+      },
+      {
+        path: 'message/:mid',
+        name: 'messageDetail',
+        component: messageDetail,
+      },
     ]
   }
 ];

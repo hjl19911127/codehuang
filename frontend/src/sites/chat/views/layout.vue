@@ -1,6 +1,7 @@
 <template>
   <div class="app" :class="[skin]">
     <chat-header></chat-header>
+    <chat-searchbar></chat-searchbar>
     <div class="container">
       <router-view></router-view>
     </div>
@@ -11,9 +12,14 @@
   import Cookie from '@/utils/cookie';
   import ChatHeader from '../components/header';
   import ChatNavbar from '../components/navbar';
+  import ChatSearchbar from '../components/searchbar';
 
   export default {
-    components: {ChatHeader, ChatNavbar},
+    components: {
+      ChatHeader,
+      ChatNavbar,
+      ChatSearchbar
+    },
     computed: {
       skin() {
         return this.$store.getters.getSkin;

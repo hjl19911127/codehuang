@@ -1,12 +1,8 @@
-icomoon-font-path ?= "../../fonts"
-
-c-icon-bubbles = "\e96c"
-c-icon-users = "\e972"
-c-icon-star-full = "\e9d9"
+@import "_variables"
 
 @font-face
   font-family 'chat'
-  src url(icomoon-font-path + '/chat.ttf?grgbm2') format('truetype'), url(icomoon-font-path + '/chat.woff?grgbm2') format('woff'), url(icomoon-font-path + '/chat.svg?grgbm2#chat') format('svg')
+  src url(icomoon-font-path + '/chat.ttf?lhvgr4') format('truetype'), url(icomoon-font-path + '/chat.woff?lhvgr4') format('woff'), url(icomoon-font-path + '/chat.svg?lhvgr4#chat') format('svg')
   font-weight normal
   font-style normal
 
@@ -26,12 +22,16 @@ c-icon-star-full = "\e9d9"
 .c-icon-bubbles
   &:before
     content c-icon-bubbles
-
 .c-icon-users
   &:before
     content c-icon-users
-
+.c-icon-search
+  &:before
+    content c-icon-search
 .c-icon-star-full
   &:before
     content c-icon-star-full
+.c-icon-plus
+  &:before
+    content c-icon-plus
 

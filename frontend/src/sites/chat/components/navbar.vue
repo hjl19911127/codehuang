@@ -36,6 +36,7 @@
     line-height px2rem(112px)
     background-color #fff
     font-size 0
+    border-top 1px solid #e8e8e8
 
   .nav-tab
     display inline-block
@@ -49,5 +50,5 @@
       color #4ab9f8
     .tab-title
       margin-top px2rem(5px)
-      font-size px2rem(24px)
+      font-size px2rem(20px)
 </style>
