@@ -1,4 +1,6 @@
+@import '../shared/_mixin'
 @import "../shared/_iconfont";
+@import "../shared/_scrollbar";
 
 html
   -webkit-tap-highlight-color: transparent;
@@ -30,3 +32,24 @@ body, .app
 
 a
   text-decoration none
+
+.container
+  position: absolute
+  top: px2rem(104px)
+  bottom px2rem(112px)
+  left: 0
+  right: 0
+  overflow auto
+
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}

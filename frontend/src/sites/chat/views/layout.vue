@@ -1,24 +1,13 @@
 <template>
   <div class="app" :class="[skin]">
-    <chat-header></chat-header>
-    <chat-searchbar></chat-searchbar>
-    <div class="container">
+    <transition name="slide-fade">
       <router-view></router-view>
-    </div>
-    <chat-navbar></chat-navbar>
+    </transition>
   </div>
 </template>
 <script>
-  import Cookie from '@/utils/cookie';
-  import ChatHeader from '../components/header';
-  import ChatNavbar from '../components/navbar';
-  import ChatSearchbar from '../components/searchbar';
-
   export default {
     components: {
-      ChatHeader,
-      ChatNavbar,
-      ChatSearchbar
     },
     computed: {
       skin() {

@@ -21,5 +21,5 @@
   @import '../assets/stylus/shared/_mixin'
   .header
     height: px2rem(104px)
-    background-color: #3ca9fe
+    background-image: linear-gradient(to right, #4f8dfe, #35bafd);
 </style>

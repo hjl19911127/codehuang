@@ -1,7 +1,8 @@
 <template>
-  <div class="message-list">
-    <template v-for="item in messages.items">
-      <router-link class="message-item" :to="{name:'messageDetail',params: { mid: 1 }}">
+  <container>
+    <div class="message-list">
+      <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
+                   v-for="item in messages.items" :key="item.id">
         <div class="message-item-block block-left">
           <div class="avatar-wrap">
             <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
@@ -15,11 +16,16 @@
           <div class="message-time">8:45</div>
         </div>
       </router-link>
-    </template>
-  </div>
+    </div>
+  </container>
 </template>
 <script>
+  import Container from '../components/container';
+
   export default {
+    components: {
+      Container
+    },
     data() {
       return {
         messages: {
@@ -29,17 +35,11 @@
       }
     },
     created() {
-      this.messages.items = [
-        {
-          id: 1,
-          from: '福大数计15工硕群',
-          content: '软工 刘峰：明天早上过去'
-        }, {
-          id: 2,
-          from: '福大数计15工硕群',
-          content: '软工 刘峰：明天早上过去'
-        }
-      ]
+      this.messages.items = (new Array(100)).fill({
+        id: 1,
+        from: '福大数计15工硕群',
+        content: '软工 刘峰：明天早上过去'
+      })
     }
   }
 </script>
