@@ -1,13 +1,24 @@
 <template>
-  <div class="app" :class="[skin]">
-    <transition name="slide-fade">
+  <div>
+    <chat-header></chat-header>
+    <div class="container">
+      <chat-searchbar></chat-searchbar>
       <router-view></router-view>
-    </transition>
+    </div>
+    <chat-navbar></chat-navbar>
   </div>
 </template>
 <script>
+  import Cookie from '@/utils/cookie';
+  import ChatHeader from './header';
+  import ChatNavbar from './navbar';
+  import ChatSearchbar from './searchbar';
+
   export default {
     components: {
+      ChatHeader,
+      ChatNavbar,
+      ChatSearchbar
     },
     computed: {
       skin() {
@@ -23,4 +34,3 @@
     }
   }
 </script>
-<style lang="stylus" src="@/sites/chat/assets/stylus/style/common"></style>

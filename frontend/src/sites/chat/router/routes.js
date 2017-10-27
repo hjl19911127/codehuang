@@ -1,3 +1,4 @@
+import frame from '../views/frame'
 import layout from '../views/layout'
 
 const message = resolve => require(['../views/message'], resolve);
@@ -14,11 +15,16 @@ export default [
   },
   {
     path: '',
-    component: layout,
+    component: frame,
     meta: {
       auth: false
     },
     children: [
+      {
+        path: '',
+        component: layout,
+        children: []
+      },
       {
         path: 'message',
         name: 'message',
