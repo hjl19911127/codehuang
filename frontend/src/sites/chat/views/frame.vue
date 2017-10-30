@@ -1,15 +1,18 @@
 <template>
-  <div class="app" :class="[skin]">
-    <transition name="slide-fade">
-      <router-view></router-view>
-    </transition>
-  </div>
+  <transition :name="transitionName">
+    <router-view class="app"></router-view>
+  </transition>
 </template>
 <script>
   export default {
-    components: {
+    data() {
+return {}
     },
+    components: {},
     computed: {
+      transitionName() {
+        return this.$store.getters.getTransitionName;
+      },
       skin() {
         return this.$store.getters.getSkin;
       }
@@ -20,6 +23,7 @@
       },
     },
     created() {
+
     }
   }
 </script>

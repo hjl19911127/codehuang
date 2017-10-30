@@ -68,7 +68,7 @@ Object.keys(webpackConfig.entry).forEach(function (entry) {
   }, {
     target: `${uri}`,
     changeOrigin: true,
-    pathRewrite: {'\/[a-z0-9A-Z\-\/]*(?!.)': `/${entry}.html`}
+    pathRewrite: {'\/[a-z0-9A-Z\-\/\?\=]*(?!.)': `/${entry}.html`}
   }));
 });
 

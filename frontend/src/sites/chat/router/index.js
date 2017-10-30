@@ -6,10 +6,6 @@ Vue.use(Router);
 
 const router = new Router({
   mode: 'history',
-  base: __dirname,
-  scrollBehavior: () => ({
-    y: 0
-  }),
   routes: routes
 });
 

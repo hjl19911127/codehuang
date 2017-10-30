@@ -23,23 +23,25 @@ export default [
       {
         path: '',
         component: layout,
-        children: []
+        children: [
+          {
+            path: 'message',
+            name: 'message',
+            component: message,
+          },
+          {
+            path: 'contact',
+            name: 'contact',
+            component: contact,
+          },
+          {
+            path: 'activity',
+            name: 'activity',
+            component: activity,
+          }
+        ]
       },
-      {
-        path: 'message',
-        name: 'message',
-        component: message,
-      },
-      {
-        path: 'contact',
-        name: 'contact',
-        component: contact,
-      },
-      {
-        path: 'activity',
-        name: 'activity',
-        component: activity,
-      },
+
       {
         path: 'message/:mid',
         name: 'messageDetail',

@@ -10,9 +10,9 @@
 </template>
 <script>
   import Cookie from '@/utils/cookie';
-  import ChatHeader from './header';
-  import ChatNavbar from './navbar';
-  import ChatSearchbar from './searchbar';
+  import ChatHeader from '../components/header';
+  import ChatNavbar from '../components/navbar';
+  import ChatSearchbar from '../components/searchbar';
 
   export default {
     components: {
@@ -34,3 +34,13 @@
     }
   }
 </script>
+<style lang="stylus" scoped>
+  @import '../assets/stylus/shared/_mixin'
+  .container
+    position: absolute
+    top: px2rem(104px)
+    bottom px2rem(112px)
+    left: 0
+    right: 0
+    overflow: auto
+</style>

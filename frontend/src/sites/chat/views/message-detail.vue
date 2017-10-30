@@ -1,9 +1,7 @@
 <template>
   <container>
     <div class="message-list">
-      <router-link href="javascript:;" class="message-item">
-        <span class="avatar-wrap"></span>
-      </router-link>
+      xczxczxczxc
     </div>
   </container>
 </template>
@@ -17,6 +15,8 @@
   }
 </script>
 <style lang="stylus" scoped>
+  .message-list
+    background-color: red
   .message-item
     height px2rem(136px)
     border-bottom 1px solid

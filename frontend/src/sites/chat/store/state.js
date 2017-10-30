@@ -1,5 +1,6 @@
 export default {
   skin: "green",
   auth: null,
-  session: null
+  session: null,
+  navigationDirection: 'forward'
 };

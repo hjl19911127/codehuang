@@ -7,6 +7,14 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+let historyState = history.state;
+router.beforeEach((to, from, next) => {
+  console.log(historyState && +historyState.key > +history.state.key);
+  let transitionName = historyState && +historyState.key > +history.state.key ? 'back' : 'forward'
+  store.dispatch('SET_NAVIGATION_DIRECTION', {direction: transitionName})
+  historyState = history.state;
+  next()
+});
 
 new Vue({
   router,

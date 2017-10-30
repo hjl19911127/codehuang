@@ -7,5 +7,8 @@ export default {
   },
   SET_SESSION: (state, data) => {
     state.session = data;
+  },
+  SET_NAVIGATION_DIRECTION: (state, data) => {
+    state.navigationDirection = data;
   }
 }

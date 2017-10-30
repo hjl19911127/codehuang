@@ -9,5 +9,9 @@ export default {
 
   getSession(state, getters) {
     return state.session
+  },
+
+  getTransitionName(state, getters) {
+    return `slide-${state.navigationDirection}`
   }
 }

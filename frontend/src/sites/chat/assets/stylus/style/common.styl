@@ -1,6 +1,5 @@
 @import '../shared/_mixin'
 @import "../shared/_iconfont";
-@import "../shared/_scrollbar";
 
 html
   -webkit-tap-highlight-color: transparent;
@@ -27,29 +26,33 @@ html
   }
 }
 
-body, .app
+body
   height 100%
+
+.app
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
 
 a
   text-decoration none
 
-.container
-  position: absolute
-  top: px2rem(104px)
-  bottom px2rem(112px)
-  left: 0
-  right: 0
-  overflow auto
+.slide-forward-enter-active, .slide-forward-leave-active
+  transition: all .3s ease
 
-/* 可以设置不同的进入和离开动画 */
-/* 设置持续时间和动画函数 */
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-}
+.slide-forward-enter
+  transform: translate3d(100%, 0, 0)
+
+.slide-forward-leave-to
+  transform: translate3d(-100%, 0, 0)
+
+.slide-back-enter-active, .slide-lback-leave-active
+  transition: all .3s ease
+
+.slide-back-enter
+  transform: translate3d(-100%, 0, 0)
+
+.slide-back-leave-to
+  transform: translate3d(100%, 0, 0)
