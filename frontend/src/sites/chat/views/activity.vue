@@ -1,101 +1,93 @@
 <template>
-  <div>
-    <div class="head">{{articles.count}}</div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>标题</th>
-        </tr>
-      </thead>
-      <tbody>
-        <template v-for="item in articles.items">
-          <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.title}}</td>
-          </tr>
-        </template>
-      </tbody>
-    </table>
-    <a class="btn" href="javascript:;" @click="showCreatePanel">添加</a>
-    <div class="edit" v-show=flag.showCreatePanel>
-      <form id="articleForm">
-        <div class="control-group">
-          <label class="control-label" for="title">标题</label>
-          <div class="control-input">
-            <input id="title" v-model="article.title" />
+  <chat-home-wrap page-title="动态">
+    <template slot="content">
+      <div class="message-list">
+        <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
+                     v-for="item in messages.items" :key="item.id">
+          <div class="message-item-block block-left">
+            <div class="avatar-wrap">
+              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+            </div>
           </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="content">内容</label>
-          <div class="control-input">
-            <textarea id="content" v-model="article.content"></textarea>
+          <div class="message-item-block block-center">
+            <div class="message-from" v-text="item.from"></div>
+            <div class="message-content" v-text="item.content"></div>
           </div>
-        </div>
-        <div class="control-group">
-
-        </div>
-        <div class="control-group">
-          <a href="javascript:;" class="btn" @click="create">提交</a>
-        </div>
-      </form>
-    </div>
-  </div>
+          <div class="message-item-block block-right">
+            <div class="message-time">8:45</div>
+          </div>
+        </router-link>
+      </div>
+    </template>
+  </chat-home-wrap>
 </template>
 <script>
-  import api from '../api/message';
+  import ChatHomeWrap from '../components/home-wrap';
 
   export default {
+    components: {
+      ChatHomeWrap
+    },
     data() {
       return {
-        flag: {
-          showCreatePanel: false
-        },
-        article: {
-          title: "",
-          content: ""
-        },
-        filter: {
-          page: 0,
-          size: 10
-        },
-        articles: {
+        messages: {
           items: [],
           count: 0
         }
       }
     },
-
-    methods: {
-      init() {
-        this.query();
-      },
-      create() {
-        api.create(this.article).then((res) => {
-          this.flag.showCreatePanel = false;
-          this.query();
-        }).catch((res) => {
-          // error callback
-        });
-      },
-      query() {
-        api.query(this.filter).then((res) => {
-          console.log(res)
-          this.articles.items = res.data.items;
-          this.articles.count = res.data.count;
-        }).catch((res) => {
-          // error callback
-        });
-      },
-      showCreatePanel() {
-        this.flag.showCreatePanel = true;
-      }
-    },
     created() {
-      this.init()
+      this.messages.items = (new Array(100)).fill({
+        id: 1,
+        from: '福大数计15工硕群',
+        content: '软工 刘峰：明天早上过去'
+      })
     }
   }
 </script>
-<style>
+<style lang="stylus" scoped>
+  @import '../assets/stylus/shared/_mixin'
+  .message-item
+    display: block
+    height px2rem(136px)
+    border-bottom 1px solid #e8e8e8
+    font-size: 0
+    line-height: px2rem(136px)
 
+  .message-item-block
+    line-height: 1
+    display: inline-block
+    vertical-align: middle
+
+  .block-left
+    width 20%
+
+  .block-center
+    width 70%
+
+  .block-right
+    width 10%
+
+  .message-from
+    color: #000
+    margin-bottom: px2rem(18px)
+    font-size: px2rem(32px)
+
+  .message-content
+    color: #888
+    font-size: px2rem(26px)
+
+  .message-time
+    color: #999
+    font-size: px2rem(20px)
+
+  .avatar-wrap
+    margin 0 auto
+    width px2rem(100px)
+    height px2rem(100px)
+    overflow: hidden
+    border-radius 50%
+    img
+      width: 100%
+      height: 100%
 </style>

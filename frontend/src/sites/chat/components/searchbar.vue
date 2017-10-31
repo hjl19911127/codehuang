@@ -8,8 +8,6 @@
 <script>
   export default {
     computed: {
-      showMenu() {
-      }
     },
     components: {}
   };

@@ -1,8 +1,7 @@
 import frame from '../views/frame'
-import layout from '../views/layout'
 
 const message = resolve => require(['../views/message'], resolve);
-const messageDetail = resolve => require(['../views/message-detail'], resolve);
+const dialog = resolve => require(['../views/dialog'], resolve);
 const contact = resolve => require(['../views/contact'], resolve);
 const activity = resolve => require(['../views/activity'], resolve);
 const sign = resolve => require(['../views/sign'], resolve);
@@ -22,7 +21,9 @@ export default [
     children: [
       {
         path: '',
-        component: layout,
+        component: {
+          template: '<div><router-view></router-view></div>'
+        },
         children: [
           {
             path: 'message',
@@ -45,7 +46,7 @@ export default [
       {
         path: 'message/:mid',
         name: 'messageDetail',
-        component: messageDetail,
+        component: dialog,
       },
     ]
   }

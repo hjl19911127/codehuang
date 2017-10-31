@@ -1,29 +1,22 @@
 <template>
-  <transition :name="transitionName">
-    <router-view class="app"></router-view>
-  </transition>
+  <div class="app">
+    <chat-side-menu></chat-side-menu>
+    <transition :name="transitionName">
+      <router-view class="full-screen"></router-view>
+    </transition>
+  </div>
 </template>
 <script>
+  import ChatSideMenu from '../components/side-menu';
+
   export default {
-    data() {
-return {}
+    components: {
+      ChatSideMenu
     },
-    components: {},
     computed: {
       transitionName() {
         return this.$store.getters.getTransitionName;
       },
-      skin() {
-        return this.$store.getters.getSkin;
-      }
-    },
-    methods: {
-      switchSkin(skin) {
-        this.$store.dispatch('SET_SKIN', {skin: skin})
-      },
-    },
-    created() {
-
     }
   }
 </script>

@@ -1,28 +1,32 @@
 <template>
-  <div class="message-list">
-    <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
-                 v-for="item in messages.items" :key="item.id">
-      <div class="message-item-block block-left">
-        <div class="avatar-wrap">
-          <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
-        </div>
+  <chat-home-wrap page-title="消息">
+    <template>
+      <div class="message-list">
+        <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
+                     v-for="item in messages.items" :key="item.id">
+          <div class="message-item-block block-left">
+            <div class="avatar-wrap">
+              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+            </div>
+          </div>
+          <div class="message-item-block block-center">
+            <div class="message-from" v-text="item.from"></div>
+            <div class="message-content" v-text="item.content"></div>
+          </div>
+          <div class="message-item-block block-right">
+            <div class="message-time">8:45</div>
+          </div>
+        </router-link>
       </div>
-      <div class="message-item-block block-center">
-        <div class="message-from" v-text="item.from"></div>
-        <div class="message-content" v-text="item.content"></div>
-      </div>
-      <div class="message-item-block block-right">
-        <div class="message-time">8:45</div>
-      </div>
-    </router-link>
-  </div>
+    </template>
+  </chat-home-wrap>
 </template>
 <script>
-  import Container from '../components/container';
+  import ChatHomeWrap from '../components/home-wrap';
 
   export default {
     components: {
-      Container
+      ChatHomeWrap
     },
     data() {
       return {
