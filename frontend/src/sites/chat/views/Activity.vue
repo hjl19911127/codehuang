@@ -124,8 +124,6 @@
     color: #fff
     width: px2rem(btnSize)
     font-size: 0
-    line-height px2rem(btnSize)
     i
-      line-height: 0
       font-size: px2rem(btnSize)
 </style>

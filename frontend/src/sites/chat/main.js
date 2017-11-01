@@ -9,8 +9,6 @@ import store from './store'
 Vue.config.productionTip = false
 let historyState = history.state, lastDirection;
 router.beforeEach((to, from, next) => {
-  console.log(historyState)
-  console.log(history.state)
   let direction = ''
   if (!historyState && !history.state) {
     direction = 'forward'

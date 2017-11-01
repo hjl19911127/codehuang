@@ -10,7 +10,23 @@
     </chat-header>
     <chat-content>
       <chat-search-bar></chat-search-bar>
-      xxxxx
+      <div class="message-list">
+        <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
+                     v-for="item in messages.items" :key="item.id">
+          <div class="message-item-block block-left">
+            <div class="avatar-wrap">
+              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+            </div>
+          </div>
+          <div class="message-item-block block-center">
+            <div class="message-from" v-text="item.from"></div>
+            <div class="message-content" v-text="item.content"></div>
+          </div>
+          <div class="message-item-block block-right">
+            <div class="message-time">8:45</div>
+          </div>
+        </router-link>
+      </div>
     </chat-content>
     <chat-nav-bar></chat-nav-bar>
   </div>
@@ -50,9 +66,9 @@
   .message-item
     display: block
     height px2rem(136px)
+    line-height: px2rem(136px)
     border-bottom 1px solid #e8e8e8
     font-size: 0
-    line-height: px2rem(136px)
 
   .message-item-block
     line-height: 1
@@ -94,20 +110,20 @@
   .head-avatar
     display: inline-block
     width px2rem(80px)
-    height px2rem(80px)
-    margin-left: px2rem(24px)
+    line-height px2rem(80px)
     overflow: hidden
     border-radius 50%
-    line-height: 0
     img
       width: 100%
       height: 100%
 
   .right-btn
+    btnSize = 44px
     display: inline-block
+    vertical-align middle
     color: #fff
-    font-size: px2rem(44px)
-    line-height: 0
-    width: px2rem(44px)
-    height: px2rem(44px)
+    width: px2rem(btnSize)
+    font-size: 0
+    i
+      font-size: px2rem(btnSize)
 </style>
