@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-  import ChatSideMenu from '../components/side-menu';
+  import ChatSideMenu from '../components/SideMenu';
 
   export default {
     components: {

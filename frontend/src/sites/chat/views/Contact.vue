@@ -1,6 +1,15 @@
 <template>
-  <chat-home-wrap page-title="消息">
-    <template>
+  <div>
+    <chat-header page-title="消息">
+      <a href="javascript:void(0)" class="head-avatar" slot="left">
+        <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+      </a>
+      <a href="javascript:void(0)" class="right-btn" slot="right">
+        <i class="c-icon-add"></i>
+      </a>
+    </chat-header>
+    <chat-content>
+      <chat-search-bar></chat-search-bar>
       <div class="message-list">
         <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
                      v-for="item in messages.items" :key="item.id">
@@ -18,15 +27,22 @@
           </div>
         </router-link>
       </div>
-    </template>
-  </chat-home-wrap>
+    </chat-content>
+    <chat-nav-bar></chat-nav-bar>
+  </div>
 </template>
 <script>
-  import ChatHomeWrap from '../components/home-wrap';
+  import ChatHeader from '../components/Header';
+  import ChatContent from '../components/Content';
+  import ChatNavBar from '../components/NavBar';
+  import ChatSearchBar from '../components/SearchBar';
 
   export default {
     components: {
-      ChatHomeWrap
+      ChatHeader,
+      ChatContent,
+      ChatNavBar,
+      ChatSearchBar
     },
     data() {
       return {
@@ -50,9 +66,9 @@
   .message-item
     display: block
     height px2rem(136px)
+    line-height: px2rem(136px)
     border-bottom 1px solid #e8e8e8
     font-size: 0
-    line-height: px2rem(136px)
 
   .message-item-block
     line-height: 1
@@ -90,4 +106,26 @@
     img
       width: 100%
       height: 100%
+
+  .head-avatar
+    display: inline-block
+    width px2rem(80px)
+    line-height px2rem(80px)
+    overflow: hidden
+    border-radius 50%
+    img
+      width: 100%
+      height: 100%
+
+  .right-btn
+    btnSize = 44px
+    display: inline-block
+    vertical-align middle
+    color: #fff
+    width: px2rem(btnSize)
+    font-size: 0
+    line-height px2rem(btnSize)
+    i
+      line-height: 0
+      font-size: px2rem(btnSize)
 </style>

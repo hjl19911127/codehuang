@@ -1,47 +1,47 @@
 <template>
-  <header class="header">
+  <div class="header">
     <div class="header-left">
       <slot name="left"></slot>
     </div>
-    <h1 v-text="title"></h1>
+    <h1 v-text="pageTitle"></h1>
     <div class="header-right">
       <slot name="right"></slot>
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
   export default {
-    props: ['title'],
+    props: ['pageTitle'],
     data() {
       return {}
     },
-    computed: {
-      session() {
-        return this.$store.getters.session;
-      }
-    },
+    computed: {},
     components: {}
   }
 </script>
 <style lang="stylus" scoped>
   @import '../assets/stylus/shared/_mixin'
   .header
+    position: relative
     height: px2rem(104px)
     line-height: px2rem(104px)
     background-image: linear-gradient(to right, #4f8dfe, #35bafd);
     text-align: center
     h1
-      font-size: px2rem(40px)
+      font-size: px2rem(34px)
       margin: 0
       font-weight: normal
       color: #fff
 
   .header-left
-    float: left
-    width: px2rem(114px)
-    height: px2rem(114px)
+    position: absolute
+    left: px2rem(24px)
+    top: 0
 
   .header-right
-    float: right
+    position: absolute
+    right: px2rem(24px)
+    top: 0
+
 </style>

@@ -1,32 +1,32 @@
 <template>
-  <chat-home-wrap page-title="联系人">
-    <template slot="content">
-      <div class="message-list">
-        <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
-                     v-for="item in messages.items" :key="item.id">
-          <div class="message-item-block block-left">
-            <div class="avatar-wrap">
-              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
-            </div>
-          </div>
-          <div class="message-item-block block-center">
-            <div class="message-from" v-text="item.from"></div>
-            <div class="message-content" v-text="item.content"></div>
-          </div>
-          <div class="message-item-block block-right">
-            <div class="message-time">8:45</div>
-          </div>
-        </router-link>
-      </div>
-    </template>
-  </chat-home-wrap>
+  <div>
+    <chat-header page-title="消息">
+      <a href="javascript:void(0)" class="head-avatar" slot="left">
+        <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+      </a>
+      <a href="javascript:void(0)" class="right-btn" slot="right">
+        <i class="c-icon-add"></i>
+      </a>
+    </chat-header>
+    <chat-content>
+      <chat-search-bar></chat-search-bar>
+      xxxxx
+    </chat-content>
+    <chat-nav-bar></chat-nav-bar>
+  </div>
 </template>
 <script>
-  import ChatHomeWrap from '../components/home-wrap';
+  import ChatHeader from '../components/Header';
+  import ChatContent from '../components/Content';
+  import ChatNavBar from '../components/NavBar';
+  import ChatSearchBar from '../components/SearchBar';
 
   export default {
     components: {
-      ChatHomeWrap
+      ChatHeader,
+      ChatContent,
+      ChatNavBar,
+      ChatSearchBar
     },
     data() {
       return {
@@ -90,4 +90,24 @@
     img
       width: 100%
       height: 100%
+
+  .head-avatar
+    display: inline-block
+    width px2rem(80px)
+    height px2rem(80px)
+    margin-left: px2rem(24px)
+    overflow: hidden
+    border-radius 50%
+    line-height: 0
+    img
+      width: 100%
+      height: 100%
+
+  .right-btn
+    display: inline-block
+    color: #fff
+    font-size: px2rem(44px)
+    line-height: 0
+    width: px2rem(44px)
+    height: px2rem(44px)
 </style>
