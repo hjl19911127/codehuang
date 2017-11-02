@@ -1,10 +1,11 @@
 <template>
-  <div class="side-menu">
+  <div class="side-menu" :style="{transform:`translateX(${pos / 3}px)`}">
     xxxxxxxxxxxxxxxxxxxxxxxxxxxx
   </div>
 </template>
 <script>
   export default {
+    props: ['pos']
   };
 </script>
 
@@ -13,11 +14,10 @@
   .side-menu
     position: absolute
     top: 0
-    left: -75%
+    left: -25%
     bottom: 0
     width: 75%
     background-color: green
-    z-index 1000
     transform translateZ(0)
     word-break break-all
     word-wrap break-word

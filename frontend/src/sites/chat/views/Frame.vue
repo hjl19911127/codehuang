@@ -1,10 +1,13 @@
 <template>
-  <div class="app" :class="{'will-change':willChange,'moving':animate}" :style="{transform:`translateX(${pos}px)`}">
-    <chat-side-menu></chat-side-menu>
-    <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}"></div>
-    <transition :name="transitionName">
-      <router-view class="full-screen"></router-view>
-    </transition>
+  <div class="app">
+    <chat-side-menu :pos="pos"></chat-side-menu>
+    <div class="full-screen main-wrap" :class="{'will-change':willChange,'moving':animate}"
+         :style="{transform:`translateX(${pos}px)`}">
+      <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
+      <transition :name="transitionName">
+        <router-view class="full-screen main-content"></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 <script>
@@ -32,8 +35,7 @@
     computed: {
       ...mapGetters(['transitionName']),
       opacity() {
-        console.log(this.pos / maxWidth)
-        return Math.min(this.pos / maxWidth, 0.4) || 0
+        return this.pos * 0.4 / maxWidth || 0
       }
     },
     mounted() {
@@ -43,11 +45,11 @@
         return this.$store.getters.sideMenuVisible
       }, (v) => {
         if (v) {
+          if (this.pos > 0 && this.pos < maxWidth) this.animate = true
           this.pos = maxWidth;
-          this.animate = true;
         } else {
+          if (this.pos > 0 && this.pos < maxWidth) this.animate = true
           this.pos = 0;
-          this.animate = true;
         }
       })
       let t1, t2, speed, sp, lp, np, startPos;
@@ -87,19 +89,20 @@
         this.pos = pos;
       }.bind(this)
       let removeDrag = function (e) {
-        let pos = this.pos;
+        let pos = this.pos, visible = false;
         if (speed > 0) {
-          pos = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5 ? maxWidth : 0
+          visible = !!((maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5)
         } else {
-          pos = (0 - pos) / speed < duration || pos < maxWidth * 3 / 5 ? 0 : maxWidth
+          visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
         }
         if (this.pos > 0 && this.pos < maxWidth) this.animate = true
-        this.pos = pos;
+        this.pos = visible ? maxWidth : 0;
+        this.$store.dispatch('SET_SIDE_MENU_VISIBLE', visible);
         document.removeEventListener(mouseEvents.move, drag, false);
         document.removeEventListener(mouseEvents.up, removeDrag, false);
       }.bind(this)
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
-        this.$el.addEventListener(e, () => {
+        document.querySelector('.main-wrap').addEventListener(e, () => {
           this.animate = false
           this.willChange = false
         }, false);
@@ -118,5 +121,9 @@
 
   .menu-mask
     background-color: #000
-    z-index: 2000
+    z-index: 1000
+
+  .main-content
+    background-color: #fff
+    z-index: 1
 </style>
