@@ -10,5 +10,8 @@ export default {
   },
   SET_NAVIGATION_DIRECTION: (state, data) => {
     state.navigationDirection = data;
-  }
+  },
+  SET_SIDE_MENU_VISIBLE: (state, data) => {
+    state.sideMenu.visible = data;
+  },
 }

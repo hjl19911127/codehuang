@@ -2,5 +2,8 @@ export default {
   skin: "green",
   auth: null,
   session: null,
-  navigationDirection: 'forward'
+  navigationDirection: 'forward',
+  sideMenu: {
+    visible: false
+  }
 };

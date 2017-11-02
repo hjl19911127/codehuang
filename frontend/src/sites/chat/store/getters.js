@@ -13,5 +13,9 @@ export default {
 
   getTransitionName(state, getters) {
     return `slide-${state.navigationDirection}`
+  },
+
+  getSideMenuVisible(state) {
+    return state.sideMenu.visible
   }
 }

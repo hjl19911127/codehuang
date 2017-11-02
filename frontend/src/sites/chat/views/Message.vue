@@ -1,7 +1,7 @@
 <template>
   <div>
     <chat-header page-title="消息">
-      <a href="javascript:void(0)" class="head-avatar" slot="left">
+      <a href="javascript:void(0)" class="head-avatar" slot="left" @click="handleHeaderAvatarClick">
         <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
       </a>
       <a href="javascript:void(0)" class="right-btn" slot="right">
@@ -50,6 +50,11 @@
           items: [],
           count: 0
         }
+      }
+    },
+    methods: {
+      handleHeaderAvatarClick() {
+        this.$store.dispatch('SET_SIDE_MENU_VISIBLE', true);
       }
     },
     created() {
