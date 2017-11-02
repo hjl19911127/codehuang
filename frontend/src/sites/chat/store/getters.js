@@ -11,11 +11,11 @@ export default {
     return state.session
   },
 
-  getTransitionName(state, getters) {
+  transitionName(state, getters) {
     return `slide-${state.navigationDirection}`
   },
 
-  getSideMenuVisible(state) {
+ sideMenuVisible(state) {
     return state.sideMenu.visible
   }
 }

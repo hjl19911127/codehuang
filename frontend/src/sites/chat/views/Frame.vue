@@ -1,35 +1,46 @@
 <template>
   <div class="app" :class="{'will-change':willChange,'moving':animate}" :style="{transform:`translateX(${pos}px)`}">
     <chat-side-menu></chat-side-menu>
+    <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}"></div>
     <transition :name="transitionName">
       <router-view class="full-screen"></router-view>
     </transition>
   </div>
 </template>
 <script>
+  import {mapGetters} from 'vuex'
   import ChatSideMenu from '../components/SideMenu';
+
+  let maxWidth = 0;
 
   export default {
     data() {
       return {
         pos: 0,
         animate: false,
-        willChange: false
+        willChange: false,
+      }
+    },
+    methods: {
+      handleMaskClick() {
+        this.$store.dispatch('SET_SIDE_MENU_VISIBLE', false);
       }
     },
     components: {
       ChatSideMenu
     },
     computed: {
-      transitionName() {
-        return this.$store.getters.getTransitionName;
-      },
+      ...mapGetters(['transitionName']),
+      opacity() {
+        console.log(this.pos / maxWidth)
+        return Math.min(this.pos / maxWidth, 0.4) || 0
+      }
     },
     mounted() {
       const duration = 500;
-      let maxWidth = parseInt((window.getComputedStyle(this.$el).width)) * 0.75;
+      maxWidth = parseInt((window.getComputedStyle(this.$el).width)) * 0.75;
       this.$store.watch(() => {
-        return this.$store.getters.getSideMenuVisible
+        return this.$store.getters.sideMenuVisible
       }, (v) => {
         if (v) {
           this.pos = maxWidth;
@@ -99,12 +110,13 @@
 </script>
 <style lang="stylus" src="@/sites/chat/assets/stylus/style/common"></style>
 <style lang="stylus" scoped>
-  .will-change {
+  .will-change
     will-change transform
-  }
 
-  .moving {
+  .moving
     transition transform .3s ease
-  }
 
+  .menu-mask
+    background-color: #000
+    z-index: 2000
 </style>

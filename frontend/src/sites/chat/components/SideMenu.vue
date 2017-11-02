@@ -1,10 +1,11 @@
 <template>
   <div class="side-menu">
-
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxx
   </div>
 </template>
 <script>
-  export default {};
+  export default {
+  };
 </script>
 
 <style lang="stylus" scoped>
@@ -18,5 +19,7 @@
     background-color: green
     z-index 1000
     transform translateZ(0)
+    word-break break-all
+    word-wrap break-word
 
 </style>
