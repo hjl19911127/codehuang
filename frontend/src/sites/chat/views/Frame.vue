@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <chat-side-menu :pos="pos"></chat-side-menu>
+    <chat-side-menu :pos="pos" :animate="animate" :will-change="willChange"></chat-side-menu>
     <div class="full-screen main-wrap" :class="{'will-change':willChange,'moving':animate}"
          :style="{transform:`translateX(${pos}px)`}">
       <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
@@ -40,7 +40,7 @@
     },
     mounted() {
       const duration = 500;
-      maxWidth = parseInt((window.getComputedStyle(this.$el).width)) * 0.75;
+      maxWidth = Math.floor(parseInt((window.getComputedStyle(this.$el).width)) * 0.75);
       this.$store.watch(() => {
         return this.$store.getters.sideMenuVisible
       }, (v) => {
@@ -91,7 +91,7 @@
       let removeDrag = function (e) {
         let pos = this.pos, visible = false;
         if (speed > 0) {
-          visible = !!((maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5)
+          visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
         } else {
           visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
         }
@@ -112,18 +112,3 @@
   }
 </script>
 <style lang="stylus" src="@/sites/chat/assets/stylus/style/common"></style>
-<style lang="stylus" scoped>
-  .will-change
-    will-change transform
-
-  .moving
-    transition transform .3s ease
-
-  .menu-mask
-    background-color: #000
-    z-index: 1000
-
-  .main-content
-    background-color: #fff
-    z-index: 1
-</style>

@@ -1,11 +1,12 @@
 <template>
-  <div class="side-menu" :style="{transform:`translateX(${pos / 3}px)`}">
+  <div class="side-menu" :class="{'will-change':willChange,'moving':animate}"
+       :style="{transform:`translateX(${Math.ceil(pos / 3)}px)`}">
     xxxxxxxxxxxxxxxxxxxxxxxxxxxx
   </div>
 </template>
 <script>
   export default {
-    props: ['pos']
+    props: ['pos', 'willChange', 'animate']
   };
 </script>
 
@@ -21,5 +22,4 @@
     transform translateZ(0)
     word-break break-all
     word-wrap break-word
-
 </style>
