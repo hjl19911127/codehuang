@@ -1,7 +1,10 @@
 <template>
   <div class="app">
-    <chat-side-menu @slide-start="handleSlideStart" @slide-move="handleSlideMove" @slide-end="handleSlideEnd"
-                    @mask-click="handleMaskClick">
+    <chat-side-menu
+      @slide-start="handleSlideStart"
+      @slide-move="handleSlideMove"
+      @slide-end="handleSlideEnd"
+      @mask-click="handleMaskClick">
       <transition :name="transitionName">
         <router-view class="full-screen main-content"></router-view>
       </transition>

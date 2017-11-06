@@ -5,7 +5,7 @@
     </div>
     <div class="full-screen" :class="{'will-change':willChange,'moving':moving}"
          :style="{transform:`translateX(${pos}px)`}">
-      <div class="full-screen menu-mask" @click="" :style="{'opacity':opacity}" v-show="pos"></div>
+      <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
       <slot></slot>
     </div>
   </div>
@@ -20,9 +20,9 @@
         willChange: false,
       }
     },
-    method: {
+    methods: {
       handleMaskClick() {
-        this.$emit('maskClick')
+        this.$emit('mask-click')
       }
     },
     computed: {
@@ -57,7 +57,7 @@
         this.willChange = true
         document.addEventListener(mouseEvents.move, drag, false);
         document.addEventListener(mouseEvents.up, removeDrag, false);
-        this.$emit('slideStart', this.pos)
+        this.$emit('slide-start', this.pos)
       }.bind(this)
       let drag = function (e) {
         t1 = t2;
@@ -69,7 +69,7 @@
         pos = Math.min(maxWidth, pos)
         pos = Math.max(0, pos)
         this.pos = pos;
-        this.$emit('slideMove', pos)
+        this.$emit('slide-move', pos)
       }.bind(this)
       let removeDrag = function (e) {
         let pos = this.pos, visible = false;
@@ -82,7 +82,7 @@
         this.pos = visible ? maxWidth : 0;
         document.removeEventListener(mouseEvents.move, drag, false);
         document.removeEventListener(mouseEvents.up, removeDrag, false);
-        this.$emit('slideEnd', pos)
+        this.$emit('slide-end', pos)
       }.bind(this)
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
         this.$el.addEventListener(e, () => {
