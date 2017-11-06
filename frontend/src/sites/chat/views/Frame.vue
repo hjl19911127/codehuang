@@ -1,32 +1,33 @@
 <template>
   <div class="app">
-    <chat-side-menu :pos="pos" :animate="animate" :will-change="willChange"></chat-side-menu>
-    <div class="full-screen main-wrap" :class="{'will-change':willChange,'moving':animate}"
-         :style="{transform:`translateX(${pos}px)`}">
-      <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
+    <chat-side-menu @slide-start="handleSlideStart" @slide-move="handleSlideMove" @slide-end="handleSlideEnd"
+                    @mask-click="handleMaskClick">
       <transition :name="transitionName">
         <router-view class="full-screen main-content"></router-view>
       </transition>
-    </div>
+    </chat-side-menu>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
   import ChatSideMenu from '../components/SideMenu';
 
-  let maxWidth = 0;
-
   export default {
     data() {
-      return {
-        pos: 0,
-        animate: false,
-        willChange: false,
-      }
+      return {}
     },
     methods: {
       handleMaskClick() {
         this.$store.dispatch('SET_SIDE_MENU_VISIBLE', false);
+      },
+      handleSlideStart(pos) {
+        console.log(pos)
+      },
+      handleSlideMove(pos) {
+        console.log(pos)
+      },
+      handleSlideEnd(pos) {
+        console.log(pos)
       }
     },
     components: {
@@ -34,81 +35,7 @@
     },
     computed: {
       ...mapGetters(['transitionName']),
-      opacity() {
-        return this.pos * 0.4 / maxWidth || 0
-      }
-    },
-    mounted() {
-      const duration = 500;
-      maxWidth = Math.floor(parseInt((window.getComputedStyle(this.$el).width)) * 0.75);
-      this.$store.watch(() => {
-        return this.$store.getters.sideMenuVisible
-      }, (v) => {
-        if (v) {
-          if (this.pos > 0 && this.pos < maxWidth) this.animate = true
-          this.pos = maxWidth;
-        } else {
-          if (this.pos > 0 && this.pos < maxWidth) this.animate = true
-          this.pos = 0;
-        }
-      })
-      let t1, t2, speed, sp, lp, np, startPos;
-      let isTouch = 'ontouchstart' in window
-      let mouseEvents = isTouch ?
-        {
-          down: 'touchstart',
-          move: 'touchmove',
-          up: 'touchend',
-          over: 'touchstart',
-          out: 'touchend'
-        } :
-        {
-          down: 'mousedown',
-          move: 'mousemove',
-          up: 'mouseup',
-          over: 'mouseover',
-          out: 'mouseout'
-        }
-      let initDrag = function (e) {
-        t2 = +new Date();
-        startPos = this.pos;
-        np = sp = e.clientX || e.changedTouches[0].clientX;
-        this.willChange = true
-        document.addEventListener(mouseEvents.move, drag, false);
-        document.addEventListener(mouseEvents.up, removeDrag, false);
-      }.bind(this)
-      let drag = function (e) {
-        t1 = t2;
-        t2 = +new Date();
-        lp = np;
-        np = e.clientX || e.changedTouches[0].clientX;
-        speed = (np - lp) / (t2 - t1)
-        let pos = startPos + np - sp;
-        pos = Math.min(maxWidth, pos)
-        pos = Math.max(0, pos)
-        this.pos = pos;
-      }.bind(this)
-      let removeDrag = function (e) {
-        let pos = this.pos, visible = false;
-        if (speed > 0) {
-          visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
-        } else {
-          visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
-        }
-        if (this.pos > 0 && this.pos < maxWidth) this.animate = true
-        this.pos = visible ? maxWidth : 0;
-        this.$store.dispatch('SET_SIDE_MENU_VISIBLE', visible);
-        document.removeEventListener(mouseEvents.move, drag, false);
-        document.removeEventListener(mouseEvents.up, removeDrag, false);
-      }.bind(this)
-      'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
-        document.querySelector('.main-wrap').addEventListener(e, () => {
-          this.animate = false
-          this.willChange = false
-        }, false);
-      })
-      document.addEventListener(mouseEvents.down, initDrag, false);
-    },
+    }
   }
 </script>
 <style lang="stylus" src="@/sites/chat/assets/stylus/style/common"></style>
