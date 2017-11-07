@@ -9,27 +9,28 @@ import store from './store'
 Vue.config.productionTip = false
 let historyState = history.state, lastDirection;
 router.beforeEach((to, from, next) => {
-  let direction = ''
-  if (!historyState && !history.state) {
-    direction = 'forward'
-  } else if (history.state && !historyState) {
-    direction = 'forward'
-  } else if (historyState && !history.state) {
-    direction = 'back'
-  } else if (historyState && +historyState.key > +history.state.key) {
-    direction = 'back'
-  } else if (historyState && +historyState.key === +history.state.key) {
-    if (lastDirection === 'back') {
-      direction = 'forward'
-    } else {
-      direction = 'back'
-    }
-  } else {
-    direction = 'forward'
-  }
-  store.dispatch('SET_NAVIGATION_DIRECTION', {direction})
-  historyState = history.state || historyState;
-  lastDirection = direction;
+  // let direction = ''
+  // if (!historyState && !history.state) {
+  //   direction = 'forward'
+  // } else if (history.state && !historyState) {
+  //   direction = 'forward'
+  // } else if (historyState && !history.state) {
+  //   direction = 'back'
+  // } else if (historyState && +historyState.key > +history.state.key) {
+  //   direction = 'back'
+  // } else if (historyState && +historyState.key === +history.state.key) {
+  //   if (lastDirection === 'back') {
+  //     direction = 'forward'
+  //   } else {
+  //     direction = 'back'
+  //   }
+  // } else {
+  //   direction = 'forward'
+  // }
+  // console.log(direction)
+  // store.dispatch('SET_NAVIGATION_DIRECTION', {direction})
+  // historyState = history.state || historyState;
+  // lastDirection = direction;
   next()
 });
 

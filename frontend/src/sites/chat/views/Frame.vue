@@ -17,19 +17,48 @@
   import {mapGetters} from 'vuex'
   import ChatSideMenu from '../components/SideMenu';
 
+  let historyState = history.state, lastDirection = 'forward';
+
   export default {
     data() {
-      return {}
+      return {
+        transitionName: 'slide-forward'
+      }
+    },
+    watch: {
+      '$route'(to, from) {
+        let direction = ''
+        if (!historyState && !history.state) {
+          direction = 'forward'
+        } else if (history.state && !historyState) {
+          direction = 'forward'
+        } else if (historyState && !history.state) {
+          direction = 'back'
+        } else if (historyState && +historyState.key > +history.state.key) {
+          direction = 'back'
+        } else if (historyState && +historyState.key === +history.state.key) {
+          if (lastDirection === 'back') {
+            direction = 'forward'
+          } else {
+            direction = 'back'
+          }
+        } else {
+          direction = 'forward'
+        }
+        this.transitionName = `slide-${direction}`
+        historyState = history.state || historyState;
+        lastDirection = direction;
+      }
     },
     methods: {
       handleMaskClick() {
         this.$store.dispatch('SET_SIDE_MENU_VISIBLE', false);
       },
       handleSlideStart(pos) {
-        console.log(pos)
+        //console.log(pos)
       },
       handleSlideMove(pos) {
-        console.log(pos)
+        //console.log(pos)
       },
       handleSlideEnd(pos, visible) {
         this.$store.dispatch('SET_SIDE_MENU_VISIBLE', visible);
@@ -39,7 +68,7 @@
       ChatSideMenu
     },
     computed: {
-      ...mapGetters(['transitionName', 'sideMenuVisible', 'sideMenuEnable']),
+      ...mapGetters(['sideMenuVisible', 'sideMenuEnable']),
     }
   }
 </script>

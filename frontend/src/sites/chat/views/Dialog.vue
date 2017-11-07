@@ -1,8 +1,8 @@
 <template>
   <div>
     <chat-header page-title="消息">
-      <a href="javascript:void(0)" class="head-avatar" slot="left">
-        <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+      <a href="javascript:void(0)" class="head-avatar" slot="left" @click="handleReturnBtnClick">
+        <i class="c-icon-arrow-left"></i>
       </a>
       <a href="javascript:void(0)" class="right-btn" slot="right">
         <i class="c-icon-add"></i>
@@ -50,6 +50,11 @@
           items: [],
           count: 0
         }
+      }
+    },
+    methods: {
+      handleReturnBtnClick() {
+        this.$router.back()
       }
     },
     created() {
