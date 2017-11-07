@@ -11,8 +11,29 @@
   </div>
 </template>
 <script>
-  let maxWidth = 0;
+  const duration = 500
+  let maxWidth = 0
+  let isTouch = 'ontouchstart' in window
+  let mouseEvents = isTouch ?
+    {
+      down: 'touchstart',
+      move: 'touchmove',
+      up: 'touchend',
+      over: 'touchstart',
+      out: 'touchend'
+    } :
+    {
+      down: 'mousedown',
+      move: 'mousemove',
+      up: 'mouseup',
+      over: 'mouseover',
+      out: 'mouseout'
+    }
   export default {
+    props: {
+      visible: Boolean,
+      enable: Boolean,
+    },
     data() {
       return {
         pos: 0,
@@ -25,32 +46,22 @@
         this.$emit('mask-click')
       }
     },
+    watch: {
+      visible(v) {
+        this.pos = v ? maxWidth : 0
+        this.moving = true
+      }
+    },
     computed: {
       opacity() {
         return this.pos * 0.4 / maxWidth || 0
       }
     },
     mounted() {
-      const duration = 500;
-      maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75);
-      let t1, t2, speed, sp, lp, np, startPos;
-      let isTouch = 'ontouchstart' in window
-      let mouseEvents = isTouch ?
-        {
-          down: 'touchstart',
-          move: 'touchmove',
-          up: 'touchend',
-          over: 'touchstart',
-          out: 'touchend'
-        } :
-        {
-          down: 'mousedown',
-          move: 'mousemove',
-          up: 'mouseup',
-          over: 'mouseover',
-          out: 'mouseout'
-        }
+      let t1, t2, speed, sp, lp, np, startPos
+      maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75)
       let initDrag = function (e) {
+        if (!this.enable) return;
         t2 = +new Date();
         startPos = this.pos;
         np = sp = e.clientX || e.changedTouches[0].clientX;
@@ -82,7 +93,7 @@
         this.pos = visible ? maxWidth : 0;
         document.removeEventListener(mouseEvents.move, drag, false);
         document.removeEventListener(mouseEvents.up, removeDrag, false);
-        this.$emit('slide-end', pos)
+        this.$emit('slide-end', pos, visible)
       }.bind(this)
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
         this.$el.addEventListener(e, () => {
