@@ -8,7 +8,9 @@
       @slide-end="handleSlideEnd"
       @mask-click="handleMaskClick">
       <transition :name="transitionName">
-        <router-view class="full-screen main-content"></router-view>
+        <keep-alive>
+          <router-view class="full-screen main-content"></router-view>
+        </keep-alive>
       </transition>
     </chat-side-menu>
   </div>
