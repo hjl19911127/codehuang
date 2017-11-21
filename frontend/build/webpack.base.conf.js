@@ -13,9 +13,11 @@ function resolve(dir) {
 let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites')).map((entry) => {
   return {[entry]: `sites/${entry}/main.js`};
 }));
+
 entries = {chat: entries['chat']}
 console.log(entries);
 module.exports = {
+context: path.resolve(__dirname, '../'),
   entry: entries,
   output: {
     path: config.build.assetsRoot,

@@ -6,27 +6,56 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const portfinder = require('portfinder')
 
 // add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-})
+let proxys = Object.keys(baseWebpackConfig.entry).map(function (entry) {
+  return {
+    context: (pathname, req) => {
+      return ~req.hostname.indexOf(`${entry}.codehuang`) && /\/[a-z0-9A-Z\-\/]*(?!.)/.test(pathname)
+    },
+    target: `http://localhost:8080`,
+    changeOrigin: true,
+    pathRewrite: {'\/[a-z0-9A-Z\-\/\?\=]*(?!.)': `/${entry}.html`}
+  }
+});
 
-module.exports = merge(baseWebpackConfig, {
+const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap})
+    rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap, usePostCSS: true})
   },
   // cheap-module-eval-source-map is faster for development
-  devtool: '#source-map',
+  devtool: config.dev.devtool,
+
+  // these devServer options should be customized in /config/index.js
+  devServer: {
+    clientLogLevel: 'warning',
+    disableHostCheck: true,
+    historyApiFallback: true,
+    hot: true,
+    host: process.env.HOST || config.dev.host,
+    port: process.env.PORT || config.dev.port,
+    open: config.dev.autoOpenBrowser,
+    overlay: config.dev.errorOverlay ? {
+      warnings: false,
+      errors: true,
+    } : false,
+    publicPath: config.dev.assetsPublicPath,
+    proxy: proxys,
+    quiet: false, // necessary for FriendlyErrorsPlugin
+    watchOptions: {
+      poll: config.dev.poll,
+    }
+  },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.dev.env
+      'process.env': require('../config/dev.env')
     }),
-    // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
-    // new FriendlyErrorsPlugin()
   ].concat(Object.keys(baseWebpackConfig.entry).map(function (name) {
+    // https://github.com/ampedandwired/html-webpack-plugin
     return new HtmlWebpackPlugin({
       title: name,
       filename: name + '.html',
@@ -35,4 +64,30 @@ module.exports = merge(baseWebpackConfig, {
       inject: true
     })
   }))
+})
+
+module.exports = new Promise((resolve, reject) => {
+  portfinder.basePort = process.env.PORT || config.dev.port
+  portfinder.getPort((err, port) => {
+    if (err) {
+      reject(err)
+    } else {
+      // publish the new Port, necessary for e2e tests
+      process.env.PORT = port
+      // add port to devServer config
+      devWebpackConfig.devServer.port = port
+
+      // Add FriendlyErrorsPlugin
+      devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
+        compilationSuccessInfo: {
+          messages: [`Your application is running here: http://${config.dev.host}:${port}`],
+        },
+        onErrors: config.dev.notifyOnErrors
+          ? utils.createNotifierCallback()
+          : undefined
+      }))
+
+      resolve(devWebpackConfig)
+    }
+  })
 })
