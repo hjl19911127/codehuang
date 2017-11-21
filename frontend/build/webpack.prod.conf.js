@@ -103,7 +103,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     return new HtmlWebpackPlugin({
       title: name,
       filename: path.join(config.build.index, name + '.html'),
-      chunks: ['manifest', 'vendor', name],
+      chunks: ['manifest', 'vendor', 'app', name],
       template: 'index.html',
       inject: true,
       minify: {

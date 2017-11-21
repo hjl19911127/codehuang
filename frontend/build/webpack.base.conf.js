@@ -17,7 +17,7 @@ let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites
 // entries = {chat: entries['chat']}
 console.log(entries);
 module.exports = {
-context: path.resolve(__dirname, '../'),
+  context: path.resolve(__dirname, '../'),
   entry: entries,
   output: {
     path: config.build.assetsRoot,
@@ -84,6 +84,6 @@ context: path.resolve(__dirname, '../'),
     new webpack.ProvidePlugin({
       'Promise': 'es6-promise'
     }),
-    new webpack.optimize.ModuleConcatenationPlugin()
+    // new webpack.optimize.ModuleConcatenationPlugin()
   ]
 }
