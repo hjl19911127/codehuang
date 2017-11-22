@@ -14,23 +14,27 @@
     </chat-header>
     <chat-content>
       <div class="message-list">
-        <div class="message-item" v-for="item in messages.items" :key="item.id">
-          <div class="message-item-block block-left">
-            <div class="avatar-wrap" v-show="item.from_user_id !== 0">
-              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+        <div v-for="item in messages.items" :key="item.id">
+          <div class="message-time" v-text="item.sendTime"></div>
+          <div class="message-item">
+            <div class="message-item-block block-left">
+              <div class="avatar-wrap" v-show="item.from_user_id !== 0">
+                <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+              </div>
             </div>
-          </div>
-          <div class="message-item-block block-center">
-            <div class="message-content" v-text="item.content"></div>
-          </div>
-          <div class="message-item-block block-right">
-            <div class="avatar-wrap" v-show="item.from_user_id === 0">
-              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+            <div class="message-item-block block-center">
+              <div class="message-content" v-text="item.content"></div>
+            </div>
+            <div class="message-item-block block-right">
+              <div class="avatar-wrap" v-show="item.from_user_id === 0">
+                <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </chat-content>
+    <chat-option-bar></chat-option-bar>
   </div>
 </template>
 <script>
@@ -52,24 +56,48 @@
         }
       }
     },
+    computed: {
+      messageGroups() {
+        let items = this.messages.items;
+        let time = 0, lastTime = 0, groupItems = [], allGroup = [];
+        items.forEach((v, i) => {
+          if (i === 0) {
+            time = lastTime = v.sendTime
+          } else {
+            lastTime = time;
+            time = v.sendTime;
+            if (time - lastTime >= 1800000) {
+              allGroup = allGroup.concat(groupItems)
+              groupItems = []
+            } else {
+              groupItems.push(v)
+            }
+          }
+        });
+        return allGroup;
+      }
+    },
     methods: {
       handleReturnBtnClick() {
         this.$router.back()
       }
     },
     created() {
-
-      this.messages.items = new Array(100).fill(undefined).map((v, i) => {
-        let isMine = Math.round(Math.random())
+      let timeOffset = 0;
+      let messages = new Array(100).fill(undefined).map((v, i) => {
+        let isMine = Math.round(Math.random());
+        let time = +new Date();
+        timeOffset += 1800000 * (+(i % 3 === 0));
         return {
           id: i + 1,
           from_user_id: isMine,
           from_user_name: ['老夫子', '豆豆儿'],
           to_user_id: +!isMine,
-          sendTime: +new Date() + 10000 * i,
+          sendTime: time + timeOffset,
           content: '软工 刘峰：明天早上过去'
         }
       })
+      this.messages.items = messages;
     }
   }
 </script>
