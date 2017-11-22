@@ -63,6 +63,12 @@
         from: '福大数计15工硕群',
         content: '软工 刘峰：明天早上过去'
       })
+    },
+    beforeDestroy() {
+      console.log('beforeDestroy');
+    },
+    destroyed() {
+      console.log('destroyed');
     }
   }
 </script>
