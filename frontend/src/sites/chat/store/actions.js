@@ -28,4 +28,7 @@ export default {
   SET_SIDE_MENU_VISIBLE: ({commit, dispatch, state}, flag) => {
     commit('SET_SIDE_MENU_VISIBLE', flag);
   },
+  SET_SIDE_MENU_ENABLE: ({commit, dispatch, state}, flag) => {
+    commit('SET_SIDE_MENU_ENABLE', flag);
+  },
 }

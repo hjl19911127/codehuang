@@ -1,48 +1,48 @@
 <template>
-  <div>
-    <chat-header page-title="消息">
-      <a href="javascript:void(0)" class="head-avatar" slot="left" @click="handleReturnBtnClick">
+  <div class="wrap">
+    <chat-header>
+      <div class="head-title" slot="middle">
+        <div class="name">老夫子</div>
+        <div class="status">在线</div>
+      </div>
+      <a href="javascript:void(0)" class="head-btn" slot="left" @click="handleReturnBtnClick">
         <i class="c-icon-arrow-left"></i>
       </a>
-      <a href="javascript:void(0)" class="right-btn" slot="right">
+      <a href="javascript:void(0)" class="head-btn" slot="right">
         <i class="c-icon-add"></i>
       </a>
     </chat-header>
     <chat-content>
-      <chat-search-bar></chat-search-bar>
       <div class="message-list">
-        <router-link class="message-item" :to="{name:'messageDetail',params: { mid: item.id }}"
-                     v-for="item in messages.items" :key="item.id">
+        <div class="message-item" v-for="item in messages.items" :key="item.id">
           <div class="message-item-block block-left">
-            <div class="avatar-wrap">
+            <div class="avatar-wrap" v-show="item.from_user_id !== 0">
               <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
             </div>
           </div>
           <div class="message-item-block block-center">
-            <div class="message-from" v-text="item.from"></div>
             <div class="message-content" v-text="item.content"></div>
           </div>
           <div class="message-item-block block-right">
-            <div class="message-time">8:45</div>
+            <div class="avatar-wrap" v-show="item.from_user_id === 0">
+              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+            </div>
           </div>
-        </router-link>
+        </div>
       </div>
     </chat-content>
-    <chat-nav-bar></chat-nav-bar>
   </div>
 </template>
 <script>
   import ChatHeader from '../components/Header';
   import ChatContent from '../components/Content';
-  import ChatNavBar from '../components/NavBar';
-  import ChatSearchBar from '../components/SearchBar';
+  import ChatOptionBar from '../components/OptionBar';
 
   export default {
     components: {
       ChatHeader,
       ChatContent,
-      ChatNavBar,
-      ChatSearchBar
+      ChatOptionBar
     },
     data() {
       return {
@@ -58,51 +58,52 @@
       }
     },
     created() {
-      this.messages.items = (new Array(100)).fill({
-        id: 1,
-        from: '福大数计15工硕群',
-        content: '软工 刘峰：明天早上过去'
+
+      this.messages.items = new Array(100).fill(undefined).map((v, i) => {
+        let isMine = Math.round(Math.random())
+        return {
+          id: i + 1,
+          from_user_id: isMine,
+          from_user_name: ['老夫子', '豆豆儿'],
+          to_user_id: +!isMine,
+          sendTime: +new Date() + 10000 * i,
+          content: '软工 刘峰：明天早上过去'
+        }
       })
-    },
-    beforeDestroy() {
-      console.log('beforeDestroy');
-    },
-    destroyed() {
-      console.log('destroyed');
     }
   }
 </script>
 <style lang="stylus" scoped>
   @import '../assets/stylus/shared/_mixin'
+  .wrap {
+    background-color: #f0f2f8;
+  }
+
   .message-item
     display: block
-    height px2rem(136px)
-    line-height: px2rem(136px)
-    border-bottom 1px solid #e8e8e8
     font-size: 0
 
   .message-item-block
     line-height: 1
     display: inline-block
-    vertical-align: middle
+    vertical-align: top
 
   .block-left
     width 20%
 
   .block-center
-    width 70%
+    width 60%
 
   .block-right
-    width 10%
-
-  .message-from
-    color: #000
-    margin-bottom: px2rem(18px)
-    font-size: px2rem(32px)
+    width 20%
 
   .message-content
-    color: #888
-    font-size: px2rem(26px)
+    color: #000
+    font-size: px2rem(30px)
+    line-height: px2rem(46px)
+    padding px2rem(20px)
+    background-color: #fff
+    border-radius px2rem(30px)
 
   .message-time
     color: #999
@@ -128,7 +129,7 @@
       width: 100%
       height: 100%
 
-  .right-btn
+  .head-btn
     btnSize = 44px
     display: inline-block
     vertical-align middle
@@ -137,4 +138,13 @@
     font-size: 0
     i
       font-size: px2rem(btnSize)
+
+  .head-title
+    padding-top px2rem(20px)
+    line-height: 1.2
+    color: #fff
+    .name
+      font-size: px2rem(30px)
+    .status
+      font-size: px2rem(20px)
 </style>

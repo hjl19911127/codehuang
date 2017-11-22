@@ -1,10 +1,11 @@
 <template>
   <div>
-    <chat-header page-title="消息">
+    <chat-header>
+      <h1 slot="middle">消息</h1>
       <a href="javascript:void(0)" class="head-avatar" slot="left" @click="handleHeaderAvatarClick">
         <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
       </a>
-      <a href="javascript:void(0)" class="right-btn" slot="right">
+      <a href="javascript:void(0)" class="head-btn" slot="right">
         <i class="c-icon-add"></i>
       </a>
     </chat-header>
@@ -58,10 +59,12 @@
       }
     },
     created() {
-      this.messages.items = (new Array(100)).fill({
-        id: 1,
-        from: '福大数计15工硕群',
-        content: '软工 刘峰：明天早上过去'
+      this.messages.items = new Array(100).fill(undefined).map((v, i) => {
+        return {
+          id: i + 1,
+          from: '福大数计15工硕群',
+          content: '软工 刘峰：明天早上过去'
+        }
       })
     }
   }
@@ -122,7 +125,7 @@
       width: 100%
       height: 100%
 
-  .right-btn
+  .head-btn
     btnSize = 44px
     display: inline-block
     vertical-align middle

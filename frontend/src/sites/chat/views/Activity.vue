@@ -1,6 +1,7 @@
 <template>
   <div>
-    <chat-header page-title="消息">
+    <chat-header>
+      <h1 slot="middle">活动</h1>
       <a href="javascript:void(0)" class="head-avatar" slot="left">
         <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
       </a>

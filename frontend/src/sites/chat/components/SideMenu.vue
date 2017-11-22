@@ -33,6 +33,7 @@
     props: {
       visible: Boolean,
       enable: Boolean,
+      container: Object
     },
     data() {
       return {
@@ -58,19 +59,20 @@
       }
     },
     mounted() {
-      let t1, t2, speed, sp, lp, np, startPos
+      let container = this.$el.parentNode, t1, t2, speed, sp, lp, np, startPos
       maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75)
-      let initDrag = function (e) {
+      const initDrag = function (e) {
         if (!this.enable) return;
         t2 = +new Date();
         startPos = this.pos;
         np = sp = e.clientX || e.changedTouches[0].clientX;
         this.willChange = true
-        document.addEventListener(mouseEvents.move, drag, false);
-        document.addEventListener(mouseEvents.up, removeDrag, false);
+        container.addEventListener(mouseEvents.move, drag, false);
+        container.addEventListener(mouseEvents.up, removeDrag, false);
         this.$emit('slide-start', this.pos)
       }.bind(this)
-      let drag = function (e) {
+      const drag = function (e) {
+        e.preventDefault();
         t1 = t2;
         t2 = +new Date();
         lp = np;
@@ -82,7 +84,7 @@
         this.pos = pos;
         this.$emit('slide-move', pos)
       }.bind(this)
-      let removeDrag = function (e) {
+      const removeDrag = function (e) {
         let pos = this.pos, visible = false;
         if (speed > 0) {
           visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
@@ -91,8 +93,8 @@
         }
         if (this.pos > 0 && this.pos < maxWidth) this.moving = true
         this.pos = visible ? maxWidth : 0;
-        document.removeEventListener(mouseEvents.move, drag, false);
-        document.removeEventListener(mouseEvents.up, removeDrag, false);
+        container.removeEventListener(mouseEvents.move, drag, false);
+        container.removeEventListener(mouseEvents.up, removeDrag, false);
         this.$emit('slide-end', pos, visible)
       }.bind(this)
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
@@ -101,7 +103,7 @@
           this.willChange = false
         }, false)
       })
-      document.addEventListener(mouseEvents.down, initDrag, false);
+      container.addEventListener(mouseEvents.down, initDrag, false);
     }
   }
 </script>

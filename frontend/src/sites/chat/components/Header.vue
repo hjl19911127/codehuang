@@ -3,7 +3,7 @@
     <div class="header-left">
       <slot name="left"></slot>
     </div>
-    <h1 v-text="pageTitle"></h1>
+    <slot name="middle"></slot>
     <div class="header-right">
       <slot name="right"></slot>
     </div>

@@ -14,4 +14,7 @@ export default {
   SET_SIDE_MENU_VISIBLE: (state, data) => {
     state.sideMenu.visible = data;
   },
+  SET_SIDE_MENU_ENABLE: (state, data) => {
+    state.sideMenu.enable = data;
+  },
 }
