@@ -71,53 +71,52 @@
       }
     },
     mounted() {
-      let container = this.$el.parentNode, t1, t2, speed, sp, lp, np, startPos;
-      let startX, startY, nowX, nowY, isScroll = false;
+      const container = this.$el.parentNode;
+      let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isScroll = false;
       maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75);
       const initDrag = function (e) {
         if (!this.enable) return;
-        startX = e.clientX || e.changedTouches[0].clientX;
+        nowX = startX = e.clientX || e.changedTouches[0].clientX;
         startY = e.clientY || e.changedTouches[0].clientY;
-
         t2 = +new Date();
         startPos = this.pos;
-        np = sp = e.clientX || e.changedTouches[0].clientX;
         this.willChange = true;
         container.addEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.addEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
         this.$emit('slide-start', this.pos)
       }.bind(this);
       const drag = function (e) {
+        t1 = t2;
+        t2 = +new Date();
+        lastX = nowX;
         nowX = e.clientX || e.changedTouches[0].clientX;
         nowY = e.clientY || e.changedTouches[0].clientY;
+        speed = (nowX - lastX) / (t2 - t1);
+        let pos = startPos + nowX - startX;
+        pos = Math.min(maxWidth, pos);
+        pos = Math.max(0, pos);
         if (Math.abs(nowX - startX) < 10 && Math.abs(nowX - startY) > 5) isScroll = true;
         if (!isScroll) {
           if (!supportsPassive) e.preventDefault();
-          t1 = t2;
-          t2 = +new Date();
-          lp = np;
-          np = e.clientX || e.changedTouches[0].clientX;
-          speed = (np - lp) / (t2 - t1);
-          let pos = startPos + np - sp;
-          pos = Math.min(maxWidth, pos);
-          pos = Math.max(0, pos);
           this.pos = pos;
           this.$emit('slide-move', pos)
         }
       }.bind(this);
       const removeDrag = function (e) {
-        let pos = this.pos, visible = false;
-        if (speed > 0) {
-          visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
-        } else {
-          visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
-        }
-        if (this.pos > 0 && this.pos < maxWidth) this.moving = true;
-        this.pos = visible ? maxWidth : 0;
-        isScroll = false;
         container.removeEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.removeEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
-        this.$emit('slide-end', pos, visible)
+        if (!isScroll) {
+          let pos = this.pos, visible = false;
+          if (speed > 0) {
+            visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
+          } else {
+            visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
+          }
+          if (this.pos > 0 && this.pos < maxWidth) this.moving = true;
+          this.pos = visible ? maxWidth : 0;
+          this.$emit('slide-end', pos, visible)
+        }
+        isScroll = false;
       }.bind(this);
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
         this.$el.addEventListener(e, () => {
