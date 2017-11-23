@@ -4,7 +4,8 @@ export default {
   session: null,
   navigationDirection: 'forward',
   sideMenu: {
-    visible: false,
-    enable: true
+    nowVisible: false,
+    enable: true,
+    action: null
   }
 };

@@ -25,8 +25,11 @@ export default {
   SET_NAVIGATION_DIRECTION: ({commit, dispatch, state}, {direction}) => {
     commit('SET_NAVIGATION_DIRECTION', direction);
   },
-  SET_SIDE_MENU_VISIBLE: ({commit, dispatch, state}, flag) => {
-    commit('SET_SIDE_MENU_VISIBLE', flag);
+  SWITCH_SIDE_MENU: ({commit, dispatch, state}, flag) => {
+    commit('SWITCH_SIDE_MENU', flag);
+  },
+  UPDATE_SIDE_MENU_VISIBLE_STATUS: ({commit, dispatch, state}, flag) => {
+    commit('UPDATE_SIDE_MENU_VISIBLE_STATUS', flag);
   },
   SET_SIDE_MENU_ENABLE: ({commit, dispatch, state}, flag) => {
     commit('SET_SIDE_MENU_ENABLE', flag);

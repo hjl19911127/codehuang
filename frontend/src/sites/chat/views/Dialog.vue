@@ -12,10 +12,10 @@
         <i class="c-icon-add"></i>
       </a>
     </chat-header>
-    <chat-content>
+    <chat-content :style="contentBottomOffset?{bottom:contentBottomOffset+'px'}:{}">
       <div class="message-list">
-        <div v-for="item in messages.items" :key="item.id">
-          <div class="message-time" v-text="item.sendTime"></div>
+        <div :class="{'is-mine':item.from_user_id === 0}" v-for="(item,index) in messages" :key="item.id">
+          <div class="message-time" v-show="showTimeStamp(item,index)">{{item.sendTime | time('HH:mm')}}</div>
           <div class="message-item">
             <div class="message-item-block block-left">
               <div class="avatar-wrap" v-show="item.from_user_id !== 0">
@@ -23,7 +23,9 @@
               </div>
             </div>
             <div class="message-item-block block-center">
-              <div class="message-content" v-text="item.content"></div>
+              <div class="message-content-wrap">
+                <div class="message-content">{{item.content}}</div>
+              </div>
             </div>
             <div class="message-item-block block-right">
               <div class="avatar-wrap" v-show="item.from_user_id === 0">
@@ -34,7 +36,7 @@
         </div>
       </div>
     </chat-content>
-    <chat-option-bar></chat-option-bar>
+    <chat-option-bar @height-change="handleHeightChange"></chat-option-bar>
   </div>
 </template>
 <script>
@@ -50,15 +52,17 @@
     },
     data() {
       return {
-        messages: {
-          items: [],
-          count: 0
+        contentBottomOffset: 0,
+        messages: [],
+        total: [],
+        filter: {
+          page: 0, size: 10
         }
       }
     },
     computed: {
       messageGroups() {
-        let items = this.messages.items;
+        let items = this.messages;
         let time = 0, lastTime = 0, groupItems = [], allGroup = [];
         items.forEach((v, i) => {
           if (i === 0) {
@@ -66,7 +70,7 @@
           } else {
             lastTime = time;
             time = v.sendTime;
-            if (time - lastTime >= 1800000) {
+            if (time - lastTime >= 180000) {
               allGroup = allGroup.concat(groupItems)
               groupItems = []
             } else {
@@ -78,26 +82,34 @@
       }
     },
     methods: {
+      showTimeStamp(item, index) {
+        let last = this.messages[index - 1];
+        return !last || item.sendTime - last.sendTime >= 180000
+      },
       handleReturnBtnClick() {
         this.$router.back()
+      },
+      handleHeightChange(data) {
+        console.log(data)
+        this.contentBottomOffset = data;
       }
     },
     created() {
       let timeOffset = 0;
-      let messages = new Array(100).fill(undefined).map((v, i) => {
+      this.messages = new Array(100).fill(undefined).map((v, i) => {
         let isMine = Math.round(Math.random());
+        //2017-07-27 10:26:14
         let time = +new Date();
-        timeOffset += 1800000 * (+(i % 3 === 0));
+        timeOffset += 180000 * (+(i % 3 === 0));
         return {
           id: i + 1,
           from_user_id: isMine,
-          from_user_name: ['老夫子', '豆豆儿'],
+          from_user_name: ['老夫子', '豆豆儿'][isMine],
           to_user_id: +!isMine,
           sendTime: time + timeOffset,
-          content: '软工 刘峰：明天早上过去'
+          content: '软工 刘峰：明天早上过去\n软工 刘峰：明天早上过去'
         }
-      })
-      this.messages.items = messages;
+      });
     }
   }
 </script>
@@ -107,9 +119,13 @@
     background-color: #f0f2f8;
   }
 
+  .message-list
+    padding px2rem(30px) 0
+
   .message-item
     display: block
     font-size: 0
+    padding px2rem(24px) 0
 
   .message-item-block
     line-height: 1
@@ -125,6 +141,9 @@
   .block-right
     width 20%
 
+  .message-content-wrap
+    padding-right px2rem(30px)
+
   .message-content
     color: #000
     font-size: px2rem(30px)
@@ -132,10 +151,21 @@
     padding px2rem(20px)
     background-color: #fff
     border-radius px2rem(30px)
+    white-space pre-wrap
+
+  .is-mine
+    .message-content-wrap
+      padding-right 0
+      padding-left px2rem(30px)
+    .message-content
+      color: #fff
+      background-color: #4ab9f8
 
   .message-time
     color: #999
     font-size: px2rem(20px)
+    line-height: px2rem(84px)
+    text-align: center
 
   .avatar-wrap
     margin 0 auto

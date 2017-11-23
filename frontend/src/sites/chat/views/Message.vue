@@ -55,7 +55,7 @@
     },
     methods: {
       handleHeaderAvatarClick() {
-        this.$store.dispatch('SET_SIDE_MENU_VISIBLE', true);
+        this.$store.dispatch('SWITCH_SIDE_MENU', true);
       }
     },
     created() {

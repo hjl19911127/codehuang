@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <chat-side-menu
-      :visible="sideMenuVisible"
+      :action="sideMenuAction"
       :enable="sideMenuEnable"
       @slide-start="handleSlideStart"
       @slide-move="handleSlideMove"
@@ -54,7 +54,7 @@
     },
     methods: {
       handleMaskClick() {
-        this.$store.dispatch('SET_SIDE_MENU_VISIBLE', false);
+        this.$store.dispatch('SWITCH_SIDE_MENU', false);
       },
       handleSlideStart(pos) {
         //console.log(pos)
@@ -63,14 +63,14 @@
         //console.log(pos)
       },
       handleSlideEnd(pos, visible) {
-        this.$store.dispatch('SET_SIDE_MENU_VISIBLE', visible);
+//        this.$store.dispatch('SET_SIDE_MENU_VISIBLE_STATUS', visible);
       }
     },
     components: {
       ChatSideMenu
     },
     computed: {
-      ...mapGetters(['sideMenuVisible', 'sideMenuEnable']),
+      ...mapGetters(['sideMenuEnable', 'sideMenuAction']),
     }
   }
 </script>

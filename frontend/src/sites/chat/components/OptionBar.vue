@@ -1,5 +1,10 @@
 <template>
   <div class="option-bar">
+    <div class="input-wrap" :style="{height:inputWrapHeight+'px'}">
+      <chat-input class="input-text" v-model="inputText" @input="handleInput"></chat-input>
+      <a href="javascript:void(0)" class="input-button" :class="{'disabled':!inputText.length}"
+         @click="send">发送</a>
+    </div>
     <ul class="option-button-group">
       <li><i class="c-icon-audio"></i></li>
       <li><i class="c-icon-image"></i></li>
@@ -13,7 +18,45 @@
 </template>
 
 <script>
-  export default {}
+  import ChatInput from './Input'
+
+  let inputElement, inputElementHeight;
+  export default {
+    data() {
+      return {
+        inputElementHeight: 0,
+        inputText: ''
+      }
+    },
+    components: {
+      ChatInput
+    },
+    watch: {
+      'inputElementHeight'() {
+        this.$nextTick(() => {
+          this.$emit('height-change', this.$el.scrollHeight);
+        })
+      }
+    },
+    computed: {
+      inputWrapHeight() {
+        return this.inputElementHeight;
+      }
+    },
+    methods: {
+      send() {
+
+      },
+      handleInput(data) {
+        this.inputElementHeight = parseInt(window.getComputedStyle(inputElement).height)
+      }
+    },
+    mounted() {
+      inputElement = document.querySelector('.input-text');
+      inputElementHeight = parseInt(window.getComputedStyle(inputElement).height)
+      this.inputElementHeight = inputElementHeight;
+    }
+  }
 </script>
 
 <style lang="stylus" scoped>
@@ -23,13 +66,47 @@
     left 0
     right 0
     bottom 0
-    height px2rem(112px)
-    line-height px2rem(112px)
-    background-color #fff
     font-size 0
-    border-top 1px solid #e8e8e8
+    background-color: #f0f2f8
+    border-top 1px solid #f0f2f8
+
+  .input-wrap
+    position: relative
+
+  .input-text
+    float: left
+    position: absolute
+    left: px2rem(10px);
+    bottom: 0
+    border none
+    width: 82%
+    font-size px2rem(32px)
+    min-height: px2rem(76px)
+    line-height px2rem(32px)
+    background-color: #fff
+    max-height 25vh
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:active, &:focus
+      outline none
+
+  .input-button
+    position: absolute
+    right: px2rem(10px);
+    bottom: 0
+    text-align center
+    display: inline-block
+    width: 14%
+    line-height: px2rem(76px)
+    height px2rem(76px)
+    color: #fff
+    background-color: #4ab9f8
+    border-radius px2rem(10px)
+    font-size px2rem(26px)
 
   .option-button-group
+    line-height px2rem(94px)
     padding 0
     li
       display inline-block

@@ -43,12 +43,13 @@
     }
   export default {
     props: {
-      visible: Boolean,
+      action: Object,
       enable: Boolean,
       container: Object
     },
     data() {
       return {
+        visible: false,
         pos: 0,
         moving: false,
         willChange: false,
@@ -56,12 +57,14 @@
     },
     methods: {
       handleMaskClick() {
+        if (this.moving) return;
         this.$emit('mask-click')
       }
     },
     watch: {
-      visible(v) {
-        this.pos = v ? maxWidth : 0
+      'action'(v) {
+        this.visible = v.visible;
+        this.pos = v.visible ? maxWidth : 0
         this.moving = true
       }
     },
@@ -76,6 +79,7 @@
       maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75);
       const initDrag = function (e) {
         if (!this.enable) return;
+        isScroll = false
         nowX = startX = e.clientX || e.changedTouches[0].clientX;
         startY = e.clientY || e.changedTouches[0].clientY;
         t2 = +new Date();
@@ -95,7 +99,7 @@
         let pos = startPos + nowX - startX;
         pos = Math.min(maxWidth, pos);
         pos = Math.max(0, pos);
-        if (Math.abs(nowX - startX) < 10 && Math.abs(nowX - startY) > 5) isScroll = true;
+        if (Math.abs(nowY - startY) / Math.abs(nowX - startX) > (Math.sqrt(3) / 3)) isScroll = true;
         if (!isScroll) {
           if (!supportsPassive) e.preventDefault();
           this.pos = pos;
@@ -103,25 +107,25 @@
         }
       }.bind(this);
       const removeDrag = function (e) {
-        container.removeEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
-        container.removeEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
         if (!isScroll) {
-          let pos = this.pos, visible = false;
+          let pos = this.pos;
           if (speed > 0) {
-            visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
+            this.visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
           } else {
-            visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
+            this.visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
           }
           if (this.pos > 0 && this.pos < maxWidth) this.moving = true;
-          this.pos = visible ? maxWidth : 0;
-          this.$emit('slide-end', pos, visible)
+          this.pos = this.visible ? maxWidth : 0;
+          this.$emit('slide-end', pos, this.visible)
         }
-        isScroll = false;
+        container.removeEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
+        container.removeEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
       }.bind(this);
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
         this.$el.addEventListener(e, () => {
           this.moving = false;
           this.willChange = false
+          this.pos = this.visible ? maxWidth : 0;
         }, false)
       });
       container.addEventListener(mouseEvents.down, initDrag, supportsPassive ? {passive: true} : false);

@@ -16,5 +16,9 @@ export default {
   },
   sideMenuEnable(state) {
     return state.sideMenu.enable
-  }
+  },
+  sideMenuAction(state) {
+    console.log(state.sideMenu.action)
+    return state.sideMenu.action
+  },
 }
