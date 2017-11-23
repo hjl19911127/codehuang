@@ -95,6 +95,7 @@
       }
     },
     created() {
+      console.log('created')
       let timeOffset = 0;
       this.messages = new Array(100).fill(undefined).map((v, i) => {
         let isMine = Math.round(Math.random());

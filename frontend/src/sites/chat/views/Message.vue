@@ -59,6 +59,7 @@
       }
     },
     created() {
+      console.log('created')
       this.messages.items = new Array(100).fill(undefined).map((v, i) => {
         return {
           id: i + 1,
