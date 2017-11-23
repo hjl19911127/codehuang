@@ -3,7 +3,7 @@
     <chat-header>
       <h1 slot="middle">消息</h1>
       <a href="javascript:void(0)" class="head-avatar" slot="left" @click="handleHeaderAvatarClick">
-        <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+        <img src="//static.codehuang.com/upload/avatars/default.png">
       </a>
       <a href="javascript:void(0)" class="head-btn" slot="right">
         <i class="c-icon-add"></i>
@@ -16,7 +16,7 @@
                      v-for="item in messages.items" :key="item.id">
           <div class="message-item-block block-left">
             <div class="avatar-wrap">
-              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+              <img src="//static.codehuang.com/upload/avatars/default.png">
             </div>
           </div>
           <div class="message-item-block block-center">

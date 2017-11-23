@@ -19,7 +19,7 @@
           <div class="message-item">
             <div class="message-item-block block-left">
               <div class="avatar-wrap" v-show="item.from_user_id !== 0">
-                <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+                <img src="//static.codehuang.com/upload/avatars/default.png">
               </div>
             </div>
             <div class="message-item-block block-center">
@@ -29,7 +29,7 @@
             </div>
             <div class="message-item-block block-right">
               <div class="avatar-wrap" v-show="item.from_user_id === 0">
-                <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+                <img src="//static.codehuang.com/upload/avatars/default.png">
               </div>
             </div>
           </div>
