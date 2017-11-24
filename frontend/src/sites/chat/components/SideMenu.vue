@@ -74,7 +74,7 @@
       }
     },
     mounted() {
-      const container = this.$el.parentNode;
+      const container = document;
       let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isScroll = false;
       maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75);
       const initDrag = function (e) {

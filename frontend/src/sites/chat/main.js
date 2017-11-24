@@ -5,6 +5,7 @@ import Vue from 'vue'
 import app from 'app'
 import router from './router'
 import store from './store'
+import '@/utils/polyfill'
 
 var FastClick = require('fastclick');
 FastClick.attach(document.body);
