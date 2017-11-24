@@ -34,7 +34,7 @@
     watch: {
       'inputElementHeight'() {
         this.$nextTick(() => {
-          this.$emit('height-change', this.$el.scrollHeight);
+          this.$emit('height-change', parseInt(window.getComputedStyle(this.$el).height));
         })
       }
     },
@@ -53,7 +53,7 @@
     },
     mounted() {
       inputElement = document.querySelector('.input-text');
-      inputElementHeight = parseInt(window.getComputedStyle(inputElement).height)
+      inputElementHeight = parseInt(window.getComputedStyle(inputElement).height);
       this.inputElementHeight = inputElementHeight;
     }
   }
@@ -84,7 +84,7 @@
     min-height: px2rem(76px)
     line-height px2rem(32px)
     background-color: #fff
-    max-height 25vh
+    max-height px2rem(200px)
     &::-webkit-scrollbar {
       display: none;
     }

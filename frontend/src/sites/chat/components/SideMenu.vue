@@ -1,7 +1,9 @@
 <template>
   <div class="side-menu">
     <div class="menu-inner" :class="{'will-change':willChange,'moving':moving}"
-         :style="{transform:`translateX(${Math.ceil(pos/3)}px)`}">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+         :style="{transform:`translateX(${Math.ceil(pos/3)}px)`}">
+      {{content}}
+      <button type="button" @click="handleClearClick" style="position: absolute;top: 0;right: 0;">clear</button>
     </div>
     <div class="full-screen" :class="{'will-change':willChange,'moving':moving}"
          :style="{transform:`translateX(${pos}px)`}">
@@ -49,6 +51,7 @@
     },
     data() {
       return {
+        content: '',
         visible: false,
         pos: 0,
         moving: false,
@@ -59,6 +62,9 @@
       handleMaskClick() {
         if (this.moving) return;
         this.$emit('mask-click')
+      },
+      handleClearClick() {
+        this.content = ''
       }
     },
     watch: {
@@ -75,16 +81,17 @@
     },
     mounted() {
       const container = document;
-      let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isScroll = false;
+      let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isTouching = null;
       maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75);
       const initDrag = function (e) {
         if (!this.enable) return;
-        isScroll = false
+        isTouching = null;
+        this.content = `${this.content}--------------------------\n`
         nowX = startX = e.clientX || e.changedTouches[0].clientX;
         startY = e.clientY || e.changedTouches[0].clientY;
         t2 = +new Date();
         startPos = this.pos;
-        this.willChange = true;
+//        this.willChange = true;
         container.addEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.addEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
         this.$emit('slide-start', this.pos)
@@ -99,15 +106,19 @@
         let pos = startPos + nowX - startX;
         pos = Math.min(maxWidth, pos);
         pos = Math.max(0, pos);
-        if (Math.abs(nowY - startY) / Math.abs(nowX - startX) > (Math.sqrt(3) / 3)) isScroll = true;
-        if (!isScroll) {
+        if(!isTouching){
+          if (Math.abs(nowY - startY) / Math.abs(nowX - startX) > (Math.sqrt(3) / 3)) isTouching = {v:true};
+          else
+        }
+
+        if (!isTouching.v) {
           if (!supportsPassive) e.preventDefault();
           this.pos = pos;
           this.$emit('slide-move', pos)
         }
       }.bind(this);
       const removeDrag = function (e) {
-        if (!isScroll) {
+        if (!isTouching.v) {
           let pos = this.pos;
           if (speed > 0) {
             this.visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
@@ -116,16 +127,23 @@
           }
           if (this.pos > 0 && this.pos < maxWidth) this.moving = true;
           this.pos = this.visible ? maxWidth : 0;
-          this.$emit('slide-end', pos, this.visible)
+        } else {
+          this.pos = this.visible ? maxWidth : 0;
+//          document.getElementById("myDIV").style.transform = "rotate(7deg)";
         }
+        this.content = `${this.content}${isTouching.v} touchendEnd ${this.pos}\n${window.getComputedStyle(document.querySelector('.menu-inner')).transform}\n`
+        isTouching = null;
         container.removeEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.removeEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
       }.bind(this);
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
         this.$el.addEventListener(e, () => {
-          this.moving = false;
-          this.willChange = false
-          this.pos = this.visible ? maxWidth : 0;
+          this.$nextTick(() => {
+            this.moving = false;
+            this.willChange = false;
+            this.pos = this.visible ? maxWidth : 0;
+            this.content = `${this.content}transitionend ${this.pos}\n${window.getComputedStyle(document.querySelector('.menu-inner')).transform}\n`
+          })
         }, false)
       });
       container.addEventListener(mouseEvents.down, initDrag, supportsPassive ? {passive: true} : false);
@@ -152,6 +170,8 @@
     transform translateZ(0)
     word-break break-all
     word-wrap break-word
+    font-size 10px
+    white-space pre-wrap
 
   .menu-mask
     background-color: #000

@@ -90,7 +90,6 @@
         this.$router.back()
       },
       handleHeightChange(data) {
-        console.log(data)
         this.contentBottomOffset = data;
       }
     },
