@@ -11,8 +11,8 @@
       @mask-click="handleMaskClick">
       <div class="menu-content" slot="menu">
         <div class="menu-img-wrap">
-          <a class="qrcode" href="javascript:;"></a>
-          <img class="menu-img" src="//static.codehuang.local:20081/upload/images/bg.jpg">
+          <a class="qrcode" href="javascript:;"><i class="c-icon-qrcode"></i></a>
+          <!--<img class="menu-img" src="//static.codehuang.local:20081/upload/images/bg.jpg">-->
         </div>
       </div>
       <transition :name="transitionName" slot="content">
@@ -83,7 +83,9 @@
 </script>
 <style lang="stylus" src="@/sites/chat/assets/stylus/style/common"></style>
 <style lang="stylus" scoped>
+  @import '../assets/stylus/shared/_mixin'
   .menu-content
+    height: 100%
     word-break break-all
     word-wrap break-word
     font-size 10px
@@ -91,9 +93,16 @@
     background-color: #fff
 
   .menu-img-wrap
+    position: relative
     width: 100%
     height: 33.33%
-
+    background: url("//static.codehuang.local:20081/upload/images/bg.jpg") center/cover no-repeat
+    .qrcode
+      position: absolute
+      top: px2rem(60px)
+      right: px2rem(30px)
+      color: #ffffff
+      font-size: px2rem(40px)
     img
       width: 100%
       height: 100%
