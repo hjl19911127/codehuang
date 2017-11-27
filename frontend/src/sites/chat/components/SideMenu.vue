@@ -1,13 +1,13 @@
 <template>
   <div class="side-menu">
-    <div class="menu-content" :class="{'moving':moving}"
+    <div class="menu-wrap" :class="{'moving':moving}"
          :style="{width:`${width}px`,left:`-${Math.ceil(width/3)}px`,transform:`translate3d(${Math.ceil(pos/3)}px,0,0)`}">
-      <slot name="menu-content"></slot>
+      <slot name="menu"></slot>
     </div>
-    <div class="main-content" :class="{'moving':moving}"
+    <div class="content-wrap" :class="{'moving':moving}"
          :style="{transform:`translate3d(${pos}px,0,0)`}">
       <div class="menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
-      <slot name="main-content"></slot>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
@@ -147,19 +147,14 @@
     overflow: hidden
     will-change transform
 
-  .menu-content
+  .menu-wrap
     position: absolute
     top: 0
     bottom: 0
-    background-color: green
-    word-break break-all
-    word-wrap break-word
-    font-size 10px
-    white-space pre-wrap
     transform translateZ(0)
     will-change transform
 
-  .main-content
+  .content-wrap
     position: absolute
     top: 0
     right: 0

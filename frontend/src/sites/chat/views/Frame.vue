@@ -9,10 +9,13 @@
       @slide-move="handleSlideMove"
       @slide-end="handleSlideEnd"
       @mask-click="handleMaskClick">
-      <div slot="menu-content">
-
+      <div class="menu-content" slot="menu">
+        <div class="menu-img-wrap">
+          <a class="qrcode" href="javascript:;"></a>
+          <img class="menu-img" src="//static.codehuang.local:20081/upload/images/bg.jpg">
+        </div>
       </div>
-      <transition :name="transitionName" slot="main-content">
+      <transition :name="transitionName" slot="content">
         <router-view class="main-content"></router-view>
       </transition>
     </chat-side-menu>
@@ -79,3 +82,19 @@
   }
 </script>
 <style lang="stylus" src="@/sites/chat/assets/stylus/style/common"></style>
+<style lang="stylus" scoped>
+  .menu-content
+    word-break break-all
+    word-wrap break-word
+    font-size 10px
+    white-space pre-wrap
+    background-color: #fff
+
+  .menu-img-wrap
+    width: 100%
+    height: 33.33%
+
+    img
+      width: 100%
+      height: 100%
+</style>
