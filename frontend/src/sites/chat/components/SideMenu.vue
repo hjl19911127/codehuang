@@ -1,11 +1,11 @@
 <template>
   <div class="side-menu">
-    <div class="menu-inner" :class="{'will-change':willChange,'moving':moving}"
-         :style="{transform:`translateX(${Math.ceil(pos/3)}px)`}">
+    <div class="menu-inner move" :class="{'will-change':willChange,'moving':moving}"
+         :style="{transform:`translate3d(${Math.ceil(pos/3)}px,0,0)`}">
       <button type="button" @click="handleClearClick" style="position: absolute;top: 0;right: 0;">clear</button>
     </div>
-    <div class="full-screen" :class="{'will-change':willChange,'moving':moving}"
-         :style="{transform:`translateX(${pos}px)`}">
+    <div class="full-screen move" :class="{'will-change':willChange,'moving':moving}"
+         :style="{transform:`translate3d(${pos}px,0,0)`}">
       <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
       <slot></slot>
     </div>
@@ -25,8 +25,8 @@
     }
     return supportsPassive;
   })();
-  const duration = 500
-  let maxWidth = 0, isTouch = 'ontouchstart' in window
+  const duration = 500;
+  let maxWidth = 0, isTouch = 'ontouchstart' in window;
   let mouseEvents = isTouch ?
     {
       down: 'touchstart',
@@ -41,7 +41,7 @@
       up: 'mouseup',
       over: 'mouseover',
       out: 'mouseout'
-    }
+    };
   export default {
     props: {
       action: Object,
@@ -54,7 +54,7 @@
         visible: false,
         pos: 0,
         moving: false,
-        willChange: false,
+        willChange: true,
       }
     },
     methods: {
@@ -69,7 +69,7 @@
     watch: {
       'action'(v) {
         this.visible = v.visible;
-        this.pos = v.visible ? maxWidth : 0
+        this.pos = v.visible ? maxWidth : 0;
         this.moving = true
       }
     },
@@ -85,12 +85,11 @@
       const initDrag = function (e) {
         if (!this.enable) return;
         isTouching = undefined;
-        this.content = `${this.content}--------------------------\n`
+        this.content = `${this.content}--------------------------touchstart\n`;
         nowX = startX = e.clientX || e.changedTouches[0].clientX;
         startY = e.clientY || e.changedTouches[0].clientY;
         t2 = +new Date();
         startPos = this.pos;
-//        this.willChange = true;
         container.addEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.addEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
         this.$emit('slide-start', this.pos)
@@ -105,9 +104,7 @@
         let pos = startPos + nowX - startX;
         pos = Math.min(maxWidth, pos);
         pos = Math.max(0, pos);
-        if (isTouching === undefined) {
-          isTouching = Math.abs(nowY - startY) / Math.abs(nowX - startX) > (Math.sqrt(3) / 3)
-        }
+        if (isTouching === undefined) isTouching = Math.abs(nowY - startY) / Math.abs(nowX - startX) > (Math.sqrt(3) / 3);
         if (!isTouching) {
           if (!supportsPassive) e.preventDefault();
           this.pos = pos;
@@ -127,22 +124,16 @@
             this.pos = this.visible ? maxWidth : 0;
           } else {
             this.pos = this.visible ? maxWidth : 0;
-//          document.getElementById("myDIV").style.transform = "rotate(7deg)";
           }
         }
-        this.content = `${this.content}${isTouching} touchendEnd ${this.pos}\n${window.getComputedStyle(document.querySelector('.menu-inner')).transform}\n`
         isTouching = undefined;
         container.removeEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.removeEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
       }.bind(this);
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
         this.$el.addEventListener(e, () => {
-          this.$nextTick(() => {
-            this.moving = false;
-            this.willChange = false;
-            this.pos = this.visible ? maxWidth : 0;
-            this.content = `${this.content}transitionend ${this.pos}\n${window.getComputedStyle(document.querySelector('.menu-inner')).transform}\n`
-          })
+          this.moving = false;
+          this.pos = this.visible ? maxWidth : 0;
         }, false)
       });
       container.addEventListener(mouseEvents.down, initDrag, supportsPassive ? {passive: true} : false);
@@ -152,13 +143,16 @@
 
 <style lang="stylus" scoped>
   @import '../assets/stylus/shared/_mixin'
+  .move
+    transform translateZ(0)
+
   .side-menu
     position: absolute
     top: 0
     left: 0
     bottom: 0
     right: 0
-    overflow-x: hidden
+    overflow: hidden
 
   .menu-inner
     position: absolute
@@ -167,7 +161,6 @@
     bottom: 0
     width: 75%
     background-color: green
-    transform translateZ(0)
     word-break break-all
     word-wrap break-word
     font-size 10px
