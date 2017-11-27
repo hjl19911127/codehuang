@@ -10,9 +10,24 @@
       @slide-end="handleSlideEnd"
       @mask-click="handleMaskClick">
       <div class="menu-content" slot="menu">
-        <div class="menu-img-wrap">
+        <div class="menu-user-wrap">
+          <div class="user-info">
+            <div class="avatar-wrap">
+              <img src="//static.codehuang.com/upload/avatars/default.png">
+              <div class="user-name">老夫子Alexander</div>
+            </div>
+          </div>
           <a class="qrcode" href="javascript:;"><i class="c-icon-qrcode"></i></a>
           <!--<img class="menu-img" src="//static.codehuang.local:20081/upload/images/bg.jpg">-->
+        </div>
+        <div class="menu-item-list">
+          <router-link class="menu-item" to="/vip">激活会员</router-link>
+          <router-link class="menu-item" to="/wallet">QQ钱包</router-link>
+          <router-link class="menu-item" to="/vip">个性装扮</router-link>
+          <router-link class="menu-item" to="/collect">我的收藏</router-link>
+          <router-link class="menu-item" to="/album">我的相册</router-link>
+          <router-link class="menu-item" to="/file">我的文件</router-link>
+          <router-link class="menu-item" to="/vip">免流量特权</router-link>
         </div>
       </div>
       <transition :name="transitionName" slot="content">
@@ -92,18 +107,40 @@
     white-space pre-wrap
     background-color: #fff
 
-  .menu-img-wrap
+  .menu-user-wrap
     position: relative
     width: 100%
-    height: 33.33%
-    background: url("//static.codehuang.local:20081/upload/images/bg.jpg") center/cover no-repeat
+    height: 30%
+    background: url("//static.codehuang.local:20081/upload/images/bg.jpg") center / cover no-repeat
+    .user-info
+      padding px2rem(196px) px2rem(40px) 0
+      img
+        width: px2rem(80px)
+        height: px2rem(80px)
+        border 2px solid #fff
+        border-radius 50%
+        vertical-align bottom
+        margin-right px2rem(16px)
+    .user-name
+      display: inline-block
+      color: #fff
+      font-size: px2rem(56px)
+      vertical-align bottom
+      width: 80%
+      white-space nowrap
+      text-overflow ellipsis
+      overflow: hidden
     .qrcode
       position: absolute
-      top: px2rem(60px)
-      right: px2rem(30px)
+      top: px2rem(40px)
+      right: px2rem(40px)
       color: #ffffff
-      font-size: px2rem(40px)
-    img
-      width: 100%
-      height: 100%
+      font-size: px2rem(56px)
+
+  .menu-item
+    display: block
+    line-height: px2rem(98px)
+    color: #000
+    font-size: px2rem(36px)
+    padding-left px2rem(128px)
 </style>
