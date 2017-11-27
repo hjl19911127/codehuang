@@ -1,14 +1,19 @@
 <template>
   <div class="app">
     <chat-side-menu
+      ref="menu"
+      :width="width"
       :action="sideMenuAction"
       :enable="sideMenuEnable"
       @slide-start="handleSlideStart"
       @slide-move="handleSlideMove"
       @slide-end="handleSlideEnd"
       @mask-click="handleMaskClick">
-      <transition :name="transitionName">
-        <router-view class="full-screen main-content"></router-view>
+      <div slot="menu-content">
+
+      </div>
+      <transition :name="transitionName" slot="main-content">
+        <router-view class="main-content"></router-view>
       </transition>
     </chat-side-menu>
   </div>
@@ -22,6 +27,7 @@
   export default {
     data() {
       return {
+        width: Math.floor(document.body.clientWidth * 0.8),
         transitionName: 'slide-forward'
       }
     },

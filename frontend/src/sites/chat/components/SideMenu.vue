@@ -1,13 +1,13 @@
 <template>
   <div class="side-menu">
-    <div class="menu-inner move" :class="{'will-change':willChange,'moving':moving}"
-         :style="{transform:`translate3d(${Math.ceil(pos/3)}px,0,0)`}">
-      <button type="button" @click="handleClearClick" style="position: absolute;top: 0;right: 0;">clear</button>
+    <div class="menu-content" :class="{'moving':moving}"
+         :style="{width:`${width}px`,left:`-${Math.ceil(width/3)}px`,transform:`translate3d(${Math.ceil(pos/3)}px,0,0)`}">
+      <slot name="menu-content"></slot>
     </div>
-    <div class="full-screen move" :class="{'will-change':willChange,'moving':moving}"
+    <div class="main-content" :class="{'moving':moving}"
          :style="{transform:`translate3d(${pos}px,0,0)`}">
-      <div class="full-screen menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
-      <slot></slot>
+      <div class="menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
+      <slot name="main-content"></slot>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@
     return supportsPassive;
   })();
   const duration = 500;
-  let maxWidth = 0, isTouch = 'ontouchstart' in window;
+  let isTouch = 'ontouchstart' in window;
   let mouseEvents = isTouch ?
     {
       down: 'touchstart',
@@ -44,48 +44,42 @@
     };
   export default {
     props: {
+      width: Number,
       action: Object,
       enable: Boolean,
       container: Object
     },
     data() {
       return {
-        content: '',
-        visible: false,
         pos: 0,
+        visible: false,
         moving: false,
-        willChange: true,
       }
     },
     methods: {
       handleMaskClick() {
         if (this.moving) return;
         this.$emit('mask-click')
-      },
-      handleClearClick() {
-        this.content = ''
       }
     },
     watch: {
       'action'(v) {
         this.visible = v.visible;
-        this.pos = v.visible ? maxWidth : 0;
+        this.pos = v.visible ? this.width : 0;
         this.moving = true
       }
     },
     computed: {
       opacity() {
-        return this.pos * 0.4 / maxWidth || 0
+        return this.pos * 0.4 / this.width || 0
       }
     },
     mounted() {
-      const container = document;
+      const container = document, maxWidth = this.width;
       let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isTouching;
-      maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75);
       const initDrag = function (e) {
         if (!this.enable) return;
         isTouching = undefined;
-        this.content = `${this.content}--------------------------touchstart\n`;
         nowX = startX = e.clientX || e.changedTouches[0].clientX;
         startY = e.clientY || e.changedTouches[0].clientY;
         t2 = +new Date();
@@ -143,8 +137,6 @@
 
 <style lang="stylus" scoped>
   @import '../assets/stylus/shared/_mixin'
-  .move
-    transform translateZ(0)
 
   .side-menu
     position: absolute
@@ -153,25 +145,38 @@
     bottom: 0
     right: 0
     overflow: hidden
+    will-change transform
 
-  .menu-inner
+  .menu-content
     position: absolute
     top: 0
-    left: -25%
     bottom: 0
-    width: 75%
     background-color: green
     word-break break-all
     word-wrap break-word
     font-size 10px
     white-space pre-wrap
+    transform translateZ(0)
+    will-change transform
+
+  .main-content
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    overflow: hidden;
+    transform translateZ(0)
+    will-change transform
 
   .menu-mask
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
     background-color: #000
     z-index: 1000
-
-  .will-change
-    will-change transform
 
   .moving
     transition transform .3s ease
