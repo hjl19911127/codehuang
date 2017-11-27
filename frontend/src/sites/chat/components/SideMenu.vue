@@ -2,7 +2,6 @@
   <div class="side-menu">
     <div class="menu-inner" :class="{'will-change':willChange,'moving':moving}"
          :style="{transform:`translateX(${Math.ceil(pos/3)}px)`}">
-      {{content}}
       <button type="button" @click="handleClearClick" style="position: absolute;top: 0;right: 0;">clear</button>
     </div>
     <div class="full-screen" :class="{'will-change':willChange,'moving':moving}"
@@ -81,11 +80,11 @@
     },
     mounted() {
       const container = document;
-      let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isTouching = null;
+      let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isTouching;
       maxWidth = Math.floor((parseInt(window.getComputedStyle(this.$el).width)) * 0.75);
       const initDrag = function (e) {
         if (!this.enable) return;
-        isTouching = null;
+        isTouching = undefined;
         this.content = `${this.content}--------------------------\n`
         nowX = startX = e.clientX || e.changedTouches[0].clientX;
         startY = e.clientY || e.changedTouches[0].clientY;
@@ -106,33 +105,33 @@
         let pos = startPos + nowX - startX;
         pos = Math.min(maxWidth, pos);
         pos = Math.max(0, pos);
-        if(!isTouching){
-          if (Math.abs(nowY - startY) / Math.abs(nowX - startX) > (Math.sqrt(3) / 3)) isTouching = {v:true};
-          else
+        if (isTouching === undefined) {
+          isTouching = Math.abs(nowY - startY) / Math.abs(nowX - startX) > (Math.sqrt(3) / 3)
         }
-
-        if (!isTouching.v) {
+        if (!isTouching) {
           if (!supportsPassive) e.preventDefault();
           this.pos = pos;
           this.$emit('slide-move', pos)
         }
       }.bind(this);
       const removeDrag = function (e) {
-        if (!isTouching.v) {
-          let pos = this.pos;
-          if (speed > 0) {
-            this.visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
+        if (isTouching !== undefined) {
+          if (!isTouching) {
+            let pos = this.pos;
+            if (speed > 0) {
+              this.visible = (maxWidth - pos) / speed < duration || pos > maxWidth * 3 / 5
+            } else {
+              this.visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
+            }
+            if (this.pos > 0 && this.pos < maxWidth) this.moving = true;
+            this.pos = this.visible ? maxWidth : 0;
           } else {
-            this.visible = !((0 - pos) / speed < duration || pos < maxWidth * 3 / 5)
-          }
-          if (this.pos > 0 && this.pos < maxWidth) this.moving = true;
-          this.pos = this.visible ? maxWidth : 0;
-        } else {
-          this.pos = this.visible ? maxWidth : 0;
+            this.pos = this.visible ? maxWidth : 0;
 //          document.getElementById("myDIV").style.transform = "rotate(7deg)";
+          }
         }
-        this.content = `${this.content}${isTouching.v} touchendEnd ${this.pos}\n${window.getComputedStyle(document.querySelector('.menu-inner')).transform}\n`
-        isTouching = null;
+        this.content = `${this.content}${isTouching} touchendEnd ${this.pos}\n${window.getComputedStyle(document.querySelector('.menu-inner')).transform}\n`
+        isTouching = undefined;
         container.removeEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.removeEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
       }.bind(this);
@@ -159,6 +158,7 @@
     left: 0
     bottom: 0
     right: 0
+    overflow-x: hidden
 
   .menu-inner
     position: absolute
