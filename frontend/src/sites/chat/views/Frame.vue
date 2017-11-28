@@ -21,13 +21,13 @@
           <!--<img class="menu-img" src="//static.codehuang.local:20081/upload/images/bg.jpg">-->
         </div>
         <div class="menu-item-list">
-          <router-link class="menu-item" to="/vip">激活会员</router-link>
-          <router-link class="menu-item" to="/wallet">QQ钱包</router-link>
-          <router-link class="menu-item" to="/vip">个性装扮</router-link>
-          <router-link class="menu-item" to="/collect">我的收藏</router-link>
-          <router-link class="menu-item" to="/album">我的相册</router-link>
-          <router-link class="menu-item" to="/file">我的文件</router-link>
-          <router-link class="menu-item" to="/vip">免流量特权</router-link>
+          <router-link class="menu-item" to="/vip"><i class="c-icon-vip"></i>激活会员</router-link>
+          <router-link class="menu-item" to="/wallet"><i class="c-icon-wallet"></i>QQ钱包</router-link>
+          <router-link class="menu-item" to="/vip"><i class="c-icon-drawing-board"></i>个性装扮</router-link>
+          <router-link class="menu-item" to="/collect"><i class="c-icon-collect"></i>我的收藏</router-link>
+          <router-link class="menu-item" to="/album"><i class="c-icon-image"></i>我的相册</router-link>
+          <router-link class="menu-item" to="/file"><i class="c-icon-file"></i>我的文件</router-link>
+          <router-link class="menu-item" to="/vip"><i class="c-icon-signal"></i>免流量特权</router-link>
         </div>
       </div>
       <transition :name="transitionName" slot="content">
@@ -101,10 +101,6 @@
   @import '../assets/stylus/shared/_mixin'
   .menu-content
     height: 100%
-    word-break break-all
-    word-wrap break-word
-    font-size 10px
-    white-space pre-wrap
     background-color: #fff
 
   .menu-user-wrap
@@ -114,22 +110,24 @@
     background: url("//static.codehuang.local:20081/upload/images/bg.jpg") center / cover no-repeat
     .user-info
       padding px2rem(196px) px2rem(40px) 0
+      .avatar-wrap
+        position: relative
+        padding-left px2rem(110px)
       img
+        position: absolute
+        left: 0
         width: px2rem(80px)
         height: px2rem(80px)
-        border 2px solid #fff
+        border 3px solid #fff
         border-radius 50%
-        vertical-align bottom
-        margin-right px2rem(16px)
     .user-name
-      display: inline-block
       color: #fff
       font-size: px2rem(56px)
-      vertical-align bottom
-      width: 80%
+      width: 100%
       white-space nowrap
       text-overflow ellipsis
       overflow: hidden
+      line-height: 2
     .qrcode
       position: absolute
       top: px2rem(40px)
@@ -140,7 +138,12 @@
   .menu-item
     display: block
     line-height: px2rem(98px)
-    color: #000
+    color: #232323
     font-size: px2rem(36px)
-    padding-left px2rem(128px)
+    padding-left px2rem(50px)
+    i
+      vertical-align px2rem(-4px)
+      font-size: px2rem(48px)
+      margin-right: px2rem(36px)
+      color: #5f6379
 </style>
