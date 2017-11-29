@@ -18,7 +18,6 @@
             </div>
           </div>
           <a class="qrcode" href="javascript:;"><i class="c-icon-qrcode"></i></a>
-          <!--<img class="menu-img" src="//static.codehuang.local:20081/upload/images/bg.jpg">-->
         </div>
         <div class="menu-item-list">
           <router-link class="menu-item" to="/vip"><i class="c-icon-vip"></i>激活会员</router-link>
@@ -28,6 +27,14 @@
           <router-link class="menu-item" to="/album"><i class="c-icon-image"></i>我的相册</router-link>
           <router-link class="menu-item" to="/file"><i class="c-icon-file"></i>我的文件</router-link>
           <router-link class="menu-item" to="/vip"><i class="c-icon-signal"></i>免流量特权</router-link>
+        </div>
+        <div class="menu-foot">
+          <router-link class="menu-foot-button" to="/setting"><i class="c-icon-setting"></i>设置</router-link>
+          <a class="menu-foot-button" href="javascript:void(0);"><i class="c-icon-moon"></i>夜间</a>
+        </div>
+        <div class="menu-weather">
+          <div class="weather-temperature">18</div>
+          <div class="weather-district">福州</div>
         </div>
       </div>
       <transition :name="transitionName" slot="content">
@@ -100,6 +107,7 @@
 <style lang="stylus" scoped>
   @import '../assets/stylus/shared/_mixin'
   .menu-content
+    position: relative
     height: 100%
     background-color: #fff
 
@@ -107,7 +115,7 @@
     position: relative
     width: 100%
     height: 30%
-    background: url("//static.codehuang.local:20081/upload/images/bg.jpg") center / cover no-repeat
+    background: url(//static.codehuang.local:20081/upload/images/bg.jpg) center / cover no-repeat
     .user-info
       padding px2rem(196px) px2rem(40px) 0
       .avatar-wrap
@@ -139,11 +147,24 @@
     display: block
     line-height: px2rem(98px)
     color: #232323
-    font-size: px2rem(36px)
+    font-size: px2rem(34px)
     padding-left px2rem(50px)
     i
       vertical-align px2rem(-4px)
       font-size: px2rem(48px)
       margin-right: px2rem(36px)
       color: #5f6379
+
+  .menu-foot
+    position: absolute
+    bottom: px2rem(36px)
+    left: 0
+    right: 40%
+    font-size: 0
+    .menu-foot-button
+      display: inline-block
+      color: #232323
+      width: 50%
+      font-size: px2rem(28px)
+      text-align: center
 </style>

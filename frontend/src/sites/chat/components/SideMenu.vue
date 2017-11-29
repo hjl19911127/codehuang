@@ -1,10 +1,10 @@
 <template>
   <div class="side-menu">
-    <div class="menu-wrap" :class="{'moving':moving}"
+    <div class="menu-wrap" :class="{'moving':moving,'will-change':willChange}"
          :style="{width:`${width}px`,left:`-${Math.ceil(width/3)}px`,transform:`translate3d(${Math.ceil(pos/3)}px,0,0)`}">
       <slot name="menu"></slot>
     </div>
-    <div class="content-wrap" :class="{'moving':moving}"
+    <div class="content-wrap" :class="{'moving':moving,'will-change':willChange}"
          :style="{transform:`translate3d(${pos}px,0,0)`}">
       <div class="menu-mask" @click="handleMaskClick" :style="{'opacity':opacity}" v-show="pos"></div>
       <slot name="content"></slot>
@@ -54,6 +54,7 @@
         pos: 0,
         visible: false,
         moving: false,
+        willChange: false
       }
     },
     methods: {
@@ -79,6 +80,7 @@
       let t1, t2, speed, startX, startY, nowX, nowY, lastX, startPos, isTouching;
       const initDrag = function (e) {
         if (!this.enable) return;
+        this.willChange = true;
         isTouching = undefined;
         nowX = startX = e.clientX || e.changedTouches[0].clientX;
         startY = e.clientY || e.changedTouches[0].clientY;
@@ -120,6 +122,7 @@
             this.pos = this.visible ? maxWidth : 0;
           }
         }
+        if (!this.moving) this.willChange = false;
         isTouching = undefined;
         container.removeEventListener(mouseEvents.move, drag, supportsPassive ? {passive: true} : false);
         container.removeEventListener(mouseEvents.up, removeDrag, supportsPassive ? {passive: true} : false);
@@ -127,6 +130,7 @@
       'transitionend webkitTransitionEnd msTransitionEnd otransitionend oTransitionEnd'.split(' ').forEach((e) => {
         this.$el.addEventListener(e, () => {
           this.moving = false;
+          this.willChange = false;
           this.pos = this.visible ? maxWidth : 0;
         }, false)
       });
@@ -137,7 +141,6 @@
 
 <style lang="stylus" scoped>
   @import '../assets/stylus/shared/_mixin'
-
   .side-menu
     position: absolute
     top: 0
@@ -145,14 +148,12 @@
     bottom: 0
     right: 0
     overflow: hidden
-    will-change transform
 
   .menu-wrap
     position: absolute
     top: 0
     bottom: 0
     transform translateZ(0)
-    will-change transform
 
   .content-wrap
     position: absolute
@@ -162,7 +163,6 @@
     left: 0
     overflow: hidden;
     transform translateZ(0)
-    will-change transform
 
   .menu-mask
     position: absolute
@@ -175,4 +175,7 @@
 
   .moving
     transition transform .3s ease
+
+  .will-change
+    will-change transform
 </style>
