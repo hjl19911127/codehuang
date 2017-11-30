@@ -33,7 +33,7 @@
           <a class="menu-foot-button" href="javascript:void(0);"><i class="c-icon-moon"></i>夜间</a>
         </div>
         <div class="menu-weather">
-          <div class="weather-temperature">18</div>
+          <div class="weather-temperature">18<span>°</span></div>
           <div class="weather-district">福州</div>
         </div>
       </div>
@@ -159,7 +159,7 @@
     position: absolute
     bottom: px2rem(36px)
     left: 0
-    right: 40%
+    right: 35%
     font-size: 0
     .menu-foot-button
       display: inline-block
@@ -167,4 +167,19 @@
       width: 50%
       font-size: px2rem(28px)
       text-align: center
+
+  .menu-weather
+    position: absolute
+    left: 74%
+    bottom: px2rem(36px)
+    text-align: center
+    .weather-temperature
+      font-size: px2rem(56px)
+      margin-bottom: px2rem(36px)
+      color: #12b7f5
+      span
+        vertical-align px2rem(10px)
+        font-weight: 100;
+    .weather-district
+      font-size: px2rem(28px)
 </style>
