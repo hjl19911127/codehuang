@@ -6,6 +6,9 @@ import app from 'app'
 import router from './router'
 import store from './store'
 import '@/utils/polyfill'
+import {Component} from './Components/vue-side-menu.esm'
+
+Vue.component(Component.name, Component)
 
 var FastClick = require('fastclick');
 FastClick.attach(document.body);

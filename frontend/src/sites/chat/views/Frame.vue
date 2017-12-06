@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <chat-side-menu
+    <vue-side-menu
       ref="menu"
       :width="width"
       :action="sideMenuAction"
@@ -40,12 +40,12 @@
       <transition :name="transitionName" slot="content">
         <router-view class="main-content"></router-view>
       </transition>
-    </chat-side-menu>
+    </vue-side-menu>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import ChatSideMenu from '../components/SideMenu';
+  // import ChatSideMenu from '../components/SideMenu';
 
   let historyState = history.state, lastDirection = 'forward';
 
@@ -96,7 +96,7 @@
       }
     },
     components: {
-      ChatSideMenu
+      // ChatSideMenu
     },
     computed: {
       ...mapGetters(['sideMenuEnable', 'sideMenuAction']),
@@ -115,7 +115,7 @@
     position: relative
     width: 100%
     height: 30%
-    background: url(//static.codehuang.local:20081/upload/images/bg.jpg) center / cover no-repeat
+    background: url(//static.codehuang.com/upload/images/bg.jpg) center / cover no-repeat
     .user-info
       padding px2rem(196px) px2rem(40px) 0
       .avatar-wrap
