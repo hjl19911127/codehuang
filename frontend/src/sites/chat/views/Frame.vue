@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <vue-side-menu
+    <vue-drawer-layout
       ref="menu"
       :width="width"
       :action="sideMenuAction"
@@ -9,7 +9,7 @@
       @slide-move="handleSlideMove"
       @slide-end="handleSlideEnd"
       @mask-click="handleMaskClick">
-      <div class="menu-content" slot="menu">
+      <div class="menu-content" slot="drawer">
         <div class="menu-user-wrap">
           <div class="user-info">
             <div class="avatar-wrap">
@@ -40,7 +40,7 @@
       <transition :name="transitionName" slot="content">
         <router-view class="main-content"></router-view>
       </transition>
-    </vue-side-menu>
+    </vue-drawer-layout>
   </div>
 </template>
 <script>
