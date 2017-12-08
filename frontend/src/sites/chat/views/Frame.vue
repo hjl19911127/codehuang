@@ -3,6 +3,7 @@
     <vue-drawer-layout
       ref="menu"
       :width="width"
+      :animate="true"
       :action="sideMenuAction"
       :enable="sideMenuEnable"
       @slide-start="handleSlideStart"

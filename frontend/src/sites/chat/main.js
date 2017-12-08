@@ -6,7 +6,7 @@ import app from 'app'
 import router from './router'
 import store from './store'
 import '@/utils/polyfill'
-import {DrawerLayout} from 'vue-drawer-layout'
+import {DrawerLayout} from './components/vue-drawer-layout.esm'
 
 Vue.component(DrawerLayout.name, DrawerLayout)
 
