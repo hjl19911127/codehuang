@@ -1,11 +1,15 @@
 <template>
   <div class="app">
     <vue-drawer-layout
-      ref="menu"
+      ref="drawerLayout"
       :width="width"
-      :animate="true"
-      :action="sideMenuAction"
+      :animatable="true"
       :enable="sideMenuEnable"
+      :z-index="0"
+      :drawable-distance="Math.floor(width/3)"
+      :content-drawable="true"
+      :backdrop="true"
+      :backdrop-opacity-range="[0,0.3]"
       @slide-start="handleSlideStart"
       @slide-move="handleSlideMove"
       @slide-end="handleSlideEnd"
@@ -46,14 +50,14 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  // import ChatSideMenu from '../components/SideMenu';
 
+  const defaultWidth = Math.floor(document.body.clientWidth * 0.8);
   let historyState = history.state, lastDirection = 'forward';
 
   export default {
     data() {
       return {
-        width: Math.floor(document.body.clientWidth * 0.8),
+        width: defaultWidth,
         transitionName: 'slide-forward'
       }
     },
@@ -77,23 +81,24 @@
         } else {
           direction = 'forward'
         }
-        this.transitionName = `slide-${direction}`
+        this.transitionName = `slide-${direction}`;
         historyState = history.state || historyState;
         lastDirection = direction;
+      },
+      'sideMenuAction'(v) {
+        this.$refs.drawerLayout.toggle(v.visible)
       }
     },
     methods: {
       handleMaskClick() {
-        this.$store.dispatch('SWITCH_SIDE_MENU', false);
+        this.$refs.drawerLayout.toggle(false);
       },
-      handleSlideStart(pos) {
-        //console.log(pos)
+      handleSlideStart() {
       },
       handleSlideMove(pos) {
-        //console.log(pos)
       },
-      handleSlideEnd(pos, visible) {
-//        this.$store.dispatch('SET_SIDE_MENU_VISIBLE_STATUS', visible);
+      handleSlideEnd(visible) {
+        this.$store.dispatch('UPDATE_SIDE_MENU_VISIBLE_STATUS', visible);
       }
     },
     components: {

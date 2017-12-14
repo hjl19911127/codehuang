@@ -6,9 +6,9 @@ import app from 'app'
 import router from './router'
 import store from './store'
 import '@/utils/polyfill'
-import {DrawerLayout} from './components/vue-drawer-layout.esm'
+import DrawerLayout from 'vue-drawer-layout'
 
-Vue.component(DrawerLayout.name, DrawerLayout)
+Vue.use(DrawerLayout)
 
 var FastClick = require('fastclick');
 FastClick.attach(document.body);
