@@ -3,11 +3,15 @@ const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
+const path = require('path')
 const baseWebpackConfig = require('./webpack.base.conf')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
+const HOST = process.env.HOST
+const PORT = process.env.PORT && Number(process.env.PORT)
 // add hot-reload related code to entry chunks
 let proxys = Object.keys(baseWebpackConfig.entry).map(function (entry) {
   return {
@@ -31,17 +35,22 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   devServer: {
     clientLogLevel: 'warning',
     disableHostCheck: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        {from: /.*/, to: path.join(config.dev.assetsPublicPath, 'index.html')},
+      ],
+    },
     hot: true,
-    host: process.env.HOST || config.dev.host,
-    port: process.env.PORT || config.dev.port,
+    contentBase: false, // since we use CopyWebpackPlugin.
+    compress: true,
+    host: HOST || config.dev.host,
+    port: PORT || config.dev.port,
     open: config.dev.autoOpenBrowser,
-    overlay: config.dev.errorOverlay ? {
-      warnings: false,
-      errors: true,
-    } : false,
+    overlay: config.dev.errorOverlay
+      ? {warnings: false, errors: true}
+      : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: proxys,
+    proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
@@ -54,6 +63,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
+    // copy custom static assets
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.dev.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
   ].concat(Object.keys(baseWebpackConfig.entry).map(function (name) {
     // https://github.com/ampedandwired/html-webpack-plugin
     return new HtmlWebpackPlugin({
@@ -80,7 +97,7 @@ module.exports = new Promise((resolve, reject) => {
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${config.dev.host}:${port}`],
+          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
         },
         onErrors: config.dev.notifyOnErrors
           ? utils.createNotifierCallback()
