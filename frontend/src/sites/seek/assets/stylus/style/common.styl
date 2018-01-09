@@ -1,0 +1,70 @@
+@import '../shared/_mixin'
+@import "../shared/iconfont";
+html
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  height: 100%;
+  min-width: 6.4rem;
+  font-size: 312.5%;
+  user-select none
+
+@media screen and (min-width: 416px) {
+  html {
+    font-size 400%
+  }
+}
+
+@media screen and (min-width: 480px) {
+  html {
+    font-size 469%
+  }
+}
+
+@media screen and (min-width: 640px) {
+  html {
+    font-size 625%
+  }
+}
+
+body
+  height 100%
+
+.app
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  transform translateZ(0)
+  overflow: hidden;
+
+a
+  text-decoration none
+
+.slide-forward-enter-active, .slide-forward-leave-active
+  transition: all 0.5s ease
+
+.slide-forward-enter
+  transform: translate3d(100%, 0, 0)
+
+.slide-forward-leave-to
+  transform: translate3d(-100%, 0, 0)
+
+.slide-back-enter-active, .slide-back-leave-active
+  transition: all 0.5s ease
+
+.slide-back-enter
+  transform: translate3d(-100%, 0, 0)
+
+.slide-back-leave-to
+  transform: translate3d(100%, 0, 0)
+
+.main-content
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  overflow: hidden;
+  background-color: #fff
+  z-index: 1

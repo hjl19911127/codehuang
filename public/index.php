@@ -19,7 +19,7 @@ define('SITE_HOST', (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''),
 //系统开始时间
 define('SYS_START_TIME', microtime(), true);
 //全部站点列表
-define('SITES', serialize(['front', 'admin', 'chat', 'share', 'webgradient', 'greensock', 'blog']), true);
+define('SITES', serialize(['front', 'admin', 'chat', 'share', 'webgradient', 'greensock', 'blog', 'seek']), true);
 
 require __DIR__ . '/../vendor/autoload.php';
 

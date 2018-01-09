@@ -1,0 +1,35 @@
+$backgroundColors= {
+    blue: {
+        light: #3498DB,
+        dark: #2980B9
+    },
+    dark: {
+        light: #34495E,
+        dark: #2C3E50
+    },
+    green:{
+        light: #1ABC9C,
+        dark: #1ABC9C
+    },
+    red: {
+        light: #E74C3C,
+        dark: #C0392B
+    }
+};
+
+for $class, $colors in $backgroundColors {
+    .app.{$class} {
+        .header {
+            background-color: $colors.light;
+        }
+        .btn {
+            background-color: $colors.light;
+            &:hover {
+                background-color: lighten($colors.light, 5%);
+            }
+        }
+        .nav {
+            border-right-color: $colors.light;
+        }
+    }
+}
