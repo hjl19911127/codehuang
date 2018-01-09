@@ -23,7 +23,6 @@ let proxys = Object.keys(baseWebpackConfig.entry).map(function (entry) {
     pathRewrite: {'\/[a-z0-9A-Z\-\/\?\=]*(?!.)': `/${entry}.html`}
   }
 });
-
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({sourceMap: config.dev.cssSourceMap, usePostCSS: true})
@@ -35,11 +34,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   devServer: {
     clientLogLevel: 'warning',
     disableHostCheck: true,
-    historyApiFallback: {
-      rewrites: [
-        {from: /.*/, to: path.join(config.dev.assetsPublicPath, 'index.html')},
-      ],
-    },
+    historyApiFallback: true,
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
@@ -50,7 +45,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ? {warnings: false, errors: true}
       : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: config.dev.proxyTable,
+    proxy: proxys,
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
