@@ -25,8 +25,8 @@
 <style lang="stylus" scoped>
   .btn-start
     display: inline-block
-    border 2px solid indianred
-    color: indianred;
+    border 2px solid #F56C6C
+    color: #F56C6C;
     width: 20vw
     height: 20vw
     font-size 2vw
