@@ -1,6 +1,6 @@
 <template>
   <a class="btn-start" href="javascript:void(0)" @click="handleStartGame">
-    开始游戏
+    开始
   </a>
 </template>
 <script>
@@ -14,6 +14,7 @@
     methods: {
       handleStartGame() {
         gameApi.create()
+        this.$router.push({name: 'game', params: {gid: 1}})
       },
     },
     computed: {
@@ -28,4 +29,5 @@
     color: indianred;
     width: 20vw
     height: 20vw
+    font-size 2vw
 </style>
