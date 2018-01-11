@@ -1,6 +1,6 @@
 <template>
-  <div class="scene">
-    <div class="viewport" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
+  <div class="arena">
+    <div class="scene" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
       <div class="map" :style="{transform:`translate3d(${-map.x}px,${-map.y}px,0)`}">
 
       </div>
@@ -13,13 +13,13 @@
 <script>
   import {mapGetters} from 'vuex'
 
-  const MAX_SPEED = 20;
+  const MAX_SPEED = 5;
   let mouseX = 0, mouseY = 0;
   let playerWidth = 0;
   export default {
     data() {
       return {
-        speed: 10,
+        speed: 1,
         map: {
           x: 0,
           y: 0
@@ -35,11 +35,13 @@
       startMoving() {
         let refresh = () => {
           let {player, map, speed} = this;
+          console.log(speed)
           let distanceX = mouseX - player.x,
             distanceY = mouseY - player.y,
             distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
           if (distance < playerWidth / 2) {
             this.movement = null;
+            this.speed = 1;
             return;
           }
           let dirX = distanceX && distanceX / Math.abs(distanceX),
@@ -47,7 +49,6 @@
           distanceX = Math.abs(distanceX);
           distanceY = Math.abs(distanceY)
           let rate;
-
           if (distanceX === 0) {
             map.y += dirY * speed;
           } else if (distanceY === 0) {
@@ -59,6 +60,7 @@
             map.y += dirY * ySpeed;
           }
           this.movement = requestAnimationFrame(() => {
+            if (speed < MAX_SPEED) this.speed += MAX_SPEED / (5 * 1000 / 60)
             refresh()
           })
         };
@@ -88,7 +90,7 @@
 </script>
 <style lang="stylus" scoped>
   playerSize = 5vw;
-  .scene {
+  .arena {
     position: absolute
     left: 0
     top: 0
@@ -97,12 +99,12 @@
     background-color: #909399
   }
 
-  .viewport {
+  .scene {
     position: absolute
-    left: 400px
+    left: 15vw
     top: 0
-    right: 400px
-    bottom: 80px
+    right: 15vw
+    bottom: 10vh
     border 2px solid #fff
     overflow: hidden
   }
