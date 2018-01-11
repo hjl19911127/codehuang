@@ -1,10 +1,12 @@
 <template>
   <div class="scene">
-    <div class="map" :style="{transform:`translate3d(${-map.x}px,${-map.y}px,0)`}">
+    <div class="viewport" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
+      <div class="map" :style="{transform:`translate3d(${-map.x}px,${-map.y}px,0)`}">
 
-    </div>
-    <div class="player">
+      </div>
+      <div class="player">
 
+      </div>
     </div>
   </div>
 </template>
@@ -13,10 +15,11 @@
 
   const MAX_SPEED = 20;
   let mouseX = 0, mouseY = 0;
+  let playerWidth = 0;
   export default {
     data() {
       return {
-        speed: 1,
+        speed: 10,
         map: {
           x: 0,
           y: 0
@@ -31,21 +34,30 @@
     methods: {
       startMoving() {
         let refresh = () => {
-          let {player, map} = this;
+          let {player, map, speed} = this;
           let distanceX = mouseX - player.x,
             distanceY = mouseY - player.y,
             distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-          if (distance < 50) {
+          if (distance < playerWidth / 2) {
             this.movement = null;
             return;
           }
-          let rate = distanceY && Math.abs(distanceX / distanceY),
-            dirX = distanceX && distanceX / Math.abs(distanceX),
-            dirY = distanceY && distanceY / Math.abs(distanceY),
-            xm = 10 * Math.cos(Math.atan2(distanceX, distanceY));
-          if (distanceY) map.x += dirX * xm * rate;
-          if (rate) map.y += dirY * xm;
-          console.log(map.x)
+          let dirX = distanceX && distanceX / Math.abs(distanceX),
+            dirY = distanceY && distanceY / Math.abs(distanceY);
+          distanceX = Math.abs(distanceX);
+          distanceY = Math.abs(distanceY)
+          let rate;
+
+          if (distanceX === 0) {
+            map.y += dirY * speed;
+          } else if (distanceY === 0) {
+            map.x += dirX * speed;
+          } else {
+            rate = Math.abs(distanceX / distanceY);
+            let ySpeed = speed * Math.sin(Math.atan2(distanceY, distanceX));
+            map.x += dirX * ySpeed * rate;
+            map.y += dirY * ySpeed;
+          }
           this.movement = requestAnimationFrame(() => {
             refresh()
           })
@@ -54,21 +66,23 @@
           refresh()
         })
       },
-      handleMouseMove(x, y) {
-        mouseX = x;
-        mouseY = y;
+      handleMouseMove(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
         if (this.movement) return;
         this.startMoving()
+      },
+      handleMouseLeave(e) {
+        this.movement && cancelAnimationFrame(this.movement)
+        this.movement = null;
       }
     },
     components: {},
     mounted() {
-      let playerDom = document.querySelector('.player')
-      this.player.x = parseInt(window.getComputedStyle(playerDom).left)
-      this.player.y = parseInt(window.getComputedStyle(playerDom).top)
-      document.addEventListener('mousemove', (e) => {
-        this.handleMouseMove(e.clientX, e.clientY)
-      }, false);
+      let playerDom = document.querySelector('.player');
+      playerWidth = parseInt(window.getComputedStyle(playerDom).width)
+      this.player.x = parseInt(window.getComputedStyle(playerDom).left) + playerWidth / 2
+      this.player.y = parseInt(window.getComputedStyle(playerDom).top) + playerWidth / 2
     }
   }
 </script>
@@ -80,12 +94,22 @@
     top: 0
     right: 0
     bottom: 0
-    border 1px solid red
+    background-color: #909399
+  }
+
+  .viewport {
+    position: absolute
+    left: 400px
+    top: 0
+    right: 400px
+    bottom: 80px
+    border 2px solid #fff
+    overflow: hidden
   }
 
   .map {
     position: absolute
-    background: -webkit-linear-gradient(left, #ace, #f96 5%, #ace, #f96 95%, #ace);
+    background-image: linear-gradient(45deg, #555 25%, transparent 25%, transparent), linear-gradient(-45deg, #555 25%, transparent 25%, transparent), linear-gradient(45deg, transparent 75%, #555 75%), linear-gradient(-45deg, transparent 75%, #555 75%);
     width: 200vw
     height: 200vw
   }

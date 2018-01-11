@@ -14,7 +14,7 @@ let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites
   return {[entry]: `sites/${entry}/main.js`};
 }));
 
-entries = {seek: entries['seek']}
+if (process.env.NODE_ENV === 'development') entries = {seek: entries['seek']};
 console.log(entries);
 module.exports = {
   context: path.resolve(__dirname, '../'),
