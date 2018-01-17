@@ -12,6 +12,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import gameApi from '../../api/game'
 
   const MAX_SPEED = 5;
   let mouseX = 0, mouseY = 0;

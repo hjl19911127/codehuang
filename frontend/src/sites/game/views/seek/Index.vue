@@ -5,7 +5,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import gameApi from '../api/game'
+  import gameApi from '../../api/game'
 
   export default {
     data() {
@@ -14,7 +14,7 @@
     methods: {
       handleStartGame() {
         gameApi.create()
-        this.$router.push({name: 'game', params: {gid: 1}})
+        this.$router.push('/seek/1')
       },
     },
     computed: {

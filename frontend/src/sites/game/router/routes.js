@@ -1,7 +1,7 @@
 import Layout from '../views/Layout'
 
-const Index = resolve => require(['../views/Index'], resolve);
-const Game = resolve => require(['../views/Game'], resolve);
+const Index = resolve => require(['../views/seek/Index'], resolve);
+const Game = resolve => require(['../views/seek/Game'], resolve);
 
 export default [
   {
@@ -12,15 +12,22 @@ export default [
     },
     children: [
       {
-        path: '',
-        name: 'index',
-        component: Index,
-      },
-      {
-        path: 'game/:gid',
-        name: 'game',
-        component: Game,
-      },
+        path: 'seek',
+        name: 'seek',
+        component: {
+          template: '<router-view></router-view>'
+        },
+        children: [
+          {
+            path: '',
+            component: Index
+          },
+          {
+            path: ':gid',
+            component: Game
+          }
+        ]
+      }
     ]
   }
 ];
