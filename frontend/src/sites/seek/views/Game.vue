@@ -24,6 +24,7 @@
           x: 0,
           y: 0
         },
+        players:[],
         player: {
           x: 0,
           y: 0
