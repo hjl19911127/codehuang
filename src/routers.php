@@ -76,6 +76,9 @@ $app->group('/v1', function () {
         $this->delete('/{id:\d+}', App\Controllers\MenuController::class . ':remove');
         $this->post('/deletions', App\Controllers\MenuController::class . ':batchRemove');
     });
+    $this->group('/seek', function () {
+        $this->post('/data', App\Controllers\SeekController::class . ':uploadData');
+    });
 })->add($middlewares['cors']);
 
 /**

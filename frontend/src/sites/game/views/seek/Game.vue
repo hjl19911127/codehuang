@@ -12,7 +12,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import gameApi from '../../api/game'
+  import api from '../../api/seek'
 
   const MAX_SPEED = 5;
   let mouseX = 0, mouseY = 0;
@@ -25,7 +25,7 @@
           x: 0,
           y: 0
         },
-        players:[],
+        players: [],
         player: {
           x: 0,
           y: 0
@@ -34,10 +34,12 @@
     },
     computed: {},
     methods: {
+      upload(postion) {
+        api.uploadData({postion})
+      },
       startMoving() {
         let refresh = () => {
           let {player, map, speed} = this;
-          console.log(speed)
           let distanceX = mouseX - player.x,
             distanceY = mouseY - player.y,
             distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
@@ -60,6 +62,7 @@
             let ySpeed = speed * Math.sin(Math.atan2(distanceY, distanceX));
             map.x += dirX * ySpeed * rate;
             map.y += dirY * ySpeed;
+            this.upload({x: map.x, y: map.y})
           }
           this.movement = requestAnimationFrame(() => {
             if (speed < MAX_SPEED) this.speed += MAX_SPEED / (5 * 1000 / 60)
