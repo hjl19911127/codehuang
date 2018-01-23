@@ -12,14 +12,12 @@
 </template>
 <script>
   import api from '../../api/seek'
-
-  function throttle() {
-
-  }
+  import throttle from 'lodash/throttle'
 
   const MAX_SPEED = 5;
   let mouseX = 0, mouseY = 0;
   let playerWidth = 0;
+  let uploadData = [];
   export default {
     data() {
       return {
@@ -37,8 +35,14 @@
     },
     computed: {},
     methods: {
-      upload(postion) {
-        api.uploadData({postion})
+      upload(position) {
+        uploadData.push(position)
+        this.uploader = this.uploader || throttle(() => {
+          api.uploadData(uploadData).then(() => {
+            uploadData = [];
+          })
+        }, 5000);
+        return this.uploader();
       },
       startMoving() {
         let refresh = () => {
