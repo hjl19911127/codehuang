@@ -14,7 +14,7 @@ let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites
   return {[entry]: `sites/${entry}/main.js`};
 }));
 
-if (process.env.NODE_ENV !== 'production') entries = {game: entries['game']};
+if (process.env.NODE_ENV !== 'production') entries = (({admin, game}) => ({admin, game}))(entries);
 console.log(entries);
 module.exports = {
   context: path.resolve(__dirname, '../'),

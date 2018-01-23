@@ -11,8 +11,11 @@
   </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex'
   import api from '../../api/seek'
+
+  function throttle() {
+
+  }
 
   const MAX_SPEED = 5;
   let mouseX = 0, mouseY = 0;

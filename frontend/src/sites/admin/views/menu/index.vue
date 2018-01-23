@@ -25,25 +25,24 @@
             <span>{{menu.parent_title}}</span>
           </el-form-item>
           <el-form-item label="菜单名称" prop="title">
-            <el-input v-model="menu.title" placeholder="请选择菜单名称"></el-input>
+            <el-input v-model="menu.title" placeholder="请选择菜单名称"/>
           </el-form-item>
           <el-form-item label="菜单地址" prop="route">
-            <el-input v-model="menu.route" placeholder="请选择菜单地址"></el-input>
+            <el-input v-model="menu.route" placeholder="请选择菜单地址"/>
           </el-form-item>
           <el-form-item label="是否启用">
-            <el-switch on-text="" off-text="" v-model="menu.is_enabled"></el-switch>
+            <el-switch v-model="menu.is_enabled"/>
           </el-form-item>
           <el-form-item label-width="120px">
-            <el-button type="primary" @click="onSubmit">{{menu.id ? '更新' : '新增'}}</el-button>
-            <el-button @click="onCancel">取消</el-button>
+            <el-button type="primary" @click="handleSubmit">{{menu.id ? '更新' : '新增'}}</el-button>
+            <el-button @click="handleCancel">取消</el-button>
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
   </div>
 </template>
-<script>
-  import Vue from 'vue';
+<script type="text/jsx">
   import asyncTree from '@/utils/async-tree';
   import api from '@/sites/admin/api/menu';
 
@@ -93,7 +92,7 @@
       resetForm() {
         this.$refs['menuForm'].resetFields();
       },
-      onSubmit() {
+      handleSubmit() {
         this.$refs['menuForm'].validate((valid) => {
           if (valid) {
             let body = Object.assign({}, this.menu), id = body.id;
@@ -101,7 +100,7 @@
             body.parent_title = undefined;
             body.children = undefined;
             Promise.resolve(id ? api.update(id, body) : api.create(body)).then(res => {
-              this.onCancel();
+              this.handleCancel();
               this.query();
             });
           } else {
@@ -110,16 +109,10 @@
           }
         });
       },
-      onCancel() {
+      handleCancel() {
         this.isEdit = false;
       },
-      refreshMenu() {
-
-      },
-      handleNodeClick(data) {
-//        this.onEdit(data);
-      },
-      onAdd(data) {
+      append(data) {
         Object.assign(this.menu, {
           id: 0,
           title: '',
@@ -130,11 +123,11 @@
         });
         this.isEdit = true;
       },
-      onEdit(data) {
+      edit(data) {
         Object.assign(this.menu, data);
         this.isEdit = true;
       },
-      onRemove(data) {
+      remove(data) {
         this.$confirm('此操作将永久删除该菜单及其子菜单, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -155,75 +148,21 @@
         });
       },
       renderContent(h, {node, data, store}) {
-        return h(
-          "span",
-          null,
-          [h(
-            "span",
-            {"class": "el-tree-node__label"},
-            [h(
-              "span",
-              null,
-              `${node.label}${data.route ? ` ---- ${data.route}` : ''}`
-            )]
-          ),
-            h(
-              "span",
-              {"class": "option-button-group"},
-              [h(
-                "el-button",
-                {
-                  style: node.level < 3 ? "" : "display:none;",
-                  attrs: {
-                    type: "success",
-                    size: "mini",
-                    icon: "plus"
-                  },
-                  on: {
-                    "click": () => {
-                      return this.onAdd(data);
-                    }
-                  }
-                },
-                [""]
-              ),
-                h(
-                  "el-button",
-                  {
-                    style: data.parent_id ? "" : "display:none;",
-                    attrs: {
-                      type: "info",
-                      size: "mini",
-                      icon: "edit"
-                    },
-                    on: {
-                      "click": () => {
-                        return this.onEdit(data);
-                      }
-                    }
-                  },
-                  [""]
-                ),
-                h(
-                  "el-button",
-                  {
-                    style: data.parent_id && !data.children.length ? "" : "display:none;",
-                    attrs: {
-                      type: "danger",
-                      size: "mini",
-                      icon: "delete",
-                      "v-popover": "popover5"
-                    },
-                    on: {
-                      "click": () => {
-                        return this.onRemove(data);
-                      }
-                    }
-                  },
-                  [""]
-                )]
-            )]
-        )
+        return (
+          <span class="tree-content">
+            <span>
+              <span>{node.label}<span class="tree-label"
+                                      style="">{data.route ? `路由：${data.route}` : ''}</span></span>
+            </span>
+            <span class="option-button-group">
+              {node.level < 3 &&
+              <el-button type="success" icon="el-icon-plus" size="mini" on-click={() => this.append(data)}/>}
+              {!!data.parent_id &&
+              <el-button type="primary" icon="el-icon-edit" size="mini" on-click={() => this.edit(data)}/>}
+              {!!data.parent_id && !data.children.length &&
+              <el-button type="danger" icon="el-icon-delete" size="mini" on-click={() => this.remove(data)}/>}
+            </span>
+          </span>);
       },
     },
     created() {
@@ -232,13 +171,18 @@
   };
 </script>
 <style lang="stylus">
-  .option-button-group
-    float: right;
-    margin-right: 20px;
-
-  /*display: none;*/
-
-  .el-tree-node__content:hover
-    .option-button-group
-      display: block;
+  .tree-content
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+    .tree-label
+      font-size: 12px;
+      font-weight: 700;
+      color: #be9c3b;
+      margin-left: 20px;
+    .el-button--mini
+      padding 4px 7px
 </style>
