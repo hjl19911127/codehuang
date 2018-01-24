@@ -23,4 +23,11 @@ export default {
       data: data
     });
   },
+  update(id, data) {
+    return request({
+      method: 'put',
+      url: `${url}/${id}`,
+      data: data
+    });
+  },
 };

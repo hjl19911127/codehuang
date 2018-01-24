@@ -49,10 +49,14 @@
         if (this.article.id) this.get();
       },
       onSubmit() {
-        api.create(this.article).then((data) => {
+        let request = this.article.id ? api.update(this.article.id, this.article) : api.create(this.article)
+        request.then((res) => {
           this.flag.showCreatePanel = false;
           this.get();
-
+          this.$message({
+            message: '文章保存成功',
+            type: 'success'
+          });
         }).catch((err) => {
         });
       },

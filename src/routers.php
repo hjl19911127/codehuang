@@ -67,6 +67,7 @@ $app->group('/v1', function () {
         $this->get('', App\Controllers\ArticleController::class . ':query');
         $this->get('/{id:\d+}', App\Controllers\ArticleController::class . ':get');
         $this->post('', App\Controllers\ArticleController::class . ':create');
+        $this->put('/{id:\d+}', App\Controllers\ArticleController::class . ':update');
     });
     $this->group('/menus', function () {
         $this->get('', App\Controllers\MenuController::class . ':query');
