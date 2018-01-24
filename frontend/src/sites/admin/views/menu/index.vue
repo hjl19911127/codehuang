@@ -14,7 +14,6 @@
           :default-expand-all="true"
           :expand-on-click-node="false"
           node-key="id"
-          @node-click="handleNodeClick"
           :render-content="renderContent"
           :props="menuProps">
         </el-tree>
@@ -79,6 +78,9 @@
     methods: {
       init() {
         this.query();
+      },
+      refreshMenu() {
+
       },
       query() {
         this.isLoading = true;

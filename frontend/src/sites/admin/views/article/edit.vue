@@ -20,7 +20,6 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">保存</el-button>
-        <el-button>取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -52,16 +51,15 @@
       onSubmit() {
         api.create(this.article).then((data) => {
           this.flag.showCreatePanel = false;
-          this.query();
+          this.get();
+
         }).catch((err) => {
-          // error callback
         });
       },
       get() {
         api.get(this.article.id).then((res) => {
           this.article = res;
         }).catch((err) => {
-          // error callback
         });
       }
     },

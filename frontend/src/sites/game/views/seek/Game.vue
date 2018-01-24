@@ -38,7 +38,7 @@
       upload(position) {
         uploadData.push(position)
         this.uploader = this.uploader || throttle(() => {
-          api.uploadData(uploadData).then(() => {
+          uploadData.length && api.uploadData(uploadData).then(() => {
             uploadData = [];
           })
         }, 5000);
