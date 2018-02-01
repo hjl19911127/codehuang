@@ -26,37 +26,37 @@ $app->get('/propose', function ($req, $res, $args) {
 });
 
 $app->group('/v1', function () {
-    $this->options('/{routes:.+}', function ($req, $res, $args) {
+    $this->options('/{routes:.+}', function ($res) {
         return $res;
     });
-    $this->get('/token', function ($req, $res, $args) {
+    $this->get('/token', function ($req, $res) {
         $name = $req->getAttribute('csrf_name');
         $value = $req->getAttribute('csrf_value');
         return $res->withJson(['csrf_name' => $name, 'csrf_value' => $value]);
     });
-    $this->get('/session', function ($req, $res, $args) {
+    $this->get('/session', function ($res) {
         return $res->withJson($_SESSION);
     });
     $this->group('/users', function () {
-        $this->get('', function ($req, $res, $args) {
+        $this->get('', function ($req, $res) {
             $filter = $req->getQueryParams();
             $data = $this->get('db')->table('user')->skip(($filter['page'] - 1) * $filter['size'])->take($filter['size'])->get();
             $count = $this->get('db')->table('user')->count();
             return $res->withJson(['items' => $data, 'count' => $count]);
         });
-        $this->post('', function ($req, $res, $args) {
+        $this->post('', function ($req, $res) {
             $data = $req->getParsedBody();
             $result = $this->get('db')->table('user')->insert($data);
             return $res->withJson($data);
         });
-        $this->post('/actions/login', function ($req, $res, $args) {
+        $this->post('/actions/login', function ($req, $res) {
             $data = $req->getParsedBody();
             $result = $this->get('db')->table('user')->where()->insert($data);
             return $res->withJson($result);
         });
     });
     $this->group('/gradients', function () {
-        $this->get('', function ($req, $res, $args) {
+        $this->get('', function ($req, $res) {
             $filter = $req->getQueryParams();
             $data = $this->get('db')->table('gradient')->skip($filter['page'] * $filter['size'])->take($filter['size'])->get();
             $count = $this->get('db')->table('gradient')->count();
