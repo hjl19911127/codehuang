@@ -3,12 +3,12 @@
     <el-row class="toolbar">
       <el-form :inline="true" :model="filter" class="demo-form-inline">
         <el-form-item label="标题">
-          <el-input v-model="filter.title" placeholder="标题"></el-input>
+          <el-input v-model="filter.title" placeholder="标题"/>
         </el-form-item>
         <el-form-item label="文章类型">
           <el-select v-model="filter.type" placeholder="文章类型">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
+            <el-option label="区域一" value="shanghai"/>
+            <el-option label="区域二" value="beijing"/>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -26,10 +26,10 @@
         :data="articles.items"
         tooltip-effect="dark"
         @selection-change="handleSelectionChange">
-        <el-table-column type="selection"></el-table-column>
-        <el-table-column prop="id" label="ID"></el-table-column>
-        <el-table-column prop="title" label="标题" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="is_top" label="标题" show-overflow-tooltip></el-table-column>
+        <el-table-column type="selection"/>
+        <el-table-column prop="id" label="ID"/>
+        <el-table-column prop="title" label="标题" show-overflow-tooltip/>
+        <el-table-column prop="is_top" label="标题" show-overflow-tooltip/>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <router-link :to="`/article/${scope.row.id}`">
