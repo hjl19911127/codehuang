@@ -11,7 +11,7 @@ class ArticleController extends BaseController {
 
     public function query(Request $request, Response $response, $args) {
         $filter = $request->getQueryParams();
-        $data = Article::skip(($filter['page'] - 1) * $filter['size'])->take($filter['size'])->get();
+        $data = Article::where('title', 'like', '%' . $filter['title'] . '%')->orderBy('updated_at', 'desc')->skip(($filter['page'] - 1) * $filter['size'])->take($filter['size'])->get();
         $count = Article::count();
         return $response->withJson(['items' => $data, 'count' => $count]);
     }
@@ -36,5 +36,17 @@ class ArticleController extends BaseController {
         $data->is_top = $body['is_top'];
         $data->save();
         return $response->withJson($data, 201);
+    }
+
+    public function delete(Request $request, Response $response, $args) {
+        $data = Article::find($args['id']);
+        $data->delete();
+        return $response->withJson($data, 200);
+    }
+
+    public function batchDelete(Request $request, Response $response, $args) {
+        $data = Article::find($args['id']);
+        $data->delete();
+        return $response->withJson($data, 200);
     }
 }

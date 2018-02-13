@@ -6,8 +6,12 @@
     :router="true"
     @select="handleSelect"
     @open="handleOpen"
-    @close="handleClose">
-    <menu-tree-item :data="menu"></menu-tree-item>
+    @close="handleClose"
+    :collapse="menu.isCollapse"
+    background-color="#545c64"
+    text-color="#fff"
+    active-text-color="#ffd04b">
+    <menu-tree-item :data="menu.tree"/>
   </el-menu>
 </template>
 <script>

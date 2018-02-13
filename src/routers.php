@@ -68,6 +68,8 @@ $app->group('/v1', function () {
         $this->get('/{id:\d+}', App\Controllers\ArticleController::class . ':get');
         $this->post('', App\Controllers\ArticleController::class . ':create');
         $this->put('/{id:\d+}', App\Controllers\ArticleController::class . ':update');
+        $this->delete('/{id:\d+}', App\Controllers\ArticleController::class . ':delete');
+        $this->post('/actions/batch/delete', App\Controllers\ArticleController::class . ':batchDelete');
     });
     $this->group('/menus', function () {
         $this->get('', App\Controllers\MenuController::class . ':query');

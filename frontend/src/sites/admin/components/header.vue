@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="logo"><img src="~@/sites/admin/assets/images/logo.png"></div>
+    <el-button icon="el-icon-d-arrow-left" size="mini" plain @click="toggleMenuCollapse"/>
     <div class="user">
       <el-dropdown>
         <span class="user-name el-dropdown-link">
@@ -19,8 +19,11 @@
 <script>
   export default {
     data() {
-      return {
-
+      return {}
+    },
+    methods: {
+      toggleMenuCollapse() {
+        this.$store.dispatch('TOGGLE_MENU_COLLAPSE')
       }
     },
     props: {
@@ -33,9 +36,11 @@
     position: absolute;
     top: 0;
     right: 0
-    left: 0
+    left: 0;
     height: 70px;
-    background-color: #324157;
+    line-height: 70px
+    padding 0 20px
+    background-color: #F2F6FC
 
   .logo
     width: 240px;
@@ -52,11 +57,10 @@
 
   .user
     float: right;
-    padding-right 60px;
+    padding-right 40px;
     .user-name
       display: inline-block;
       line-height: 70px;
-      color: #bfcbd9
       cursor: pointer;
     .user-avatar
       width: 40px

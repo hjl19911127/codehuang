@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <admin-header :data="session"></admin-header>
+    <div class="menu-wrap">
+      <admin-menu/>
+    </div>
     <div class="main-wrap">
-      <div class="menu-wrap">
-        <admin-menu></admin-menu>
-      </div>
+      <admin-header :data="session"/>
       <div class="content-wrap">
         <el-row class="breadcrumb-wrap">
           <el-breadcrumb class="breadcrumb" separator="/">
@@ -15,7 +15,7 @@
           </el-breadcrumb>
         </el-row>
         <el-row class="page-wrap">
-          <router-view></router-view>
+          <router-view/>
         </el-row>
       </div>
     </div>
@@ -23,7 +23,6 @@
 </template>
 <script>
   import {mapGetters} from 'vuex';
-  import Cookie from '@/utils/cookie';
   import AdminHeader from '@/sites/admin/components/header';
   import AdminMenu from '@/sites/admin/components/menu';
 
@@ -49,10 +48,10 @@
 <style lang="stylus">
   .main-wrap
     position: absolute;
-    top: 70px;
+    top: 0;
     right: 0
     bottom: 0
-    left: 0
+    left: 240px
 
   .menu-wrap
     position: absolute;
@@ -63,10 +62,10 @@
 
   .content-wrap
     position: absolute;
-    top: 0;
+    top: 70px;
     right: 0
     bottom: 0
-    left: 240px;
+    left: 0;
 
   .breadcrumb-wrap
     position: absolute;

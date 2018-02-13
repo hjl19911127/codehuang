@@ -7,15 +7,15 @@
     </el-row>
     <el-form ref="form" :model="article" label-width="80px">
       <el-form-item label="文章标题">
-        <el-input v-model="article.title"/>
+        <el-input v-model.trim="article.title"/>
       </el-form-item>
       <el-form-item label="文章内容">
         <el-row>
           <el-col :span="12">
-            <el-input :rows="20" resize="none" type="textarea" v-model="article.content"/>
+            <el-input type="textarea" resize="none" :rows="20" v-model="article.content"/>
           </el-col>
           <el-col :span="12">
-            <div class="markdown-result" v-html="article.content"></div>
+            <div class="markdown-edit" v-html="previewContent"></div>
           </el-col>
         </el-row>
       </el-form-item>
@@ -32,9 +32,14 @@
   </div>
 </template>
 <script>
+  import marked from 'marked';
   import api from '@/sites/admin/api/article';
+  import ContentEditable from '@/components/content-editable';
 
   export default {
+    components: {
+      ContentEditable
+    },
     data() {
       return {
         contentMode: 'edit',
@@ -47,7 +52,11 @@
         }
       }
     },
-
+    computed: {
+      previewContent() {
+        return marked(this.article.content)
+      }
+    },
     methods: {
       init() {
         this.article.id = this.$route.params.id;
@@ -59,7 +68,7 @@
       onSubmit() {
         let request = this.article.id ? api.update(this.article.id, this.article) : api.create(this.article)
         request.then((res) => {
-          this.get();
+          this.article = res;
           this.$message({
             message: '文章保存成功',
             type: 'success'
@@ -80,11 +89,12 @@
   }
 </script>
 <style lang="stylus" scoped>
-  .markdown-result
+  .markdown-edit
     padding: 5px 15px
-    height: 420px
+    height: 432px
     box-sizing border-box
     border: 1px solid #dcdfe6;
     border-radius: 4px;
     line-height: 1.5
+    overflow auto
 </style>

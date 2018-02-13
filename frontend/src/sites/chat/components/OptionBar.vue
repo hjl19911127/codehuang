@@ -1,7 +1,7 @@
 <template>
   <div class="option-bar">
     <div class="input-wrap" :style="{height:inputWrapHeight+'px'}">
-      <chat-input class="input-text" v-model="inputText" @input="handleInput"></chat-input>
+      <content-editable class="input-text" v-model="inputText" @input="handleInput"/>
       <a href="javascript:void(0)" class="input-button" :class="{'disabled':!inputText.length}"
          @click="send">发送</a>
     </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import ChatInput from './Input'
+  import ContentEditable from '@/components/content-editable';
 
   let inputElement, inputElementHeight;
   export default {
@@ -29,7 +29,7 @@
       }
     },
     components: {
-      ChatInput
+      ContentEditable
     },
     watch: {
       'inputElementHeight'() {

@@ -20,7 +20,6 @@ class LocalStorage {
       }).catch((e) => {
         reject(e);
       })
-
     })
   }
 }

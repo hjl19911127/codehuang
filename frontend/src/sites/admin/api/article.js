@@ -30,4 +30,10 @@ export default {
       data: data
     });
   },
+  remove(id) {
+    return request({
+      method: 'delete',
+      url: `${url}/${id}`
+    });
+  }
 };

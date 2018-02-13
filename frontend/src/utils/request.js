@@ -47,6 +47,7 @@ class AjaxHelper {
       };
     return new Promise(function (resolve, reject) {
       fetch(url, option).then((res) => {
+        console.log(res);
         resolve(res.json());
       })
     });

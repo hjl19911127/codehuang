@@ -29,13 +29,21 @@
         <el-table-column type="selection"/>
         <el-table-column prop="id" label="ID"/>
         <el-table-column prop="title" label="标题" show-overflow-tooltip/>
-        <el-table-column prop="is_top" label="标题" show-overflow-tooltip/>
+        <el-table-column prop="created_at" label="创建时间"/>
+        <el-table-column prop="updated_at" label="更新时间"/>
+        <el-table-column prop="is_online" label="状态">
+          <template slot-scope="scope">
+            <el-tag v-show="scope.row.is_top">置顶</el-tag>
+            <el-tag v-show="scope.row.is_online" type="success">上线</el-tag>
+            <el-tag v-show="!scope.row.is_online" type="danger">下线</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <router-link :to="`/article/${scope.row.id}`">
-              <el-button :plain="true" type="primary" size="small">编辑</el-button>
+              <el-button type="primary" size="small" plain>编辑</el-button>
             </router-link>
-            <el-button type="danger" size="small">删除</el-button>
+            <el-button type="danger" size="small" @click="remove(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -45,7 +53,7 @@
         :plain="true"
         type="danger"
         icon="delete"
-        @click="batchDelete"
+        @click="batchRemove"
         :disabled="!multipleSelection.length">
         批量删除
       </el-button>
@@ -87,11 +95,22 @@
       init() {
         this.query();
       },
-      create() {
-        api.create(this.article).then((data) => {
-          this.query();
-        }).catch((err) => {
-          // error callback
+      remove(id) {
+        this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          api.remove(id).then((data) => {
+            this.filter.page = 0;
+            this.query();
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch((err) => {
+          });
+        }).catch(() => {
         });
       },
       query() {
@@ -119,7 +138,7 @@
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
-      batchDelete() {
+      batchRemove() {
 
       }
     },
