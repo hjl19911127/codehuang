@@ -1,7 +1,7 @@
 export default {
   auth: null,
   menu: {
-    tree: null,
+    tree: [],
     map: {},
     isCollapse: false
   },

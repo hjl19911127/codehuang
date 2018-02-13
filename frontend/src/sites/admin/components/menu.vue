@@ -14,9 +14,32 @@
     <menu-tree-item :data="menu.tree"/>
   </el-menu>
 </template>
-<script>
+<script type="text/jsx">
   import {mapGetters} from 'vuex';
-  import MenuTreeItem from './menu-tree-item';
+  // import MenuTreeItem from './menu-tree-item';
+  const MenuTreeItem = {
+    name: 'menu-tree-item',
+    functional: true,
+    render(h, context) {
+      return (
+        context.props.data.map(item => {
+          if (item.children.length)
+            return <el-submenu index={`${item.id}`}>
+              <template slot="title">
+                <i class="el-icon-menu"/>
+                <span slot="title">{item.title}</span>
+              </template>
+              <menu-tree-item data={item.children}/>
+            </el-submenu>
+          else
+            return <el-menu-item index={item.route}>
+              <i class="el-icon-menu"/>
+              <span slot="title">{item.title}</span>
+            </el-menu-item>
+        })
+      )
+    }
+  };
 
   export default {
     components: {

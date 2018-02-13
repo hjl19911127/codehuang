@@ -153,8 +153,9 @@
         return (
           <span class="tree-content">
             <span>
-              <span>{node.label}<span class="tree-label"
-                                      style="">{data.route ? `路由：${data.route}` : ''}</span></span>
+              <span>{node.label}
+                <span class="tree-label" style="">{data.route ? `路由：${data.route}` : ''}</span>
+              </span>
             </span>
             <span class="option-button-group">
               {node.level < 4 &&
