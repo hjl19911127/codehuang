@@ -157,7 +157,7 @@
                                       style="">{data.route ? `路由：${data.route}` : ''}</span></span>
             </span>
             <span class="option-button-group">
-              {node.level < 3 &&
+              {node.level < 4 &&
               <el-button type="success" icon="el-icon-plus" size="mini" on-click={() => this.append(data)}/>}
               {!!data.parent_id &&
               <el-button type="primary" icon="el-icon-edit" size="mini" on-click={() => this.edit(data)}/>}

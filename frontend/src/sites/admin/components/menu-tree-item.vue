@@ -1,23 +1,21 @@
-<template>
-  <div>
-    <template v-for="item in data">
-      <template v-if="item.children.length">
-        <el-submenu :index="`${item.id}`">
-          <template slot="title">
-            <i class="el-icon-menu"></i>
-            <span slot="title">{{item.title}}</span>
-          </template>
-          <menu-tree-item :data="item.children"/>
-        </el-submenu>
-      </template>
-      <template v-else>
-        <el-menu-item :index="item.route">
+<template functional>
+  <template v-for="item in data">
+    <template v-if="item.children.length">
+      <el-submenu :index="`${item.id}`">
+        <template slot="title">
           <i class="el-icon-menu"></i>
           <span slot="title">{{item.title}}</span>
-        </el-menu-item>
-      </template>
+        </template>
+        <menu-tree-item :data="item.children"/>
+      </el-submenu>
     </template>
-  </div>
+    <template v-else>
+      <el-menu-item :index="item.route">
+        <i class="el-icon-menu"></i>
+        <span slot="title">{{item.title}}</span>
+      </el-menu-item>
+    </template>
+  </template>
 </template>
 <script>
   import MenuTreeItem from './menu-tree-item';

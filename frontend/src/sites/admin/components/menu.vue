@@ -48,4 +48,6 @@
 <style lang="stylus" scoped>
   .menu
     height 100%;
+    &:not(.el-menu--collapse)
+      width: 100%
 </style>
