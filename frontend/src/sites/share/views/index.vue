@@ -15,7 +15,7 @@
         <router-link :to="{'name':'perspective'}">梯形标签页</router-link>
       </li>
     </ul>
-    <router-view></router-view>
+    <router-view/>
   </div>
 </template>
 

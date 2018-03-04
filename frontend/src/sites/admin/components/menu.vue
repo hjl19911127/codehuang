@@ -16,7 +16,7 @@
 </template>
 <script type="text/jsx">
   import {mapGetters} from 'vuex';
-  // import MenuTreeItem from './menu-tree-item';
+
   const MenuTreeItem = {
     name: 'menu-tree-item',
     functional: true,

@@ -14,7 +14,7 @@ let entries = Object.assign(...fs.readdirSync(path.join(__dirname, '../src/sites
   return {[entry]: `sites/${entry}/main.js`};
 }));
 
-if (process.env.NODE_ENV !== 'production') entries = (({admin, blog}) => ({admin, blog}))(entries);
+if (process.env.NODE_ENV !== 'production') entries = (({chat, share}) => ({chat, share}))(entries);
 console.log(entries);
 module.exports = {
   context: path.resolve(__dirname, '../'),

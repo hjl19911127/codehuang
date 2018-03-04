@@ -43,7 +43,7 @@
         </div>
       </div>
       <transition :name="transitionName" slot="content">
-        <router-view class="main-content"></router-view>
+        <router-view class="main-content"/>
       </transition>
     </vue-drawer-layout>
   </div>

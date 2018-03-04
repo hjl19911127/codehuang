@@ -3,8 +3,14 @@ import BorderRadius from '../views/borderRadius'
 import Parallelogram from '../views/parallelogram'
 import Rotate from '../views/rotate'
 import Perspective from '../views/perspective'
+import VueDrawerLayoutDemo from '../views/VueDrawerLayoutDemo'
 
 export default [
+  {
+    path: '/vue-drawer-layout',
+    name: 'vue-drawer-layout',
+    component: VueDrawerLayoutDemo,
+  },
   {
     path: '',
     name: 'share',
@@ -29,4 +35,5 @@ export default [
       },
     ]
   }
+
 ];

@@ -4,7 +4,9 @@ import Vue from 'vue'
 import app from 'app'
 import router from './router'
 import store from './store'
+import DrawerLayout from '../../../build/vue-drawer-layout'
 
+Vue.use(DrawerLayout)
 Vue.config.productionTip = false
 
 new Vue({
