@@ -1,5 +1,8 @@
 <template>
   <vue-drawer-layout
+    :drawer-width="480"
+    :drawable-distance="160"
+    :z-index="0"
     :content-drawable="true">
     <div class="drawer" slot="drawer">
       <div class="text">This is drawer</div>

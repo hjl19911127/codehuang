@@ -1,3 +1,97 @@
+.layout
+  font-size: 16px;
+  a
+    font-size: 16px;
+
+.container
+  width: 1200px
+  margin: 0 auto
+  overflow: hidden
+
+.head
+  background: #f5f5f5 linear-gradient(to bottom, #eee 0, #f5f5f5 100%);
+  padding 30px 0
+  a
+    text-decoration underline
+  .title
+    font-size: 36px
+    color #333
+    line-height 2
+  .hint
+    color: #666;
+
+.left
+  float: left
+
+.right
+  float: right
+  .github-btn
+    text-align: right
+    padding 52px 36px 20px 0
+    a
+      font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+      font-size: 18px
+      display: inline-block
+      padding 0 16px
+      text-align: center
+      height 40px
+      line-height: 40px
+      text-decoration: none
+      background-color: #fff
+      border 1px solid #ccc
+      color #333
+      &:hover
+        background-color: darken(#fff, 5%)
+      &:active
+        background-color: darken(#fff, 10%)
+
+.foot
+  height: 100px
+  line-height: 100px
+  text-align: center
+  background-color: #666
+  color: #fff
+  margin-top: 80px;
+  a
+    color: #fff
+    text-decoration underline
+
+.example
+  overflow: hidden
+  .title
+    font-size: 30px;
+    font-weight: bold;
+    margin: 60px 0 0 0;
+  .hint
+    margin: 20px 0 1em 0;
+    line-height: 1.5
+    color: #666
+    code
+      background-color: #eee
+
+.wrap
+  overflow: hidden
+
+.demo
+  position: relative
+  float: left
+  width 600px
+  height 300px
+  background-color: #fa8787
+  user-select none
+  margin-right: 50px
+
+.code
+  box-sizing border-box
+  font-size: 14px
+  float: left
+  position: relative
+  width 550px
+  height 300px
+  overflow: auto
+  padding: 0 20px
+  background-color: #fdf6e3
+
 .drawer
   position: absolute
   background-color: #ff9d7a
@@ -7,6 +101,7 @@
   left: 0
 
 .content
+  position: relative
   width 100%
   height 100%
   overflow: auto
@@ -17,3 +112,15 @@
   text-align center
   line-height 300px
   color: #ffffff
+
+.btn
+  position: absolute
+  display: block
+  border-radius 5px
+  top: 5px
+  left: 5px
+  font-size: 14px
+  padding 10px 12px
+  color #333
+  background-color: #fff
+  text-decoration: none
