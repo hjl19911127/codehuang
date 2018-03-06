@@ -30,6 +30,14 @@
     <div class="container">
       <div class="example">
         <h2 class="title">
+          Install
+        </h2>
+        <p class="hint">
+          npm install vue-drawer-layout --save
+        </p>
+      </div>
+      <div class="example">
+        <h2 class="title">
           Basic Usage
         </h2>
         <p class="hint">
