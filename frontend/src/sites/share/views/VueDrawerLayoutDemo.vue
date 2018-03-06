@@ -31,7 +31,7 @@
           Slide out from right
         </h2>
         <div class="hint">
-          Add <code>reverse="true"</code>
+          Add <blockquote>reverse="true"</blockquote>
         </div>
         <div class="demo">
           <demo2/>
@@ -48,7 +48,7 @@
           <demo3/>
         </div>
         <div class="code">
-          <codes name="demo2"/>
+          <codes name="demo3"/>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
     },
   }
 </script>
-<style lang="stylus" src="../assets/stylus/reset"></style>
+<!--<style lang="stylus" src="../assets/stylus/reset"></style>-->
 <style lang="stylus" src="../assets/stylus/vue-drawer-layout-demo"></style>
 <style lang="stylus" scoped>
   .layout
