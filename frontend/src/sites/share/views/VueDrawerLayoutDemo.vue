@@ -4,7 +4,9 @@
       <div class="container">
         <div class="left">
           <h1 class="title">Vue Drawer Layout</h1>
-          <h3 class="hint">A simple DrawerLayout component like Android has for <a href="http://vuejs.org">Vue.js</a>
+          <h3 class="hint">
+            A simple DrawerLayout component like Android has for
+            <a href="http://vuejs.org">Vue.js</a>
           </h3>
         </div>
         <div class="right">
@@ -21,42 +23,66 @@
           <demo1/>
         </div>
         <div class="code">
-          <div class="iframe-container">
-            <iframe frameborder="0"
-                    :src="'data:text/html;charset=utf-8,'+encodeURIComponent('<body style=\'margin:0;\'><script src=\'https://gist.github.com/hjl19911127/625ce23d7d3238ad06f4801911690954.js\'></script></body>')"></iframe>
-          </div>
+          <codes name="demo1"/>
         </div>
       </div>
       <div class="example">
         <h2 class="title">
-          Reverse (slide out from right)
+          Slide out from right
         </h2>
+        <div class="hint">
+          Add <code>reverse="true"</code>
+        </div>
         <div class="demo">
           <demo2/>
         </div>
         <div class="code">
-          <iframe frameborder="0"
-                  :src="'data:text/html;charset=utf-8,'+encodeURIComponent('<body style=\'margin:0;\'><script src=\'https://gist.github.com/hjl19911127/625ce23d7d3238ad06f4801911690954.js\'></script></body>')"></iframe>
+          <codes name="demo2"/>
         </div>
       </div>
+      <div class="example">
+        <h2 class="title">
+          Content movable
+        </h2>
+        <div class="demo">
+          <demo3/>
+        </div>
+        <div class="code">
+          <codes name="demo2"/>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      Copyright © {{new Date().getFullYear()}} <a href="https://github.com/hjl19911127">Alexander Huang</a>. Developed
+      and maintained by <a href="https://github.com/hjl19911127">Alexander Huang</a>.
     </div>
   </div>
 </template>
 <script>
+  import codes from '../components/vue-drawer-layout/demo-codes'
   import Demo1 from '../components/vue-drawer-layout/demo1'
   import Demo2 from '../components/vue-drawer-layout/demo2'
+  import Demo3 from '../components/vue-drawer-layout/demo3'
 
   export default {
     data() {
       return {}
     },
     components: {
-      Demo1, Demo2
+      codes,
+      Demo1,
+      Demo2,
+      Demo3
     },
-    methods: {},
+    methods: {
+      formatSrc(src) {
+        return 'data:text/html;charset=utf-8,' + encodeURIComponent(`<body><style>body{margin:0;}.gist-file{margin-bottom: 0!important;}</style>${src}</body>`)
+      }
+    },
   }
 </script>
 <style lang="stylus" src="../assets/stylus/reset"></style>
+<style lang="stylus" src="../assets/stylus/vue-drawer-layout-demo"></style>
 <style lang="stylus" scoped>
   .layout
     font-size: 16px;
@@ -73,39 +99,51 @@
     a
       text-decoration underline
     .title
-      font-size: 32px
+      font-size: 36px
       color #666
       line-height 2
 
+  .foot
+    height: 100px
+    line-height: 100px
+    text-align: center
+    background-color: #666
+    color: #fff
+    margin-top: 80px;
+    a
+      color: #fff
+      text-decoration underline
+
   .example
     overflow: hidden
-    margin-bottom: 20px
     .title
-      font-size: 20px;
-      line-height 2.5
+      font-size: 30px;
+      font-weight: bold;
+      margin: 60px 0 20px 0;
+    .hint
+      margin-bottom: 2em
+      code
+        background-color: #ddd
 
   .demo
     position: relative
     float: left
     width 600px
     height 300px
-    background-color: lightskyblue
+    background-color: #fa8787
     user-select none
+    margin-right: 50px
 
   .code
+    box-sizing border-box
+    font-size: 14px
     float: left
     position: relative
-    width 600px
+    width 550px
     height 300px
-    .iframe-container
-      position: absolute
-      left: 0
-      right: 0
-      top: 0
-      bottom: 0
-    iframe
-      width: 100%
-      height: 100%
+    overflow: auto
+    padding: 20px
+    background-color: #fdf6e3
 
 </style>
 

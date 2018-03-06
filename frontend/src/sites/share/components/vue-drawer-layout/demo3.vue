@@ -1,5 +1,7 @@
 <template>
-  <vue-drawer-layout>
+  <vue-drawer-layout
+    :width="480"
+    :content-drawable="true">
     <div class="drawer" slot="drawer">
       <div class="text">This is drawer</div>
     </div>
