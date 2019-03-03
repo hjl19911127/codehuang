@@ -19,27 +19,27 @@
           <div class="user-info">
             <div class="avatar-wrap">
               <img src="//static.codehuang.com/upload/avatars/default.png">
-              <div class="user-name">老夫子Alexander</div>
+              <div class="user-name">Vue Drawer Layout</div>
             </div>
           </div>
           <a class="qrcode" href="javascript:;"><i class="c-icon-qrcode"></i></a>
         </div>
         <div class="menu-item-list">
-          <router-link class="menu-item" to="/vip"><i class="c-icon-vip"></i>激活会员</router-link>
-          <router-link class="menu-item" to="/wallet"><i class="c-icon-wallet"></i>QQ钱包</router-link>
-          <router-link class="menu-item" to="/vip"><i class="c-icon-drawing-board"></i>个性装扮</router-link>
-          <router-link class="menu-item" to="/collect"><i class="c-icon-collect"></i>我的收藏</router-link>
-          <router-link class="menu-item" to="/album"><i class="c-icon-image"></i>我的相册</router-link>
-          <router-link class="menu-item" to="/file"><i class="c-icon-file"></i>我的文件</router-link>
-          <router-link class="menu-item" to="/vip"><i class="c-icon-signal"></i>免流量特权</router-link>
+          <router-link class="menu-item" to="/vip"><i class="c-icon-vip"></i>VIP</router-link>
+          <router-link class="menu-item" to="/wallet"><i class="c-icon-wallet"></i>Wallet</router-link>
+          <router-link class="menu-item" to="/vip"><i class="c-icon-drawing-board"></i>Decoration</router-link>
+          <router-link class="menu-item" to="/collect"><i class="c-icon-collect"></i>Favorite</router-link>
+          <router-link class="menu-item" to="/album"><i class="c-icon-image"></i>Gallery</router-link>
+          <router-link class="menu-item" to="/file"><i class="c-icon-file"></i>File</router-link>
+          <router-link class="menu-item" to="/vip"><i class="c-icon-signal"></i>Privilege</router-link>
         </div>
         <div class="menu-foot">
-          <router-link class="menu-foot-button" to="/setting"><i class="c-icon-setting"></i>设置</router-link>
-          <a class="menu-foot-button" href="javascript:void(0);"><i class="c-icon-moon"></i>夜间</a>
+          <router-link class="menu-foot-button" to="/setting"><i class="c-icon-setting"></i>Setting</router-link>
+          <a class="menu-foot-button" href="javascript:void(0);"><i class="c-icon-moon"></i>Night</a>
         </div>
         <div class="menu-weather">
           <div class="weather-temperature">18<span>°</span></div>
-          <div class="weather-district">福州</div>
+          <div class="weather-district">Fuzhou</div>
         </div>
       </div>
       <transition :name="transitionName" slot="content">

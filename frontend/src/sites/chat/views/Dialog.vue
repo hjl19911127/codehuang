@@ -2,8 +2,8 @@
   <div class="wrap">
     <chat-header>
       <div class="head-title" slot="middle">
-        <div class="name">老夫子</div>
-        <div class="status">在线</div>
+        <div class="name">Vue Drawer Layout</div>
+        <div class="status">Online</div>
       </div>
       <a href="javascript:void(0)" class="head-btn" slot="left" @click="handleReturnBtnClick">
         <i class="c-icon-arrow-left"></i>
@@ -103,10 +103,10 @@
         return {
           id: i + 1,
           from_user_id: isMine,
-          from_user_name: ['老夫子', '豆豆儿'][isMine],
+          from_user_name: ['Vue Drawer Layout', 'Vue Drawer Layout'][isMine],
           to_user_id: +!isMine,
           sendTime: time + timeOffset,
-          content: '软工 刘峰：明天早上过去\n软工 刘峰：明天早上过去'
+          content: 'Vue: Hello world'
         }
       });
     }

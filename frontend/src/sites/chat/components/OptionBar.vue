@@ -3,7 +3,7 @@
     <div class="input-wrap" :style="{height:inputWrapHeight+'px'}">
       <content-editable class="input-text" v-model="inputText" @input="handleInput"/>
       <a href="javascript:void(0)" class="input-button" :class="{'disabled':!inputText.length}"
-         @click="send">发送</a>
+         @click="send">Send</a>
     </div>
     <ul class="option-button-group">
       <li><i class="c-icon-audio"></i></li>

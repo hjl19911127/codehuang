@@ -1,7 +1,7 @@
 <template>
   <div class="search-wrap">
     <div class="search">
-      <i class="c-icon-search"></i> 搜索
+      <i class="c-icon-search"></i> Search
     </div>
   </div>
 </template>

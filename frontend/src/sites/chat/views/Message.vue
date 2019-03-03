@@ -1,7 +1,7 @@
 <template>
   <div>
     <chat-header>
-      <h1 slot="middle">消息</h1>
+      <h1 slot="middle">Message</h1>
       <a href="javascript:void(0)" class="head-avatar" slot="left" @click="handleHeaderAvatarClick">
         <img src="//static.codehuang.com/upload/avatars/default.png">
       </a>
@@ -62,8 +62,8 @@
       this.messages.items = new Array(100).fill(undefined).map((v, i) => {
         return {
           id: i + 1,
-          from: '福大数计15工硕群',
-          content: '软工 刘峰：明天早上过去'
+          from: 'Vue Drawer Layout',
+          content: 'Vue: Hello world'
         }
       })
     }

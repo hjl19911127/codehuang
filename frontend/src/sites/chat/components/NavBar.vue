@@ -2,15 +2,15 @@
   <div class="nav-bar">
     <router-link class="nav-tab" :class="{active:$route.name === 'message'}" :to="{'name':'message'}">
       <div><i :class="[$route.name === 'message'?'c-icon-bubble-solid':'c-icon-bubble-hollow']"></i></div>
-      <div class="tab-title">消息</div>
+      <div class="tab-title">Message</div>
     </router-link>
     <router-link class="nav-tab" :class="{active:$route.name === 'contact'}" :to="{'name':'contact'}">
       <div><i :class="[$route.name === 'contact'?'c-icon-user-solid':'c-icon-user-hollow']"></i></div>
-      <div class="tab-title">联系人</div>
+      <div class="tab-title">Contact</div>
     </router-link>
     <router-link class="nav-tab" :class="{active:$route.name === 'activity'}" :to="{'name':'activity'}">
       <div><i :class="[$route.name === 'activity'?'c-icon-star-solid':'c-icon-star-hollow']"></i></div>
-      <div class="tab-title">动态</div>
+      <div class="tab-title">Moment</div>
     </router-link>
   </div>
 </template>

@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="sign-header">
-      <h1>登录</h1>
+      <h1>Log in</h1>
     </div>
     <div class="sign-body">
     <div class="form-control"></div>
-      <label for="">用户名<input type="text" v-model="userName"></label>
-      <label for="">密码<input type="password" v-model="password"></label>
-      <a href="javascript:;" @click="login">登录</a>
+      <label for="">Username<input type="text" v-model="userName"></label>
+      <label for="">Password<input type="password" v-model="password"></label>
+      <a href="javascript:;" @click="login">Login</a>
     </div>
   </div>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <div>
     <chat-header>
-      <h1 slot="middle">联系人</h1>
+      <h1 slot="middle">Contact</h1>
       <a href="javascript:void(0)" class="head-avatar" slot="left">
-        <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+        <img src="//static.codehuang.com/upload/avatars/default.png">
       </a>
       <a href="javascript:void(0)" class="right-btn" slot="right">
         <i class="c-icon-add"></i>
@@ -16,7 +16,7 @@
                      v-for="item in messages.items" :key="item.id">
           <div class="message-item-block block-left">
             <div class="avatar-wrap">
-              <img src="http://static.codehuang.local:20081/upload/avatars/default.png">
+              <img src="//static.codehuang.com/upload/avatars/default.png">
             </div>
           </div>
           <div class="message-item-block block-center">
@@ -56,8 +56,8 @@
     created() {
       this.messages.items = (new Array(100)).fill({
         id: 1,
-        from: '福大数计15工硕群',
-        content: '软工 刘峰：明天早上过去'
+        from: 'Vue Drawer Layout',
+        content: 'Vue: Hello world'
       })
     }
   }
